@@ -28,9 +28,7 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
-          axios
-            .get(`http://localhost:5000/patient/getUserById/${id}`)
-            .then((response) => {
+          axios.get(`http://localhost:5000/patient/getUserById/${id}`).then((response) => {
               if (response.data.secret) {
                 setShow(true);
                 if (secret == response.data.secret) {
