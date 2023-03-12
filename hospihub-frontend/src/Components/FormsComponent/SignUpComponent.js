@@ -1,4 +1,41 @@
+import axios from 'axios';
+import { useState } from 'react';
+
 function SignUpComponent() {
+  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [gender, setGender] = useState('');
+  const [address, setAddress] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [role, setRole] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+        userName:userName,
+        firstName:firstName,
+        lastName:lastName,
+        gender:gender,
+        address:address,
+        email:email,
+        password:password,
+        dateOfBirth:dateOfBirth,
+        role:role,
+        confirmPassword:confirmPassword,
+        enableTwoFactorAuth:enableTwoFactorAuth,
+      });
+      console.log(userName)
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
     return (
       <>
         <img
@@ -16,21 +53,21 @@ function SignUpComponent() {
                     <p className="text-muted">Create a free account now.</p>
                   </div>
   
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="form-group d-flex  justify-content-between">
                       <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name" autofocus style={{ width: "120%" }} />
+                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name"  style={{ width: "120%" }} value={firstName} onChange={(e) => setFirstName(e.target.value)} required/>
   
                       </div>
                       <div className="form-icon-wrapper mx-5">
-                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name" autofocus style={{ width: "120%" }} />
+                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name"  style={{ width: "120%" }} value={lastName} onChange={(e) => setLastName(e.target.value)} required/>
   
                       </div>
                     </div>
   
                     <div className="form-group">
                       <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="fullname" placeholder="Enter username" autofocus />
+                        <input type="text" className="form-control" id="fullname" placeholder="Enter username"  value={userName} onChange={(e) => setUserName(e.target.value)} required/>
                         <i className="form-icon-left mdi mdi-account " />
                       </div>
                     </div>
@@ -39,7 +76,7 @@ function SignUpComponent() {
                     <label htmlFor="fullname">Date of Birth</label>
                     <div className="form-group  d-flex  justify-content-between">
                       <div className="form-icon-wrapper ">
-                        <input type="date" className="form-control " id="email" placeholder="Date of birth" required />
+                        <input type="date" className="form-control " id="email" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
                       </div>
   
   
@@ -51,8 +88,10 @@ function SignUpComponent() {
                             type="radio"
                             name="gender"
                             value="MALE"
-  
-                          />
+                            checked={gender === "MALE"}
+                            onChange={(e) => setGender(e.target.value)}
+                            />
+
                         </div>
                         <div style={{ marginRight: "20px" }}>
                           <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
@@ -60,6 +99,8 @@ function SignUpComponent() {
                             type="radio"
                             name="gender"
                             value="FEMALE"
+                            checked={gender === "FEMALE"}
+                            onChange={(e) => setGender(e.target.value)}
                           />
   
                         </div>
@@ -69,7 +110,7 @@ function SignUpComponent() {
   
                     <div className="form-group">
                       <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="fullname" placeholder="Enter your address" autofocus />
+                        <input type="text" className="form-control" id="fullname" placeholder="Enter your address"  value={address} onChange={(e) => setAddress(e.target.value)} required/>
   
                       </div>
                     </div>
@@ -78,13 +119,13 @@ function SignUpComponent() {
                     <div className="form-group">
   
                       <div className="form-icon-wrapper ">
-                        <input type="email" className="form-control" id="email" placeholder="Enter email" required />
+                        <input type="email" className="form-control" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         <i className="form-icon-left mdi mdi-email" />
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password" placeholder="Enter password" />
+                        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                         <i className="form-icon-left mdi mdi-lock" />
   
                       </div>
@@ -92,7 +133,7 @@ function SignUpComponent() {
                     <div className="form-group">
                       <label htmlFor="password-repeat"></label>
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" />
+                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
                         <i className="form-icon-left mdi mdi-lock" />
   
   
@@ -100,10 +141,10 @@ function SignUpComponent() {
                     </div>
                     <div className="form-group">
   
-                      <select className="  form-control">
+                      <select className="  form-control" value={role} onChange={(e) => setRole(e.target.value)}>
                         <option selected>Choose Role</option>
-                        <option value={1}>Patient</option>
-                        <option value={2}>Doctor </option>
+                        <option value="patient">patient</option>
+                        <option value="doctor">doctor </option>
   
                       </select>
   
@@ -111,7 +152,7 @@ function SignUpComponent() {
                     <div className="form-group">
                       <div className="custom-control custom-checkbox  ">
   
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" defaultChecked />
+                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.value)}/>
                         <label className="custom-control-label px-5" htmlFor="customCheck1">Enable Two Factor Authentication</label>
                       </div>
                     </div>
