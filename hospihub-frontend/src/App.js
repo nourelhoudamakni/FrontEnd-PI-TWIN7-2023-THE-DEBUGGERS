@@ -10,6 +10,10 @@ import ResetPasswordComponent from './Components/FormsComponent/ResetPassCompone
 import ForgotPasswordComponent from './Components/FormsComponent/ForgetPassComponent';
 import EmailVerificationMessage from './Components/FormsComponent/EmailVerificationMessage';
 import SideNavBarComponent from './Components/MedicalRecordComponent/SideNavBarComponent';
+import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalRecordComponent';
+import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
+import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
+import VitalSignsComponent from './Components/MedicalRecordComponent/VitalSignsComponent';
 function App() {
   return (
     <>
@@ -21,7 +25,17 @@ function App() {
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
+
+   
+      <Route  path='/Medicalrecord' element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
+      <Route path='/Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
+      <Route path='/BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
+      <Route path='/VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+   
+
+      
     </Routes> 
+   
     <FooterComponent></FooterComponent>
   
   
