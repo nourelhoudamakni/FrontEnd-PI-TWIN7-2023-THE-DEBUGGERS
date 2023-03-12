@@ -27,13 +27,16 @@ function App() {
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
 
    
-      <Route  path='/Medicalrecord' element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
-      <Route path='/Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
-      <Route path='/BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
-      <Route path='/VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+      <Route  path='/Medicalrecord' >
+          <Route index  element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
+          <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
+          <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
+          <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+      </Route>
+     
    
 
-      
+     
     </Routes> 
    
     <FooterComponent></FooterComponent>
