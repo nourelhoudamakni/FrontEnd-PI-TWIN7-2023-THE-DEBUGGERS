@@ -5,9 +5,11 @@ import './carousel.css';
 import AboutComponent from "./About";
 import AppointmentComponent from "./AppointmentComponent";
 import ServiceComponent from "./ServiceComponent";
+import Alert from "react-bootstrap/Alert";
+
+
 
 function HomeComponent() {
-
 
 
 
