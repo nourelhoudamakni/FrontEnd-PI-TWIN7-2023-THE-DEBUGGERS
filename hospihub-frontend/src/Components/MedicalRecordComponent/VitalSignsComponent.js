@@ -44,7 +44,7 @@ function VitalSignsComponent() {
 
         <div>
             {/* Account details card*/}
-            <div className="card mb-4">
+            <div className="card cardMD mb-4">
                 <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
                 <div className="card-body">
                     <form>

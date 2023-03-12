@@ -6,7 +6,7 @@ function UpdateMedicalRecordComponent() {
     return (
                 <div>
                     {/* Account details card*/}
-                    <div className="card mb-4">
+                    <div className="card cardMD mb-4">
                         <div className="card-header "><i className="fas fa-user-md iconMed" />Summary of The medical Record </div>
                         <div className="card-body">
                             <form>

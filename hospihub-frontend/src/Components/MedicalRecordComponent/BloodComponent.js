@@ -3,7 +3,7 @@ function BloodComponent() {
     return (
         <div>
             {/* Account details card*/}
-            <div className="card mb-4">
+            <div className="card cardMD mb-4">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
                     <form>
