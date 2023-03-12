@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpComponent() {
   const [userName, setUserName] = useState('');
@@ -15,7 +16,7 @@ function SignUpComponent() {
   const [role, setRole] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
-
+  const navigate = useNavigate();
 
 
 
@@ -37,6 +38,7 @@ function SignUpComponent() {
       }).then(
         (response)=>{
           console.log(response);
+          navigate('/EmailVerifiaction');
         }
       )
       console.log(userName)
@@ -55,7 +57,7 @@ function SignUpComponent() {
         <img
           className=""
           src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%" }} alt=""
         />
         <div className="position-absolute top-50 start-50 translate-middle container">
           <div className="card col-12 col-lg-6 offset-lg-7 pt-5">
@@ -194,7 +196,7 @@ function SignUpComponent() {
                       <div className="d-none d-lg-inline ">
                         <p className="mt-2">
                           Do you already have an account?
-                          <a href="sign-in.html">Sign in</a>.
+                          <Link to='/signIn'>Sign in</Link>.
                         </p>
                       </div>
                     </div>
