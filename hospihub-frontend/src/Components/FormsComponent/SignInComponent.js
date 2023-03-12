@@ -27,12 +27,13 @@ function SignInComponent() {
       })
       .then((response) => {
         Cookies.set("jwt", response.data.token);
-        const jwtCookie = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("jwt="));
+        const jwtCookie = document.cookie.split("; ").find((row) => row.startsWith("jwt="));
+        console.log(jwtCookie)
         if (jwtCookie) {
           const jwtToken = jwtCookie.split("=")[1];
+          console.log(jwtToken)
           const decodedToken = jwt_decode(jwtToken);
+          console.log(decodedToken)
           const id = decodedToken.id;
           axios.get(`http://localhost:5000/patient/getUserById/${id}`).then((response) => {
               if (response.data.secret) {
@@ -58,7 +59,8 @@ function SignInComponent() {
           setPasswordErrorMessage(false);
         }
         if(error.response.data.errors.email){ 
-          setEmailErrorMessage(true);          
+          setEmailErrorMessage(true);
+          setPasswordErrorMessage(false);          
         }
         if (error.response.data.errors.password){ 
           setEmailErrorMessage(false);
