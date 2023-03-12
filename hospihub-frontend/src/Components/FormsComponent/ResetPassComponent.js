@@ -3,17 +3,27 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 function ResetPasswordComponent() {
-    const { token } = useParams(); 
+    const { token } = useParams();
     const navigate = useNavigate();
+    const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
       const [password, setPassword] = useState('');
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
       const handleResetPassword = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
-          () => {
-            navigate('/SignIn');
-    }
-        )
+        if(passwordRegex.test(password)){
+          axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
+            () => {
+              
+              navigate('/SignIn');
+      }
+          )
+        }
+        else{ 
+          setPasswordErrorMessage(true);
+        }
+      
       }
   return (
     <div className="">
@@ -49,6 +59,10 @@ function ResetPasswordComponent() {
                       <i className="form-icon-left mdi mdi-lock" />
                     </div>
                   </div>
+                  {errorPasswordMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>Le mot de passe doit avoir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.</div>
+                  </Alert>} 
 
                   <div className="form-group">       
                     <button className="btn btn-primary">Change Password</button>

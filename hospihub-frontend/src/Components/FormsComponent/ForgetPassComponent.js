@@ -1,13 +1,19 @@
 import { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 function ForgotPasswordComponent() {
     const [email, setEmail] = useState('');
+    const [errorUserMessage, setUserErrorMessage] = useState(false);
     const navigate = useNavigate();
     const handleForgetPassword = (e) => {
         e.preventDefault();
         axios.post('http://localhost:5000/forget-password',{email:email}).then( () => {
           navigate('/EmailVerifiaction');
+  }).catch((error)=>{ 
+     if (error.response.data['msg']){
+      setUserErrorMessage(true)
+     }
   })
     }
   return (
@@ -49,6 +55,11 @@ function ForgotPasswordComponent() {
                       <i className="form-icon-left mdi mdi-email" />
                     </div>
                   </div>
+                  {errorUserMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>this email does not exists</div>
+                  </Alert>} 
+
                   <button className="btn btn-primary">Send</button>
                 </form>
               </div>
