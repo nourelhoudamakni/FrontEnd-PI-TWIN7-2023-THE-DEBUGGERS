@@ -3,7 +3,6 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { NavLink } from "react-router-dom";
-
 import Alert from 'react-bootstrap/Alert';
 
 function SignInComponent() {
@@ -75,6 +74,7 @@ function SignInComponent() {
 
   return (
     <div className="">
+      
       <img
         className="img-fluid"
         src="../assetsTemplates/templateForm/images/img.jpg"
@@ -86,6 +86,7 @@ function SignInComponent() {
           <div className="card-body">
             <div className="row align-items-center">
               <div className="">
+        
                 <div className="text-center my-5">
                   <h3 className="font-weight-bold mb-3">Sign In</h3>
                   <p className="text-muted">Sign in to Latform to continue</p>
