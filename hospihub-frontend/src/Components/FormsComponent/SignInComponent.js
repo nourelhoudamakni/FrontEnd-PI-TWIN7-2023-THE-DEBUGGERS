@@ -1,9 +1,24 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function SignInComponent() {
+
+  useEffect(() => {
+    const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
+    const jwt = jwtCookie ? jwtCookie.split('=')[1] : null;
+    
+    if (jwt) {
+      // If JWT cookie exists, redirect to profile page
+    }
+  }, []);
+
+
     return (
         <div className="">
             <img
                 className="img-fluid"
                 src="../assetsTemplates/templateForm/images/img.jpg"
+                alt='test'
                 style={{ width: "100%", height: "100%" }}
             />
             <div className="position-absolute top-50 start-50 translate-middle container">
@@ -23,7 +38,7 @@ function SignInComponent() {
                                     </p>
                                 </div>
                                 <div className="social-links justify-content-center">
-                                    <a href="#" className="bg-google">
+                                    <a href="http://localhost:5000/auth/google" className="bg-google">
                                         <i className="mdi mdi-google" /> Connect with Google
                                     </a>
 
