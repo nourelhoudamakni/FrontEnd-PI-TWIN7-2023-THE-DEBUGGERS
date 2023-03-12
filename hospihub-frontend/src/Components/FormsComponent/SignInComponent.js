@@ -3,12 +3,17 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { NavLink } from "react-router-dom";
+
+import Alert from 'react-bootstrap/Alert';
+
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [secret, setSecret] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorEmailMessage, setEmailErrorMessage] = useState(false);
+  const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
+  const [errorSecretMessage, setSecretErrorMessage] = useState(false);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -18,6 +23,7 @@ function SignInComponent() {
       .post("http://localhost:5000/login", {
         email: email,
         password: password,
+        secret:secret,
       })
       .then((response) => {
         Cookies.set("jwt", response.data.token);
@@ -34,7 +40,9 @@ function SignInComponent() {
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
                 } else {
-                  console.log("incorrect secret");
+                  
+                  setEmailErrorMessage(false);
+                  setPasswordErrorMessage(false);
                 }
               } else {
                 setShow(false);
@@ -44,7 +52,22 @@ function SignInComponent() {
         }
       })
       .catch((error) => {
-        setErrorMessage(true)
+        if(error.response.data['message']){ 
+          setSecretErrorMessage(true);
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+        }
+        if(error.response.data.errors.email){ 
+          setEmailErrorMessage(true);          
+        }
+        if (error.response.data.errors.password){ 
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(true);
+          setSecretErrorMessage(false);
+        }
+        
+        
+       
       });
   };
 
@@ -95,9 +118,10 @@ function SignInComponent() {
                     </div>
                   </div>
 
-                 {errorMessage && <div className="form-group">
-                    <div className="form-icon-wrapper  text-danger">email is not used</div>
-                  </div>} 
+                 {errorEmailMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>email is not used</div>
+                  </Alert>} 
 
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -114,6 +138,10 @@ function SignInComponent() {
                       <i className="form-icon-left mdi mdi-lock" />
                     </div>
                   </div>
+                  
+                  {errorPasswordMessage && <div className="form-group">
+                    <div className="form-icon-wrapper  text-danger">paswword incorrect ! </div>
+                  </div>} 
 
                   {show && (
                     <div className="form-group">
@@ -132,6 +160,10 @@ function SignInComponent() {
                       </div>
                     </div>
                   )}
+                   {errorSecretMessage && <div className="form-group">
+                    <div className="form-icon-wrapper  text-danger">incorrect secret code !</div>
+                  </div>} 
+
 
                   <div className="form-group">
                     <div className="d-md-flex justify-content-between align-items-center">
