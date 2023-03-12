@@ -141,9 +141,10 @@ function SignInComponent() {
                     </div>
                   </div>
                   
-                  {errorPasswordMessage && <div className="form-group">
-                    <div className="form-icon-wrapper  text-danger">paswword incorrect ! </div>
-                  </div>} 
+                  {errorPasswordMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>incorrect password</div>
+                  </Alert>} 
 
                   {show && (
                     <div className="form-group">
@@ -162,9 +163,10 @@ function SignInComponent() {
                       </div>
                     </div>
                   )}
-                   {errorSecretMessage && <div className="form-group">
-                    <div className="form-icon-wrapper  text-danger">incorrect secret code !</div>
-                  </div>} 
+                    {errorSecretMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>incorrect Secret</div>
+                  </Alert>} 
 
 
                   <div className="form-group">
