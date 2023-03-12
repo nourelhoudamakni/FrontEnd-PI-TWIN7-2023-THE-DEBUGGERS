@@ -1,3 +1,4 @@
+import logo from './logo.svg';
 import './App.css';
 import { Routes , Route } from 'react-router-dom';
 import NavbarComponent from './Components/NavBarComponent/NavbarComponent';
@@ -8,6 +9,11 @@ import SignUpComponent from './Components/FormsComponent/SignUpComponent';
 import ResetPasswordComponent from './Components/FormsComponent/ResetPassComponent';
 import ForgotPasswordComponent from './Components/FormsComponent/ForgetPassComponent';
 import EmailVerificationMessage from './Components/FormsComponent/EmailVerificationMessage';
+import SideNavBarComponent from './Components/MedicalRecordComponent/SideNavBarComponent';
+import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalRecordComponent';
+import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
+import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
+import VitalSignsComponent from './Components/MedicalRecordComponent/VitalSignsComponent';
 function App() {
   return (
     <>
@@ -16,11 +22,23 @@ function App() {
       <Route path='/home' element={<HomeComponent></HomeComponent>} ></Route>
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
-      <Route path='/ResetPassWord' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
+      <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
-      <Route path="/auth/google/callback" render={() => {window.location.href = 'http://localhost:5000/auth/google/callback'; return null;}}/>
+
+   
+      <Route  path='/Medicalrecord' >
+          <Route index  element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
+          <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
+          <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
+          <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+      </Route>
+     
+   
+
+     
     </Routes> 
+   
     <FooterComponent></FooterComponent>
   
   
