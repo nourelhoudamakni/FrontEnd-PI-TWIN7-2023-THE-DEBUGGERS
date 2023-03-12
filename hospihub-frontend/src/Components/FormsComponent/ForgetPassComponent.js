@@ -16,7 +16,7 @@ function ForgotPasswordComponent() {
       <img
         className="img-fluid"
         src="../assetsTemplates/templateForm/images/image.jpg"
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%" }} alt=""
       />
       <div className="position-absolute top-50 start-50 translate-middle container">
         <div className="card col-lg-4 offset-lg-8 mt-5">
