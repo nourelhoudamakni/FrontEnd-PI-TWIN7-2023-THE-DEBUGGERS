@@ -2,15 +2,18 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 function ResetPasswordComponent() {
     const { token } = useParams(); 
- 
+    const navigate = useNavigate();
       const [password, setPassword] = useState('');
       const handleResetPassword = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then()
+        axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
+          () => {
+            navigate('/SignIn');
+    }
+        )
       }
   return (
     <div className="">

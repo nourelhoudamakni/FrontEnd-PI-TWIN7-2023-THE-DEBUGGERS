@@ -1,10 +1,14 @@
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function ForgotPasswordComponent() {
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
     const handleForgetPassword = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5000/forget-password',{email:email}).then(response=>{console.log(response)})
+        axios.post('http://localhost:5000/forget-password',{email:email}).then( () => {
+          navigate('/EmailVerifiaction');
+  })
     }
   return (
   
