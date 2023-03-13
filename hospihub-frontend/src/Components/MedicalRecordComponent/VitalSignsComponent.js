@@ -1,5 +1,6 @@
 import './formUpdateMed.css';
 import { useEffect, useState } from 'react';
+import SideNavBarComponent from './SideNavBarComponent';
 
 function VitalSignsComponent() {
 
@@ -41,10 +42,16 @@ function VitalSignsComponent() {
 
 
     return (
-
-        <div>
+     
+       
+        
+        <div className=" row gx-3 mt-5">
+        <div className="offset-xl-1 col-xl-3">
+              <SideNavBarComponent></SideNavBarComponent>           
+         </div>
+      
             {/* Account details card*/}
-            <div className="card cardMD mb-4">
+            <div className="card cardMD mb-4 col-xl-6 ">
                 <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
                 <div className="card-body">
                     <form>
