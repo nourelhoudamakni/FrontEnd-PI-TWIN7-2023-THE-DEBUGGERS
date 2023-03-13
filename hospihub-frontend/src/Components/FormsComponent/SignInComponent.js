@@ -3,7 +3,9 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { NavLink } from "react-router-dom";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
@@ -11,9 +13,26 @@ function SignInComponent() {
   const [show, setShow] = useState(false);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
-  const [errorEmailValidMessage, setEmailValidMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
+  
+
+  //passport Sign In 
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
+       console.log(jwtCookie)
+
+    const jwt = jwtCookie ? jwtCookie.split('=')[1] : null;
+    
+    if (jwt) {
+      // If JWT cookie exists, redirect to profile page
+      console.log(jwt)
+      localStorage.setItem("jwtToken", jwt);
+     
+    }
+  }, []);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -23,25 +42,25 @@ function SignInComponent() {
       .post("http://localhost:5000/login", {
         email: email,
         password: password,
-        secret:secret,
+        secret: secret,
       })
       .then((response) => {
         Cookies.set("jwt", response.data.token);
-        const jwtCookie = document.cookie.split("; ").find((row) => row.startsWith("jwt="));
-        console.log(jwtCookie)
+        const jwtCookie = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("jwt="));
         if (jwtCookie) {
           const jwtToken = jwtCookie.split("=")[1];
-          console.log(jwtToken)
           const decodedToken = jwt_decode(jwtToken);
-          console.log(decodedToken)
           const id = decodedToken.id;
-          axios.get(`http://localhost:5000/patient/getUserById/${id}`).then((response) => {
+          axios
+            .get(`http://localhost:5000/patient/getUserById/${id}`)
+            .then((response) => {
               if (response.data.secret) {
                 setShow(true);
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
                 } else {
-                  setEmailValidMessage(false);
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
                 }
@@ -53,38 +72,24 @@ function SignInComponent() {
         }
       })
       .catch((error) => {
-        if(error.response.data['message']){ 
+        if (error.response.data["message"]) {
           setSecretErrorMessage(true);
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
-          setEmailValidMessage(false);
         }
-        if(error.response.data.errors.email){ 
+        if (error.response.data.errors.email) {
           setEmailErrorMessage(true);
-          setPasswordErrorMessage(false);  
-          setEmailValidMessage(false);        
         }
-        if (error.response.data.errors.password){ 
+        if (error.response.data.errors.password) {
           setEmailErrorMessage(false);
           setPasswordErrorMessage(true);
           setSecretErrorMessage(false);
-          setEmailValidMessage(false);
         }
-        if (error.response.data.errors.confirmed){ 
-          setEmailValidMessage(true);
-          setEmailErrorMessage(false);
-          setPasswordErrorMessage(false);
-          setSecretErrorMessage(false);
-        }
-        
-        
-       
       });
   };
 
   return (
     <div className="">
-      
       <img
         className="img-fluid"
         src="../assetsTemplates/templateForm/images/img.jpg"
@@ -96,7 +101,6 @@ function SignInComponent() {
           <div className="card-body">
             <div className="row align-items-center">
               <div className="">
-        
                 <div className="text-center my-5">
                   <h3 className="font-weight-bold mb-3">Sign In</h3>
                   <p className="text-muted">Sign in to Latform to continue</p>
@@ -108,7 +112,10 @@ function SignInComponent() {
                   </p>
                 </div>
                 <div className="social-links justify-content-center">
-                  <a href="#" className="bg-google">
+                  <a
+                    href="http://localhost:5000/auth/google"
+                    className="bg-google"
+                  >
                     <i className="mdi mdi-google" /> Connect with Google
                   </a>
                 </div>
@@ -131,15 +138,20 @@ function SignInComponent() {
                     </div>
                   </div>
 
-                 {errorEmailMessage && 
-                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
-                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>email is not used</div>
-                  </Alert>} 
-
-                  {errorEmailValidMessage && 
-                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
-                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>email not confirmed</div>
-                  </Alert>} 
+                  {errorEmailMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        email is not used
+                      </div>
+                    </Alert>
+                  )}
 
                   <div className="form-group">
                     <label htmlFor="password">Password</label>
@@ -156,11 +168,21 @@ function SignInComponent() {
                       <i className="form-icon-left mdi mdi-lock" />
                     </div>
                   </div>
-                  
-                  {errorPasswordMessage && 
-                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
-                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>incorrect password</div>
-                  </Alert>} 
+
+                  {errorPasswordMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        incorrect password
+                      </div>
+                    </Alert>
+                  )}
 
                   {show && (
                     <div className="form-group">
@@ -179,11 +201,20 @@ function SignInComponent() {
                       </div>
                     </div>
                   )}
-                    {errorSecretMessage && 
-                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
-                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>incorrect Secret</div>
-                  </Alert>} 
-
+                  {errorSecretMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        incorrect Secret
+                      </div>
+                    </Alert>
+                  )}
 
                   <div className="form-group">
                     <div className="d-md-flex justify-content-between align-items-center">
