@@ -14,6 +14,7 @@ import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalR
 import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
 import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
 import VitalSignsComponent from './Components/MedicalRecordComponent/VitalSignsComponent';
+import ErrorSignInPage from './Components/FormsComponent/ErrorSignInPage'
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
+      <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
 
     
       <Route  path='/Medicalrecord' >
