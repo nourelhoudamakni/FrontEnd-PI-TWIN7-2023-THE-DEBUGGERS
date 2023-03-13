@@ -80,6 +80,7 @@ function SignUpComponent() {
     }
   };
 
+  
 
   const handleRoleChange = (event) => {
     setRole(event.target.value);
