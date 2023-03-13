@@ -1,8 +1,75 @@
 import './formUpdateMed.css';
 import SideNavBarComponent from './SideNavBarComponent';
-
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useEffect, useState } from "react"
 
 function BloodComponent() {
+    const [User, setUser] = useState({});
+    const [MedicalRecord, setMedicalRecord] = useState({});
+    const Blood=["A","B","AB","O"]
+    const {
+        bloodGroups,
+        arterialPressure,
+        weight,
+        size
+       }=MedicalRecord 
+
+    useEffect(() => {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+          const decodedToken = jwt_decode(token);
+        //   setIdUser(decodedToken.id);
+          console.log(decodedToken.id)
+            axios.get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
+              .then(response => {
+               
+                setUser(response.data);
+              
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          
+        }
+      }, []);
+
+      useEffect(() => {
+        if (User) {
+          axios.get(`http://localhost:5000/MedicalRecord/findMedicalRecordById/${User.MedicalRecord}`)
+            .then(response => {
+              setMedicalRecord(response.data);
+            
+            })
+            .catch(error => {
+              console.error(error);
+            });
+          
+        }
+      }, [User]);
+
+    const onValueChange = (e) => {
+        setMedicalRecord({ ...MedicalRecord, [e.target.name]: e.target.value });
+        };
+
+    const handleUpdateMedical = (e) => {
+            e.preventDefault();
+            console.log(MedicalRecord)
+            axios.put(`http://localhost:5000/MedicalRecord/update/${User.MedicalRecord}`, MedicalRecord)
+                // country: country,
+                // profession: profession,
+                // civilState: civilState,
+                // numberOfChildren: numberOfChildren,
+                // dateOfBirth: dateOfbirth,
+                // placeOfBirth: placeOfBirth,
+                // phoneNumber: phoneNumber,
+            .then((response)=>{
+                console.log(response.data)
+                console.log("medical record updated suuccessfully")
+            })
+        }
+
+
     return (
 
         <div className='container px-4 mt-4'>
@@ -20,20 +87,19 @@ function BloodComponent() {
                         <div className="row gx-3 mb-3">
                             <div className="col-md-6">
                                 <label className="small mb-1">Blood Groups</label>
-
-                                <select className="form-control bg-light p-1 m-1  ">
-                                    <option selected>Select country</option>
-                                    <option>Belgium</option>
-                                    <option>Canada</option>
-                                    <option>Denmark</option>
-                                    <option>Estonia</option>
-                                    <option>France</option>
+                                <select className="form-control bg-light p-1 m-1" value={bloodGroups} name='bloodGroups' onChange={(e) => onValueChange(e)}>
+                                    <option value="" selected>Select Blood Group</option>
+                                    {Blood.map((P) => (
+                                        <option key={P} value={P}>
+                                            {P}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="inputPhone">arterial pressure</label>
-                                <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your arterial pressure" />
+                                <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your arterial pressure" value={arterialPressure} name='arterialPressure' onChange={(e) => onValueChange(e)} />
                             </div>
                         </div>
 
@@ -42,11 +108,11 @@ function BloodComponent() {
 
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="inputOrgName">weight</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.." defaultValue="Start Bootstrap" />
+                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.."  value={weight} name='weight' onChange={(e) => onValueChange(e)} />
                             </div>
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="inputOrgName">size</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your size" defaultValue="Start Bootstrap" />
+                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your size" value={size} name='size' onChange={(e) => onValueChange(e)} />
                             </div>
                         </div>
 
@@ -54,7 +120,7 @@ function BloodComponent() {
 
 
                             <div className="col-md-6">
-                                <button className="btn btn-primary " type="button">Save changes</button>
+                                <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
                             </div>
                             <div className="col-md-6">
                                 <img className="img-fluid" src="../assetsTemplates/images/human.png" alt="" />
