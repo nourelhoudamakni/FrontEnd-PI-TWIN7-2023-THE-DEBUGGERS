@@ -15,7 +15,7 @@ function UpdateMedicalRecordComponent(props) {
     const Place = ["Tunis", "Bizerte", "Nabeul", "Sfax"];
     const Country = ["Tunisia", "Algeria"];
     const civil = ["MARRIED", "SINGLE", "DIVORCED"];
-
+    const [X,setX]=useState(true)
     /////////////recuperer les champs des inputs
     // const [email, setEmail] = useState("");
     // const [dateOfbirth, setDateOfBirth] = useState("")
@@ -40,7 +40,9 @@ function UpdateMedicalRecordComponent(props) {
 
 
     useEffect(() => {
+        setX(false)
         const token = localStorage.getItem('jwtToken');
+
         if (token) {
           const decodedToken = jwt_decode(token);
         //   setIdUser(decodedToken.id);
@@ -49,6 +51,8 @@ function UpdateMedicalRecordComponent(props) {
               .then(response => {
                
                 setUser(response.data);
+                console.log(response.data);
+                console.log(User);
               
               })
               .catch(error => {
@@ -185,7 +189,7 @@ function UpdateMedicalRecordComponent(props) {
                             <div className="col-md-4">
                                 <label className="small mb-1">Country</label>
 
-                                <select className="form-control bg-light p-1 m-1  "value={country} name='country'  onChange={(e) => onValueChange(e)}>
+                                <select className="form-control bg-light p-1 m-1" value={country} name='country'  onChange={(e) => onValueChange(e)}>
                                     <option value="" selected>Select country</option>
                                     {Country.map((C) => (
                                         <option key={C} value={C}>
