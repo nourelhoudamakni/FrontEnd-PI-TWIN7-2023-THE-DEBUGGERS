@@ -1,9 +1,18 @@
 import './formUpdateMed.css';
+import SideNavBarComponent from './SideNavBarComponent';
+
+
 function BloodComponent() {
     return (
-        <div>
+
+        <div className='container px-4 mt-4'>
+            <div className="row">
+            <div className=" col-lg-4">
+                <SideNavBarComponent></SideNavBarComponent>
+            </div>
+
             {/* Account details card*/}
-            <div className="card cardMD mb-4">
+            <div className="card cardMD mb-4 col-lg-7 col-md-7 ">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
                     <form>
@@ -45,16 +54,17 @@ function BloodComponent() {
 
 
                             <div className="col-md-6">
-                            <button className="btn btn-primary " type="button">Save changes</button>
+                                <button className="btn btn-primary " type="button">Save changes</button>
                             </div>
                             <div className="col-md-6">
-                            <img className="img-fluid" src="../assetsTemplates/images/human.png" alt="" />
+                                <img className="img-fluid" src="../assetsTemplates/images/human.png" alt="" />
                             </div>
                         </div>
-                       
+
 
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     );
