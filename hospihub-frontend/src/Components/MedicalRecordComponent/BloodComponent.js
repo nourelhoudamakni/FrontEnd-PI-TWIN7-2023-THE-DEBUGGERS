@@ -1,9 +1,24 @@
+
 import './formUpdateMed.css';
+import SideNavBarComponent from './SideNavBarComponent';
 function BloodComponent() {
     return (
-        <div>
-            {/* Account details card*/}
-            <div className="card cardMD mb-4">
+        <>
+            
+        <div className="container-xl px-4 mt-4">
+            <hr className="mt-0 mb-4" />
+            <div className="row">
+                <div className="col-xl-4">
+                    {/*sidenavbar */}
+                    <SideNavBarComponent></SideNavBarComponent>
+                </div>
+                <div className="col-xl-8">
+                 {/* <UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>  */}
+        
+                 <>
+    
+    
+    <div className="card cardMD mb-4">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
                     <form>
@@ -56,7 +71,14 @@ function BloodComponent() {
                     </form>
                 </div>
             </div>
+    
+    </>
+          
+                </div>
+            </div>
         </div>
+
+    </>
     );
 }
 

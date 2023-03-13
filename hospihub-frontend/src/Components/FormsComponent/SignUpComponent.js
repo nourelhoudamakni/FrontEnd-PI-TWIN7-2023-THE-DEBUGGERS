@@ -43,7 +43,7 @@ function SignUpComponent() {
       )
       console.log(userName)
     } catch (error) {
-      console.log();
+      console.log(error);
     }
   };
 
