@@ -11,6 +11,7 @@ function SignInComponent() {
   const [show, setShow] = useState(false);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
+  const [errorEmailValidMessage, setEmailValidMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
 
@@ -40,7 +41,7 @@ function SignInComponent() {
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
                 } else {
-                  
+                  setEmailValidMessage(false);
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
                 }
@@ -56,14 +57,23 @@ function SignInComponent() {
           setSecretErrorMessage(true);
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
+          setEmailValidMessage(false);
         }
         if(error.response.data.errors.email){ 
           setEmailErrorMessage(true);
-          setPasswordErrorMessage(false);          
+          setPasswordErrorMessage(false);  
+          setEmailValidMessage(false);        
         }
         if (error.response.data.errors.password){ 
           setEmailErrorMessage(false);
           setPasswordErrorMessage(true);
+          setSecretErrorMessage(false);
+          setEmailValidMessage(false);
+        }
+        if (error.response.data.errors.confirmed){ 
+          setEmailValidMessage(true);
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
           setSecretErrorMessage(false);
         }
         
@@ -124,6 +134,11 @@ function SignInComponent() {
                  {errorEmailMessage && 
                  <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
                     <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>email is not used</div>
+                  </Alert>} 
+
+                  {errorEmailValidMessage && 
+                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
+                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>email not confirmed</div>
                   </Alert>} 
 
                   <div className="form-group">

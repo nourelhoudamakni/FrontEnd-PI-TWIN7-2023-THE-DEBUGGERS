@@ -7,22 +7,23 @@ function ResetPasswordComponent() {
     const { token } = useParams();
     const navigate = useNavigate();
     const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
-    const [errorSomePassword, setSomePasswordErrorMessage] = useState(false);
-    const [user, setUser] = useState(null);
-    const [password, setPassword] = useState('');
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
-    const handleResetPassword = (e) => {
-      e.preventDefault();
-      if(passwordRegex.test(password)){
-        axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(() => {
-            navigate('/SignIn');
-    })}
-      else{ 
-        setPasswordErrorMessage(true);
-      }
-    
-    }
+      const [password, setPassword] = useState('');
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
+      const handleResetPassword = (e) => {
+        e.preventDefault();
+        if(passwordRegex.test(password)){
+          axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
+            () => {
 
+              navigate('/SignIn');
+      }
+          )
+        }
+        else{ 
+          setPasswordErrorMessage(true);
+        }
+      
+      }
   return (
     <div className="">
       <img
@@ -61,12 +62,6 @@ function ResetPasswordComponent() {
                  <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
                     <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>Le mot de passe doit avoir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.</div>
                   </Alert>} 
-
-                  {errorSomePassword && 
-                 <Alert className="form-group" variant="danger" style={{marginTop:"-13px"}}>
-                    <div className="form-icon-wrapper  text-danger" style={{marginTop:"-11px",marginBottom:"-13px"}}>Le mot de passe doit avoir au moins 8 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.</div>
-                  </Alert>} 
-                  
 
                   <div className="form-group">       
                     <button className="btn btn-primary">Change Password</button>
