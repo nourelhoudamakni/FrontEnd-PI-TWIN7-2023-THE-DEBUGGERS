@@ -16,6 +16,7 @@ function UpdateMedicalRecordComponent(props) {
         Chats: [],
         Complaints: [],
         Doctors: [],
+        MedicalRecord:"",
         Notifications: [],
         address: "",
         code: "",
@@ -26,12 +27,13 @@ function UpdateMedicalRecordComponent(props) {
         gender: "",
         lastName: "",
         password: "",
-        phoneNotVerif: "",
+        phoneNotVerif: "", 
         phonenumber: "",
         role: "",
         secret: "",
         token: "",
         userName: "",
+      
 
     })
     const formattedDate = User.dateOfBirth.toLocaleString("fr-FR", {dateStyle: "long"});
@@ -47,30 +49,28 @@ function UpdateMedicalRecordComponent(props) {
     const getUserByid = async () => {
         await axios.get(`http://localhost:5000/patient/getUserById/${idUser}`)
             .then((response) => {
-                if (response.data.role === 'patient') {
+               
                     SetUser(response.data)
                     Setcond(true);
+                 
+                    console.log(response.data)
                     console.log(idUser)
                     console.log(User)
+                  
 
-
-                }
-                else {
-                    console.log("you must be a patient")
-                }
+                
+             
             })
 
     }
-
-
-
-
 
     useEffect(() => {
         GetUserByLocalStorage();
         getUserByid();
 
     }, [cond])
+
+
 
 
     return (
