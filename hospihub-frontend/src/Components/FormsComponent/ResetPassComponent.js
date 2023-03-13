@@ -15,7 +15,7 @@ function ResetPasswordComponent() {
         if(passwordRegex.test(password)){
           axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
             () => {
-              
+
               navigate('/SignIn');
       }
           )

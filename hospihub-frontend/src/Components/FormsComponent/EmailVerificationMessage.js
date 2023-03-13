@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function EmailVerificationMessage () {
     return (
      <div className="">
@@ -19,7 +21,7 @@ function EmailVerificationMessage () {
                         <img className="img-fluid" src="../assetsTemplates/templateForm/images/mailVerif.jpg" alt="send_mail" />
                       </div>
                     </div>
-                    <a href="sign-in.html">Turn back</a>
+                    <Link to ={'/home'}>Turn back</Link>
                   </div>
                 </div>
               </div>
