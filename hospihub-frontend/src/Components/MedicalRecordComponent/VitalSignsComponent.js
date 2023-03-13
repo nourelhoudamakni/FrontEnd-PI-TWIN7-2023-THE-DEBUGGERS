@@ -8,7 +8,7 @@ import './imageFile.css';
 
 
 function VitalSignsComponent() {
-    const MAX_COUNT = 20;
+    const MAX_COUNT = 10;
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({})
     const [uploadedFiles, setUploadedFiles] = useState([])
@@ -31,6 +31,7 @@ function VitalSignsComponent() {
                 .then(response => {
 
                     setUser(response.data);
+                   
 
                 })
                 .catch(error => {
@@ -79,7 +80,7 @@ function VitalSignsComponent() {
         if (!limitExceeded) setUploadedFiles(uploaded)
 
     }
-
+console.log(uploadedFiles)
     const handleFileEvent = (e) => {
         const chosenFiles = Array.prototype.slice.call(e.target.files)
         handleUploadFiles(chosenFiles);
