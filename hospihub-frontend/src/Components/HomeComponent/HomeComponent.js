@@ -5,22 +5,11 @@ import './carousel.css';
 import AboutComponent from "./About";
 import AppointmentComponent from "./AppointmentComponent";
 import ServiceComponent from "./ServiceComponent";
-import { useEffect } from 'react';
+import Alert from "react-bootstrap/Alert";
+
+
 
 function HomeComponent() {
-  useEffect(async() => {
-    const jwtCookie = await document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
-       console.log(jwtCookie)
-
-    const jwt = await jwtCookie ? jwtCookie.split('=')[1] : null;
-    
-    if (jwt) {
-      // If JWT cookie exists, redirect to profile page
-      console.log(jwt)
-      localStorage.setItem("jwtToken", jwt);
-     
-    }
-  }, []);
 
 
 
