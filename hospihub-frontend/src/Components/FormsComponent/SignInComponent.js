@@ -13,6 +13,8 @@ function SignInComponent() {
   const [show, setShow] = useState(false);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
+  const [errorConfirmeMessage, setConfirmeErrorMessage] = useState(false);
+  const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
   const navigate = useNavigate();
@@ -88,14 +90,36 @@ function SignInComponent() {
           setSecretErrorMessage(true);
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
+        }
+        if (error.response.data.errors.validated) {
+          setValideErrorMessage(true);
+          setConfirmeErrorMessage(false)
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
         }
         if (error.response.data.errors.email) {
           setEmailErrorMessage(true);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)          
+        }
+        if (error.response.data.errors.confirmed) {
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(true)          
         }
         if (error.response.data.errors.password) {
           setEmailErrorMessage(false);
           setPasswordErrorMessage(true);
           setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
         }
       });
   };
@@ -161,6 +185,34 @@ function SignInComponent() {
                         style={{ marginTop: "-11px", marginBottom: "-13px" }}
                       >
                         email is not used
+                      </div>
+                    </Alert>
+                  )}
+                  {errorConfirmeMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        Your account is not confirmed
+                      </div>
+                    </Alert>
+                  )}
+                  {errorValideMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        Your account is not validated yet
                       </div>
                     </Alert>
                   )}
