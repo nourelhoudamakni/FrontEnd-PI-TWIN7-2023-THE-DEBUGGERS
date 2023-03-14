@@ -22,6 +22,7 @@ function App() {
     <NavbarComponent></NavbarComponent>
     <Routes>
       <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
+     
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>

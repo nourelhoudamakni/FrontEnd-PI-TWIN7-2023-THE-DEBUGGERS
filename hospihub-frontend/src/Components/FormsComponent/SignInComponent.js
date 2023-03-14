@@ -61,8 +61,14 @@ function SignInComponent() {
             .then((response) => {
               console.log('here')
               if (response.data.secret) {
+
                 setShow(true);
-                if (secret == response.data.secret) {
+                if (secret === response.data.secret) {
+                  console.log(show)
+                
+                    localStorage.clear();
+                    // Vider les cookies
+                   
                   localStorage.setItem("jwtToken", jwtToken);
                   setTimeout(function() {
                     console.log('La fonction anonyme a été exécutée !');

@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { DropdownButton,Dropdown } from 'react-bootstrap';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -8,44 +8,46 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
 function NavbarComponent() {
-  
+
   const [UserExist, setUserExist] = useState(false);
-   const [UserName, setUserName] = useState('');
+  const [UserName, setUserName] = useState('');
   const [UserIsPatient, setUserIsPatient] = useState(false);
   const token = localStorage.getItem('jwtToken');
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if(token){ 
-     // navigate(0)
-      setUserExist(true); 
+
+    if (token) {
+      // navigate(0)
+      setUserExist(true);
       const decodedToken = jwt_decode(token);
-      const id=decodedToken.id;
-     
+      const id = decodedToken.id;
+
 
       axios
-              .get(`http://localhost:5000/patient/getUserById/${id}`)
-              .then((response) => {
-                console.log(response.data.userName)
-                console.log()
-                 setUserName(response.data['userName'])
-                 console.log(response.data.role==="patient")
-                 if(response.data.role==="patient"){ 
-                  setUserIsPatient(true);
-                 }
-                })
-      
+        .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
+        .then((response) => {
+          console.log(response.data.userName)
+          console.log()
+          setUserName(response.data['userName'])
+          console.log(response.data.role === "patient")
+          if (response.data.role === "patient") {
+            setUserIsPatient(true);
+          }
+        })
+
     }
-  });
-  const handleReload= ()=>{
+  }, []);
+  const handleReload = () => {
     navigate('/UpdateProfile');
     navigate(0)
   }
-  const toMedicalRecord=()=>{ 
+  const toMedicalRecord = () => {
     navigate('/Medicalrecord/Summary');
     navigate(0)
   }
-  const byyyyy=()=>{ 
+  const byyyyy = () => {
     localStorage.clear();
 
     // Vider les cookies
@@ -56,16 +58,16 @@ function NavbarComponent() {
       const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
       document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
     }
-    
+
     navigate('/SignIn')
     navigate(0)
   }
-  const goToSignUp=()=>{ 
+  const goToSignUp = () => {
     navigate('/SignUp')
     navigate(0)
   }
-  
-  
+
+
   return (
     <>
       <div
@@ -124,7 +126,7 @@ function NavbarComponent() {
         data-wow-delay="0.1s"
       >
         <NavLink
-         to="/"
+          to="/"
           className="navbar-brand d-flex align-items-center px-4 px-lg-5"
         >
           <h1 className="m-0 text-primary">
@@ -142,14 +144,17 @@ function NavbarComponent() {
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto p-4 p-lg-0">
-            
+
+            <NavLink to="/" className="nav-item nav-link active">
+              Home
+            </NavLink>
             <NavLink to="/About" className="nav-item nav-link active">
               About
             </NavLink>
             <NavLink to="/Services" className="nav-item nav-link active">
               Service
             </NavLink>
-            <div className="nav-item dropdown">
+            {/* <div className="nav-item dropdown">
               <a
                 href="#"
                 className="nav-link dropdown-toggle"
@@ -174,17 +179,17 @@ function NavbarComponent() {
                   404 Page
                 </NavLink>
               </div>
-            </div>
-            <NavLink to="/Contact"  className="nav-item nav-link">
+            </div> */}
+            <NavLink to="/Contact" className="nav-item nav-link">
               Contact
             </NavLink>
           </div>
-          {!UserExist && ( <button  className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
-          
+          {!UserExist && (<button className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
+
           )}
-         
-         {UserExist && (<DropdownButton 
-           
+
+          {UserExist && (<DropdownButton
+
             eventKey={3}
             title={
               <span>
@@ -193,18 +198,22 @@ function NavbarComponent() {
             }
           >
             <Dropdown.Item eventKey="1">
-             <button style={{border:"none"}} onClick={handleReload}>User Profile</button> 
+              <button style={{ border: "none" }} onClick={handleReload}>User Profile</button>
             </Dropdown.Item>
-           {UserIsPatient &&( <Dropdown.Item eventKey="1">
-             <button style={{border:"none"}} onClick={toMedicalRecord}>Medical Record</button> 
+            {UserIsPatient && (<Dropdown.Item eventKey="1">
+              <button style={{ border: "none" }} onClick={toMedicalRecord}>Medical Record</button>
             </Dropdown.Item>)}
-           
+
             <Dropdown.Item eventKey="3">
-            <button style={{border:"none"}} onClick={byyyyy}>LogOut</button>
+              <button style={{ border: "none" }} onClick={byyyyy}>LogOut</button>
             </Dropdown.Item>
-          </DropdownButton>)} 
+          </DropdownButton>)}
         </div>
+
+        
       </nav>
+
+
     </>
   );
 }
