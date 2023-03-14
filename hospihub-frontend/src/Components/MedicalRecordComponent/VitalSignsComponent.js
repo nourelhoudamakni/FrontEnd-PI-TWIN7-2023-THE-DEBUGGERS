@@ -10,6 +10,7 @@ import './imageFile.css';
 function VitalSignsComponent() {
     const MAX_COUNT = 10;
     const [User, setUser] = useState({});
+    const[files,setFiles]=useState([])
     const [MedicalRecord, setMedicalRecord] = useState({})
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [fileLimit, setFileLimit] = useState(false);
@@ -20,9 +21,9 @@ function VitalSignsComponent() {
     const {
         disease,
         allergies,
-        files
+        
     } = MedicalRecord
-
+    console.log(files)
 
     useEffect(() => {
         const token = localStorage.getItem('jwtToken');
@@ -49,6 +50,9 @@ function VitalSignsComponent() {
             axios.get(`http://localhost:5000/MedicalRecord/findMedicalRecordById/${User.MedicalRecord}`)
                 .then(response => {
                     setMedicalRecord(response.data);
+                    setFiles(response.data.files)
+                    console.log(files)
+              
 
                 })
                 .catch(error => {
@@ -140,6 +144,7 @@ function VitalSignsComponent() {
 
 
     }
+    
 
 
     return (
@@ -205,9 +210,9 @@ function VitalSignsComponent() {
                                 <label className=" mb-1">My document Medical</label>
 
                                 <div className="uploaded-files-list">
-                                   {/* affichager des files du medical record */}
-                                    {/* {files.map((file) => {
-                                        const imageUrl = `http://localhost:5000/uploads/${file.name}`;
+                                 
+                                     {files.map((file) => {
+                                        var imageUrl = `http://127.0.0.1:8887/${file}`;
                                         return (
                                             <div key={file.name}>
                                                 <img src={imageUrl} alt={file.name} onError={() => console.log(`Impossible de charger l'image: ${imageUrl}`)} />
@@ -215,7 +220,7 @@ function VitalSignsComponent() {
                                                 <button>Supprimer</button>
                                             </div>
                                         );
-                                    })} */}
+                                    })}
                                 </div>
 
 
