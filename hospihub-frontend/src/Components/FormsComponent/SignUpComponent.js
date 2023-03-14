@@ -89,12 +89,12 @@ function SignUpComponent() {
     return (
       <>
         <img
-          className=""
+          className="imgForm img-fluid d-none d-lg-block position-absolute"
           src="../assetsTemplates/templateForm/images/img.jpg"
           style={{ width: "100%", height: "100%" }} alt=""
         />
-        <div className="position-absolute top-50 start-50 translate-middle container">
-          <div className="card col-12 col-lg-6 offset-lg-7 pt-5">
+        <div className="container pt-lg-5 pb-lg-5    ">
+          <div className="styleCard card col-12  col-lg-8 ">
             <div className="card-body">
               <div className="row align-items-center">
                 <div className="">
@@ -104,14 +104,14 @@ function SignUpComponent() {
                   </div>
   
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group d-flex  justify-content-between">
-                      <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name"  style={{ width: "120%" }} value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
+                    <div className="gx-3 row  mb-3">
+                      <div className="col-lg-4">
+                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name"  value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
   
                       </div>
                 
-                      <div className="form-icon-wrapper mx-5">
-                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name"  style={{ width: "120%" }} value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
+                      <div className="offset-lg-4 col-lg-4 pt-3 pt-lg-0 ">
+                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name"  value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
   
                       </div>
                     </div>
@@ -152,15 +152,17 @@ function SignUpComponent() {
                   )}
   
                     <label htmlFor="fullname">Date of Birth</label>
-                    <div className="form-group  d-flex  justify-content-between">
-                      <div className="form-icon-wrapper ">
+                    <div className="form-group row gx-3 mb-3">
+                      <div className="form-icon-wrapper col-md-4 ">
                         <input type="date" className="form-control " id="email" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
                       </div>
   
   
   
-                      <div className="form-icon-wrapper d-flex justify-content-between">
-                        <div style={{ marginRight: "50px" }}>
+                      <div className="form-icon-wrapper col-md-6 offset-md-1">
+                      <div className="row gx-3 ">
+                 
+                        <div className="col-md-4 mt-3" >
                           <label style={{ marginRight: "15px", fontSize: "15px" }}> Male </label>
                           <input
                             type="radio"
@@ -171,7 +173,7 @@ function SignUpComponent() {
                             />
 
                         </div>
-                        <div style={{ marginRight: "20px" }}>
+                        <div className="col-md-4 mt-3" style={{ marginRight: "20px" }}>
                           <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
                           <input
                             type="radio"
@@ -181,6 +183,7 @@ function SignUpComponent() {
                             onChange={(e) => setGender(e.target.value)}
                           />
   
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -233,7 +236,7 @@ function SignUpComponent() {
                       <div className="form-icon-wrapper">
                         <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage1(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password))} required/>
                         <i className="form-icon-left mdi mdi-lock" />
-  
+                        
                       </div>
                     </div>
                     {PasswordErrorMessage1 && (
@@ -274,7 +277,7 @@ function SignUpComponent() {
                   )}
                     <div className="form-group">
   
-                      <select className="  form-control" onChange={handleRoleChange}>
+                      <select className="  form-control " style={{height:"40px"}} onChange={handleRoleChange}>
                         <option value="">Choose Role</option>
                         <option value="patient">patient</option>
                         <option value="doctor">doctor </option>
@@ -298,7 +301,7 @@ function SignUpComponent() {
                       <div className="custom-control custom-checkbox  ">
   
                         <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.value)}/>
-                        <label className="custom-control-label px-5" htmlFor="customCheck1">Enable Two Factor Authentication</label>
+                        <label className="custom-control-label " htmlFor="customCheck1">Enable Two Factor Authentication</label>
                       </div>
                     </div>
   

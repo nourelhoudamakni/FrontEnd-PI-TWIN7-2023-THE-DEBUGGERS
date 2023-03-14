@@ -15,7 +15,7 @@ function SignInComponent() {
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
-  
+  const navigate = useNavigate();
 
   //passport Sign In 
   // const navigate = useNavigate();
@@ -53,6 +53,7 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
+       
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
@@ -60,6 +61,7 @@ function SignInComponent() {
                 setShow(true);
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
+                  navigate('/home');
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -67,6 +69,7 @@ function SignInComponent() {
               } else {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
+                navigate('/home');
               }
             });
         }
