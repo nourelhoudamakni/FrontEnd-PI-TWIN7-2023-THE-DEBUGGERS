@@ -3,10 +3,12 @@ import SideNavBarComponent from './SideNavBarComponent';
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { Alert } from 'react-bootstrap';
 
 function BloodComponent() {
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({});
+    const [ConfirmeMessage,setConfirmeMessage]=useState(false);
     const Blood=["A","B","AB","O"]
     const {
         bloodGroups,
@@ -60,22 +62,39 @@ function BloodComponent() {
             .then((response)=>{
                 console.log(response.data)
                 console.log("medical record updated suuccessfully")
+                if(response.data){
+                    setConfirmeMessage(true)
+                }
             })
         }
 
 
     return (
 
-        <div className='container px-4 mt-4'>
-            <div className="row">
-            <div className=" col-lg-4">
+        <div className='container  pt-5 pb-5'>
+            <div className=" row  ">
+                <div className="col-lg-4">
                 <SideNavBarComponent  user={User}></SideNavBarComponent>
             </div>
 
             {/* Account details card*/}
-            <div className="card cardMD mb-4 col-lg-7 col-md-7 ">
+            <div className='col-lg-8  mb-5'>
+                    <div className="card cardMD cardRes ">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
+                {ConfirmeMessage && (
+                                <Alert
+                                    className="form-group"
+                                    variant="success"
+                                    style={{ marginTop: "-13px" ,height:"50px"}}
+                                >
+                                    <div
+                                        className="form-icon-wrapper  "
+                                    >
+                                        Your Medical Record is updated succesfully !
+                                    </div>
+                                </Alert>
+                            )}
                     <form>
                         {/* Form Group (username)*/}
                         <div className="row gx-3 mb-3">
@@ -110,20 +129,21 @@ function BloodComponent() {
                             </div>
                         </div>
 
-                        <div className="row gx-3 mb-3">
+                        <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
+
+                     </form>
 
 
-                            <div className="col-md-6">
-                                <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
-                            </div>
-                            <div className="col-md-6">
-                                <img className="img-fluid" src="../assetsTemplates/images/human.png" alt="" />
-                            </div>
+                        <div className="row d-flex justify-content-end ">
+                                <div className=" col-lg-8 col-md-8 col-12 mt-5 " >
+                                    <img className="img-fluid Image" src="../assetsTemplates/images/human.png" alt="" style={{ width: "auto", height: "auto"}} />
+                                </div>
                         </div>
 
 
-                    </form>
+                
                 </div>
+            </div>
             </div>
             </div>
         </div>
