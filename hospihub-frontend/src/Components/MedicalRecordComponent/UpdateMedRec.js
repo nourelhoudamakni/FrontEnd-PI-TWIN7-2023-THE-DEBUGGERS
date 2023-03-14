@@ -1,6 +1,6 @@
 import './sideNavBar.css';
 import './formUpdateMed.css';
-
+import { Alert } from 'react-bootstrap';
 import SideNavBarComponent from './SideNavBarComponent';
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -11,11 +11,12 @@ function UpdateMedicalRecordComponent(props) {
     // const [idUser, setIdUser] = useState('');
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({});
+    const [ConfirmeMessage,setConfirmeMessage]=useState(false);
     /////////les enumerations 
     const Place = ["Tunis", "Bizerte", "Nabeul", "Sfax"];
     const Country = ["Tunisia", "Algeria"];
     const civil = ["MARRIED", "SINGLE", "DIVORCED"];
-  
+   
 
     const {
         email,
@@ -25,14 +26,14 @@ function UpdateMedicalRecordComponent(props) {
         numberOfChildren,
         dateOfBirth,
         placeOfBirth,
-    
+
     } = MedicalRecord
 
 
 
 
     useEffect(() => {
-       
+
         const token = localStorage.getItem('jwtToken');
 
         if (token) {
@@ -92,6 +93,9 @@ function UpdateMedicalRecordComponent(props) {
         axios.put(`http://localhost:5000/MedicalRecord/update/${User.MedicalRecord}`, MedicalRecord)
             .then((response) => {
                 console.log(response.data)
+                if(response.data){
+                    setConfirmeMessage(true)
+                }
                 console.log("medical record updated suuccessfully")
             })
     }
@@ -108,7 +112,21 @@ function UpdateMedicalRecordComponent(props) {
                 <div className='col-lg-8  mb-5'>
                     <div className="card cardMD  cardRes">
                         <div className="card-header "><i className="fas fa-user-md iconMed" />Summary of The medical Record </div>
+
                         <div className="card-body">
+                            {ConfirmeMessage && (
+                                <Alert
+                                    className="form-group"
+                                    variant="success"
+                                    style={{ marginTop: "-13px" ,height:"50px"}}
+                                >
+                                    <div
+                                        className="form-icon-wrapper  "
+                                    >
+                                        Your Medical Record is updated succesfully !
+                                    </div>
+                                </Alert>
+                            )}
                             <form >
                                 {/* Form Group (username)*/}
                                 <div className="mb-3">
@@ -204,7 +222,7 @@ function UpdateMedicalRecordComponent(props) {
                                     {/* Form Group (phone number)*/}
                                     <div className="col-md-6">
                                         <label className="small mb-1" htmlFor="inputPhone" >Phone number</label>
-                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name='phoneNumber' value={User.phoneNumber} disabled  />
+                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name='phoneNumber' value={User.phoneNumber} disabled />
                                     </div>
                                     {/* Form Group (birthday)*/}
 
@@ -215,13 +233,13 @@ function UpdateMedicalRecordComponent(props) {
 
                             <div className="row d-flex justify-content-end ">
                                 <div className=" col-lg-4 col-md-4 col-4 " >
-                                    <img className="img-fluid Image" src="../assetsTemplates/images/files.png" alt="" style={{ width: "auto", height: "auto"}} />
+                                    <img className="img-fluid Image" src="../assetsTemplates/images/files.png" alt="" style={{ width: "auto", height: "auto" }} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 

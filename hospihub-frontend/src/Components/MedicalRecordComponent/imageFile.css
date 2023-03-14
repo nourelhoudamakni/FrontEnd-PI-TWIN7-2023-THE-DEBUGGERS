@@ -1,32 +1,41 @@
-.uploaded-files-list {
+
+
+  .uploaded-files-list {
     display: flex;
     flex-wrap: wrap;
   }
   
   .uploaded-files-list > div {
+    margin-right: 10px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    align-items: center;
   }
   
-  .uploaded-files-list img {
-    max-width: 50%;
-    height: auto;
-    margin-bottom: 5px;
+  .uploaded-files-list > div:last-child {
+    margin-right: 0;
   }
-
-  .uploaded-files-list button {
+  
+  .uploaded-files-list > div img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+  
+  .uploaded-files-list > div p {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .uploaded-files-list > div button {
+    margin-top: 10px;
     background-color: #f44336;
-    max-width:50% ;
     color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 8px 12px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .uploaded-files-list button:hover {
-    background-color: #d32f2f;
-  
   }

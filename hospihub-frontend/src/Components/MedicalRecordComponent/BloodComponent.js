@@ -3,10 +3,12 @@ import SideNavBarComponent from './SideNavBarComponent';
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { Alert } from 'react-bootstrap';
 
 function BloodComponent() {
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({});
+    const [ConfirmeMessage,setConfirmeMessage]=useState(false);
     const Blood=["A","B","AB","O"]
     const {
         bloodGroups,
@@ -60,6 +62,9 @@ function BloodComponent() {
             .then((response)=>{
                 console.log(response.data)
                 console.log("medical record updated suuccessfully")
+                if(response.data){
+                    setConfirmeMessage(true)
+                }
             })
         }
 
@@ -77,6 +82,19 @@ function BloodComponent() {
                     <div className="card cardMD cardRes ">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
+                {ConfirmeMessage && (
+                                <Alert
+                                    className="form-group"
+                                    variant="success"
+                                    style={{ marginTop: "-13px" ,height:"50px"}}
+                                >
+                                    <div
+                                        className="form-icon-wrapper  "
+                                    >
+                                        Your Medical Record is updated succesfully !
+                                    </div>
+                                </Alert>
+                            )}
                     <form>
                         {/* Form Group (username)*/}
                         <div className="row gx-3 mb-3">

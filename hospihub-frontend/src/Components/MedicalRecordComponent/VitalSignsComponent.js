@@ -5,23 +5,26 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Select from 'react-select';
 import './imageFile.css';
+import { Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 
 function VitalSignsComponent() {
     const MAX_COUNT = 10;
     const [User, setUser] = useState({});
-    const[files,setFiles]=useState([])
+    const [files, setFiles] = useState([])
     const [MedicalRecord, setMedicalRecord] = useState({})
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [fileLimit, setFileLimit] = useState(false);
     const baseUrl = "http://localhost:5000/uploads/";
-
+    const [ConfirmeMessage, setConfirmeMessage] = useState(false);
+    const navigate=useNavigate()
 
 
     const {
         disease,
         allergies,
-        
+
     } = MedicalRecord
     console.log(files)
 
@@ -52,7 +55,7 @@ function VitalSignsComponent() {
                     setMedicalRecord(response.data);
                     setFiles(response.data.files)
                     console.log(files)
-              
+
 
                 })
                 .catch(error => {
@@ -63,7 +66,24 @@ function VitalSignsComponent() {
     }, [User]);
 
 
-    
+    useEffect(() => {
+        if (User) {
+            axios.get(`http://localhost:5000/MedicalRecord/findMedicalRecordById/${User.MedicalRecord}`)
+                .then(response => {
+                    setMedicalRecord(response.data);
+                    setFiles(response.data.files)
+                    console.log(files)
+
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }
+    }, [User]);
+   
+
 
 
 
@@ -118,6 +138,9 @@ function VitalSignsComponent() {
             .then((response) => {
                 console.log(response.data)
                 console.log("medical record updated successfully")
+                if (response.data) {
+                    setConfirmeMessage(true)
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -137,6 +160,10 @@ function VitalSignsComponent() {
             .then((response) => {
                 console.log(response.data)
                 console.log("medical record updated successfully")
+                if (response.data) {
+                    setConfirmeMessage(true)
+                }
+               navigate(0);
             })
             .catch((error) => {
                 console.log(error);
@@ -144,99 +171,109 @@ function VitalSignsComponent() {
 
 
     }
-    
+
     const handleDeleteFile = (fileName) => {
         axios.delete(`http://localhost:5000/MedicalRecord/deleteMedicalDocument/${User.MedicalRecord}/${fileName}`)
-          .then((response) => {
-            console.log(response.data);
-            setFiles(files.filter((file) => file !== fileName));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };
+            .then((response) => {
+                console.log(response.data);
+                setFiles(files.filter((file) => file !== fileName));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
 
     return (
 
 
+        <div className='container pt-5 '>
+            <div className=" row ">
+                <div className="col-lg-4">
+                    <SideNavBarComponent user={User}></SideNavBarComponent>
+                </div>
 
-        <div className=" row gx-3 mt-5">
-            <div className="offset-xl-1 col-xl-3">
-                <SideNavBarComponent  user={User}></SideNavBarComponent>
-            </div>
+                <div className='d-flex flex-column col-lg-8 mb-5'>
+                    {/* Account details card*/}
+                    <div className="card cardMD cardRes  ">
+                        <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
+                        <div className="card-body ">
+                            {ConfirmeMessage && (
+                                <Alert
+                                    className="form-group"
+                                    variant="success"
+                                    style={{ marginTop: "-13px", height: "50px" }}
+                                >
+                                    <div
+                                        className="form-icon-wrapper  "
+                                    >
+                                        Your Medical Record is updated succesfully !
+                                    </div>
+                                </Alert>
 
-            <div className='d-flex flex-column mb-4 col-xl-6'>
-                {/* Account details card*/}
-                <div className="card cardMD  ">
-                    <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
-                    <div className="card-body">
-                        <form>
-                            {/* Form Group (username)*/}
+                            )}
+                            <form>
+                                {/* Form Group (username)*/}
 
-                            <div className="row gx-3 mb-3">
-                                <div className="col-md-6">
-                                    <label className="small mb-1">Hereditary or Chronic Diseases</label>
-                                    <input className="form-control" id="inputdisease" type="text" placeholder="Enter your hereditary or chronic diseases " name='disease' value={disease} onChange={(e) => onValueChange(e)} />
+                                <div className="row col-lg-12 ">
+                                    <div className="col-lg-10">
+                                        <label className="small mb-1">Hereditary or Chronic Diseases</label>
+                                        <textarea className="form-control" id="inputdisease" type="text" placeholder="Enter your hereditary or chronic diseases " name='disease' value={disease} onChange={(e) => onValueChange(e)} />
+                                    </div>
+
+                                    <div className="col-lg-10">
+                                        <label className="small mb-1">Allergies</label>
+                                        <textarea className="form-control" id="inputallergies" type="text" placeholder="Enter your allergies " name='allergies' value={allergies} onChange={(e) => onValueChange(e)} />
+                                    </div>
+
+                                    <div className="col-lg-4 mt-2">
+                                        <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
+                                    </div>
+
+
                                 </div>
 
-                            </div>
 
-                            <div className="row gx-3 mb-3">
-                                <div className="col-md-6">
-                                    <label className="small mb-1">Allergies</label>
-                                    {/* <Select
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={diseasetab}
-                                    value={disease}
 
-                                /> */}
-                                    <input className="form-control" id="inputallergies" type="text" placeholder="Enter your allergies " name='allergies' value={allergies} onChange={(e) => onValueChange(e)} />
-                                </div>
-                            </div>
-                            <div className="row gx-3 mb-3">
-
-                                <div className="col-md-6">
-                                    <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div >
+                            </form>
+                        </div>
+                    </div >
 
 
 
-                <div className="card cardMD mt-5 ">
-                    <div className="card-header "><i className="fas fa-file" /> Upload medical document </div>
-                    <div className="card-body">
-                        <form>
-                            {/* Form Group (username)*/}
+                    <div className="card cardMD mt-5 cardRes">
+                        <div className="card-header "><i className="fas fa-file" /> Upload medical document </div>
+                        <div className="card-body">
+                            <form>
+                                {/* Form Group (username)*/}
+                                
 
+                                <div className="row gx-3 mb-3">
+                                    <label className=" mb-1">My medical documents </label>
 
-                            <div className="row gx-3 mb-3">
-                                <label className=" mb-1">My medical documents </label>
+                                    <div className="uploaded-files-list">
 
-                                <div className="uploaded-files-list">
-                                 
-                                     {files.map((file) => {
-                                        var imageUrl = `http://127.0.0.1:8887/${file}`;
-                                        return (
-                                            <div key={file.name}>
-                                                <img src={imageUrl} alt={file.name} onError={() => console.log(`Impossible de charger l'image: ${imageUrl}`)} />
-                                                <p>{file.name}</p>
-                                                <button onClick={() => handleDeleteFile(file) }>Supprimer</button>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
+                                        { files.map((file) => {
+                                            var imageUrl = `http://127.0.0.1:8887/${file}`;
+                                            return (
+                                                <div key={file.name}>
+                                                    <img src={imageUrl} alt={file.name} onError={() => console.log(`Impossible de charger l'image: ${imageUrl}`)} />
+                                                    <p>{file.name}</p>
+                                                    <button onClick={() => handleDeleteFile(file)}>Supprimer</button>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
 
 
 
                                     <div className="col-md-6">
+                                        <div>
                                         <button className="btn btn-primary " type="button" disabled={uploadedFiles.length === 0} onClick={addedFiles}>Save files</button>
+                                        </div>
+                                        <div>
+                                       
+                                        </div>
                                     </div>
 
                                 </div>
@@ -263,9 +300,10 @@ function VitalSignsComponent() {
                                     ))}
                                 </div>
 
-                        </form>
-                    </div>
-                </div >
+                            </form>
+                        </div>
+                    </div >
+                </div>
             </div>
         </div>
 
