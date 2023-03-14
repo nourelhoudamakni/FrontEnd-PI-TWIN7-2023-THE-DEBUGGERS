@@ -10,7 +10,8 @@ function NavbarComponent() {
   const [Show, setShow] = useState(false);
   const [User, setUser] = useState({});
 
-  useEffect(async () => {
+  useEffect( () => {
+
     const token = localStorage.getItem('jwtToken');
     if (token) {
       const decodedToken = jwt_decode(token);
@@ -29,6 +30,7 @@ function NavbarComponent() {
 
     }
   }, []);
+  
   return (
     <>
       <div className="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
