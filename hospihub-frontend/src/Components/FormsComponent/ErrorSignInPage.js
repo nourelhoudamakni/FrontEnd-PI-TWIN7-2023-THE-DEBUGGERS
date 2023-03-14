@@ -1,5 +1,3 @@
-import './ErrorSignInPage.css';
-
 function ErrorSignInPage() {
     return (  
         <>
