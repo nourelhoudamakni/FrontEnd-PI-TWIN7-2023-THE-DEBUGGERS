@@ -15,17 +15,19 @@ function SignUpComponent() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [role, setRole] = useState('');
-  // const [code, setCode] = useState('');
-  // const [phoneNotVerif, setphoneNotVerif] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
+  // const [code, setCode] = useState('');
+  // const [phoneNotVerif, setphoneNotVerif] = useState('');
+  
+  
   const navigate = useNavigate();
-  const [EmailerrorMessage, setEmailErrorMessage] = useState(false);
-  const [PasswordErrorMessage, setPasswordErrorMessage] = useState(false);
-  const [PasswordErrorMessage1, setPasswordErrorMessage1] = useState(false);
-  const [EmailerrorMessage1, setEmailErrorMessage1] = useState(false);
-  const [UsernameErrorMessage, setUsernameErrorMessage] = useState(false);
-  const [LastNameErrorMessage, setLastNameErrorMessage] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(false);
+  const [passwordErrorMessage1, setPasswordErrorMessage1] = useState(false);
+  const [emailErrorMessage1, setEmailErrorMessage1] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState(false);
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState(false);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,18 +40,16 @@ function SignUpComponent() {
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailErrorMessage1(true);
+      setEmailErrorMessage(true);
       return;
     }
-   
-    // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
-    //   setPasswordErrorMessage1(true);
-    //   return;
-    // }
-    
-    if (password !== confirmPassword) {
+    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password)) {
       setPasswordErrorMessage(true);
-      return;
+      return
+    }
+    if (password !== confirmPassword) {
+      setPasswordErrorMessage1(true);
+      return
     }
     
 
@@ -119,7 +119,7 @@ function SignUpComponent() {
   
                       </div>
                     </div>
-                    {LastNameErrorMessage && (
+                    {lastNameErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -140,7 +140,7 @@ function SignUpComponent() {
                         <i className="form-icon-left mdi mdi-account " />
                       </div>
                     </div>
-                    {UsernameErrorMessage && (
+                    {usernameErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -204,7 +204,7 @@ function SignUpComponent() {
                         <input type="email" className="form-control" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => { setEmailErrorMessage1(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); setEmailErrorMessage(false) ; }} required />
                         <i className="form-icon-left mdi mdi-email" />
                       </div>
-                      {EmailerrorMessage1 && (
+                      {emailErrorMessage1 && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -218,7 +218,7 @@ function SignUpComponent() {
                       </div>
                     </Alert>
                   )}
-                      {EmailerrorMessage && (
+                      {emailErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -235,12 +235,12 @@ function SignUpComponent() {
                     </div>
                     <div className="form-group">
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage1(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password))} required/>
+                        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required/>
                         <i className="form-icon-left mdi mdi-lock" />
   
                       </div>
                     </div>
-                    {false && (
+                    {passwordErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -257,12 +257,12 @@ function SignUpComponent() {
                     <div className="form-group">
                       <label htmlFor="password-repeat"></label>
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage(password !== confirmPassword) } required/>
+                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage1(password !== confirmPassword) } required/>
                         <i className="form-icon-left mdi mdi-lock" />
 
                       </div>
                     </div>
-                    {PasswordErrorMessage && (
+                    {passwordErrorMessage1 && (
                     <Alert
                       className="form-group"
                       variant="danger"
