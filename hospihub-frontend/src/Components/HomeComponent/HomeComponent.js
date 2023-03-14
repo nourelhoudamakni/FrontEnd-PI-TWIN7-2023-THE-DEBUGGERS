@@ -40,8 +40,9 @@ function HomeComponent() {
         });
 
     }
+    
   }, []);
-
+  
 
 
   return (
