@@ -205,7 +205,7 @@ function VitalSignsComponent() {
                                 <label className=" mb-1">My document Medical</label>
 
                                 <div className="uploaded-files-list">
-
+                                   {/* affichager des files du medical record */}
                                     {/* {files.map((file) => {
                                         const imageUrl = `http://localhost:5000/uploads/${file.name}`;
                                         return (

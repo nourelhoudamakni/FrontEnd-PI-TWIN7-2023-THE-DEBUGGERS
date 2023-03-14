@@ -25,7 +25,7 @@ function UpdateMedicalRecordComponent(props) {
         numberOfChildren,
         dateOfBirth,
         placeOfBirth,
-        phoneNumber,
+    
     } = MedicalRecord
 
 
@@ -204,7 +204,7 @@ function UpdateMedicalRecordComponent(props) {
                                     {/* Form Group (phone number)*/}
                                     <div className="col-md-6">
                                         <label className="small mb-1" htmlFor="inputPhone" >Phone number</label>
-                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name='phoneNumber' value={phoneNumber} onChange={(e) => onValueChange(e)} required />
+                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name='phoneNumber' value={User.phoneNumber} disabled  />
                                     </div>
                                     {/* Form Group (birthday)*/}
 
