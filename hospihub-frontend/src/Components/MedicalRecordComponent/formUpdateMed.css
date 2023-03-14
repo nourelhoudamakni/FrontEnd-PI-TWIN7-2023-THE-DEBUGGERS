@@ -38,3 +38,33 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+
+@media screen and (max-width: 1000px) {
+    .Image{
+        margin-left: 50%;  
+    }
+}
+@media screen and (min-width: 1000px) {
+    .cardMD{
+        width: 90%;
+        margin-left: 15%;
+    }
+    .Image{
+        margin-left: 80%;  
+    }
+      }
+
+@media screen and (min-width: 1500px) {
+    .cardMD{
+        width: 110%;
+        margin-left: 5%;
+    }
+
+      }
+
+@media screen and (min-width: 1000px) and (max-width: 1500px) {
+        .cardMD{
+            width: 90%;
+            margin-left: 15%;
+        }
+    }

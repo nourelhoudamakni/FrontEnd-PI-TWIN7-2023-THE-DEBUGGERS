@@ -56,13 +56,7 @@ function BloodComponent() {
             e.preventDefault();
             console.log(MedicalRecord)
             axios.put(`http://localhost:5000/MedicalRecord/update/${User.MedicalRecord}`, MedicalRecord)
-                // country: country,
-                // profession: profession,
-                // civilState: civilState,
-                // numberOfChildren: numberOfChildren,
-                // dateOfBirth: dateOfbirth,
-                // placeOfBirth: placeOfBirth,
-                // phoneNumber: phoneNumber,
+               
             .then((response)=>{
                 console.log(response.data)
                 console.log("medical record updated suuccessfully")
@@ -75,7 +69,7 @@ function BloodComponent() {
         <div className='container px-4 mt-4'>
             <div className="row">
             <div className=" col-lg-4">
-                <SideNavBarComponent></SideNavBarComponent>
+                <SideNavBarComponent  user={User}></SideNavBarComponent>
             </div>
 
             {/* Account details card*/}
