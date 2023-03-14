@@ -38,3 +38,50 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+
+@media screen and (max-width: 1000px) {
+    .cardRes{
+        width: 100%;
+        
+    }
+}
+
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+    .cardRes{
+        width: 90%;
+        margin-left: 15%;
+        
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1500px) {
+    .cardRes{
+        width: 90%;
+        margin-left: 10%;
+        
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .cardRes{
+        width: 100%;
+       
+    }
+    
+      }
+
+/* @media screen and (min-width: 1500px) {
+    .cardMD{
+        width: 110%;
+        margin-left: 5%;
+    }
+
+      }
+
+@media screen and (min-width: 1000px) and (max-width: 1500px) {
+        .cardMD{
+            width: 90%;
+            margin-left: 15%;
+        }
+    } */

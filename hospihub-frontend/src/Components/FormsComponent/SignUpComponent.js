@@ -17,13 +17,17 @@ function SignUpComponent() {
   const [role, setRole] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
+  // const [code, setCode] = useState('');
+  // const [phoneNotVerif, setphoneNotVerif] = useState('');
+  
+  
   const navigate = useNavigate();
-  const [EmailerrorMessage, setEmailErrorMessage] = useState(false);
-  const [PasswordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [PasswordErrorMessage1, setPasswordErrorMessage1] = useState('');
-  const [EmailerrorMessage1, setEmailErrorMessage1] = useState('');
-  const [UsernameErrorMessage, setUsernameErrorMessage] = useState('');
-  const [LastNameErrorMessage, setLastNameErrorMessage] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(false);
+  const [passwordErrorMessage1, setPasswordErrorMessage1] = useState(false);
+  const [emailErrorMessage1, setEmailErrorMessage1] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState(false);
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState(false);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,18 +40,16 @@ function SignUpComponent() {
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailErrorMessage1(true);
+      setEmailErrorMessage(true);
       return;
     }
-   
-    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
-      setPasswordErrorMessage1(true);
-      return;
-    }
-    
-    if (password !== confirmPassword) {
+    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password)) {
       setPasswordErrorMessage(true);
-      return;
+      return
+    }
+    if (password !== confirmPassword) {
+      setPasswordErrorMessage1(true);
+      return
     }
     
 
@@ -63,7 +65,9 @@ function SignUpComponent() {
         dateOfBirth:dateOfBirth,
         role:role,
         confirmPassword:confirmPassword,
-        enableTwoFactorAuth:enableTwoFactorAuth
+        enableTwoFactorAuth:enableTwoFactorAuth,
+         code:"", 
+         phoneNotVerif:""
       }).then(
         (response)=>{
           console.log(response);
@@ -88,34 +92,37 @@ function SignUpComponent() {
   };
     return (
       <>
-        <img
-          className=""
-          src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }} alt=""
-        />
-        <div className="position-absolute top-50 start-50 translate-middle container">
-          <div className="card col-12 col-lg-6 offset-lg-7 pt-5">
-            <div className="card-body">
-              <div className="row align-items-center">
-                <div className="">
-                  <div className="text-center my-5">
+      <div> 
+      <img
+        className=" imgForm img-fluid d-none d-lg-block position-absolute "
+        src="../assetsTemplates/templateForm/images/img.jpg"
+        style={{ width: "100%", height: "100%" }}
+      />'
+        <div className=" ">
+        <div className=" container pt-lg-5 pb-lg-5 ">
+        <div className="  card col-12  col-lg-6  offset-lg-6 " >
+          <div className="card-body styleCard">
+            <div className="row align-items-center">
+              <div className="">
+                <div className="text-center my-5">
                     <h3 className="font-weight-bold mb-3">Sign Up</h3>
                     <p className="text-muted">Create a free account now.</p>
                   </div>
   
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group d-flex  justify-content-between">
-                      <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name"  style={{ width: "120%" }} value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
-  
-                      </div>
-                
-                      <div className="form-icon-wrapper mx-5">
-                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name"  style={{ width: "120%" }} value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
-  
-                      </div>
+            
+                    <div className="row gx-3 mb-3">
+                    <div className="col-md-6">
+                      <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"   value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
+
                     </div>
-                    {LastNameErrorMessage && (
+
+                    <div className="col-md-6">
+                      <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/> 
+                    </div>
+                  </div>
+
+                    {lastNameErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -136,7 +143,7 @@ function SignUpComponent() {
                         <i className="form-icon-left mdi mdi-account " />
                       </div>
                     </div>
-                    {UsernameErrorMessage && (
+                    {usernameErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -151,29 +158,33 @@ function SignUpComponent() {
                     </Alert>
                   )}
   
-                    <label htmlFor="fullname">Date of Birth</label>
-                    <div className="form-group  d-flex  justify-content-between">
-                      <div className="form-icon-wrapper ">
-                        <input type="date" className="form-control " id="email" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
-                      </div>
+                   
   
   
   
-                      <div className="form-icon-wrapper d-flex justify-content-between">
-                        <div style={{ marginRight: "50px" }}>
-                          <label style={{ marginRight: "15px", fontSize: "15px" }}> Male </label>
-                          <input
+                    <div className="row gx-3 mb-3">
+                    <div className="col-md-4">
+                      <label className="small mb-1" htmlFor="inputOrgName">Date of birth</label>
+                      <input className="form-control" id="inputOrgName" type="date" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
+                    </div>
+                    <div className="col-md-6 offset-md-1 ">
+                      <div className="row gx-3 mt-3">
+                      <label className="small mt-3 col-md-3" htmlFor="inputOrgName">Gender:</label>
+                      
+                      <div className="col-md-4 mt-3">
+                        
+                        <label style={{ marginRight: "15px", fontSize: "15px" }}> Male </label>
+                        <input
                             type="radio"
                             name="gender"
                             value="MALE"
                             checked={gender === "MALE"}
                             onChange={(e) => setGender(e.target.value)}
                             />
-
-                        </div>
-                        <div style={{ marginRight: "20px" }}>
-                          <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
-                          <input
+                      </div>
+                      <div  className="col-md-4 mt-3">
+                        <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
+                        <input
                             type="radio"
                             name="gender"
                             value="FEMALE"
@@ -181,10 +192,10 @@ function SignUpComponent() {
                             onChange={(e) => setGender(e.target.value)}
                           />
   
-                        </div>
                       </div>
-                    </div>
-  
+                      </div>
+                   </div>
+                  </div>
   
                     <div className="form-group">
                       <div className="form-icon-wrapper">
@@ -200,7 +211,7 @@ function SignUpComponent() {
                         <input type="email" className="form-control" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => { setEmailErrorMessage1(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); setEmailErrorMessage(false) ; }} required />
                         <i className="form-icon-left mdi mdi-email" />
                       </div>
-                      {EmailerrorMessage1 && (
+                      {emailErrorMessage1 && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -214,7 +225,7 @@ function SignUpComponent() {
                       </div>
                     </Alert>
                   )}
-                      {EmailerrorMessage && (
+                      {emailErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -231,12 +242,12 @@ function SignUpComponent() {
                     </div>
                     <div className="form-group">
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage1(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password))} required/>
+                        <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required/>
                         <i className="form-icon-left mdi mdi-lock" />
   
                       </div>
                     </div>
-                    {PasswordErrorMessage1 && (
+                    {passwordErrorMessage && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -253,12 +264,12 @@ function SignUpComponent() {
                     <div className="form-group">
                       <label htmlFor="password-repeat"></label>
                       <div className="form-icon-wrapper">
-                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage(password !== confirmPassword) } required/>
+                        <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() =>setPasswordErrorMessage1(password !== confirmPassword) } required/>
                         <i className="form-icon-left mdi mdi-lock" />
 
                       </div>
                     </div>
-                    {PasswordErrorMessage && (
+                    {passwordErrorMessage1 && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -274,7 +285,7 @@ function SignUpComponent() {
                   )}
                     <div className="form-group">
   
-                      <select className="  form-control" onChange={handleRoleChange}>
+                      <select className="  form-control bg-light p-2" onChange={handleRoleChange}>
                         <option value="">Choose Role</option>
                         <option value="patient">patient</option>
                         <option value="doctor">doctor </option>
@@ -297,7 +308,7 @@ function SignUpComponent() {
                     <div className="form-group">
                       <div className="custom-control custom-checkbox  ">
   
-                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.value)}/>
+                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.checked)}/>
                         <label className="custom-control-label px-5" htmlFor="customCheck1">Enable Two Factor Authentication</label>
                       </div>
                     </div>
@@ -325,8 +336,8 @@ function SignUpComponent() {
             </div>
           </div>
         </div>
-  
-  
+        </div>
+        </div>  
       </>
     );
   }

@@ -1,44 +1,84 @@
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 function NavbarComponent() {
 
-  const [Show, setShow] = useState(false);
-  const [User, setUser] = useState({});
+  const [UserExist, setUserExist] = useState(false);
+  const [UserName, setUserName] = useState('');
+  const [UserIsPatient, setUserIsPatient] = useState(false);
+  const token = localStorage.getItem('jwtToken');
 
-  useEffect( () => {
+  const navigate = useNavigate();
 
-    const token = localStorage.getItem('jwtToken');
+  useEffect(() => {
+
     if (token) {
+      // navigate(0)
+      setUserExist(true);
       const decodedToken = jwt_decode(token);
+      const id = decodedToken.id;
+
+
       axios
         .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
-        .then(response => {
-          setUser(response.data);
-          setShow(true)
-          toast.success(`Welcome ${response.data.userName}`, {
-            position: toast.POSITION.TOP_RIGHT
-          });
+        .then((response) => {
+          console.log(response.data.userName)
+          console.log()
+          setUserName(response.data['userName'])
+          console.log(response.data.role === "patient")
+          if (response.data.role === "patient") {
+            setUserIsPatient(true);
+          }
         })
-        .catch(error => {
-          console.error(error);
-        });
 
     }
   }, []);
-  
+  const handleReload = () => {
+    navigate('/UpdateProfile');
+    navigate(0)
+  }
+  const toMedicalRecord = () => {
+    navigate('/Medicalrecord/Summary');
+    navigate(0)
+  }
+  const byyyyy = () => {
+    localStorage.clear();
+
+    // Vider les cookies
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+    }
+
+    navigate('/SignIn')
+    navigate(0)
+  }
+  const goToSignUp = () => {
+    navigate('/SignUp')
+    navigate(0)
+  }
+
+
   return (
     <>
-      <div className="container-fluid bg-light p-0 wow fadeIn" data-wow-delay="0.1s">
+      <div
+        className="container-fluid bg-light p-0 wow fadeIn"
+        data-wow-delay="0.1s"
+      >
         <div className="row gx-0 d-none d-lg-flex">
           <div className="col-lg-7 px-5 text-start">
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
               <small className="fa fa-map-marker-alt text-primary me-2" />
-              <small>123 Street, New York, USA</small>
+              <small>Ariana Ghazela </small>
             </div>
             <div className="h-100 d-inline-flex align-items-center py-3">
               <small className="far fa-clock text-primary me-2" />
@@ -51,46 +91,126 @@ function NavbarComponent() {
               <small>+012 345 6789</small>
             </div>
             <div className="h-100 d-inline-flex align-items-center">
-              <a className="btn btn-sm-square rounded-circle bg-white text-primary me-1" href><i className="fab fa-facebook-f" /></a>
-              <a className="btn btn-sm-square rounded-circle bg-white text-primary me-1" href><i className="fab fa-twitter" /></a>
-              <a className="btn btn-sm-square rounded-circle bg-white text-primary me-1" href><i className="fab fa-linkedin-in" /></a>
-              <a className="btn btn-sm-square rounded-circle bg-white text-primary me-0" href><i className="fab fa-instagram" /></a>
+              <a
+                className="btn btn-sm-square rounded-circle bg-white text-primary me-1"
+                href
+              >
+                <i className="fab fa-facebook-f" />
+              </a>
+              <a
+                className="btn btn-sm-square rounded-circle bg-white text-primary me-1"
+                href
+              >
+                <i className="fab fa-twitter" />
+              </a>
+              <a
+                className="btn btn-sm-square rounded-circle bg-white text-primary me-1"
+                href
+              >
+                <i className="fab fa-linkedin-in" />
+              </a>
+              <a
+                className="btn btn-sm-square rounded-circle bg-white text-primary me-0"
+                href
+              >
+                <i className="fab fa-instagram" />
+              </a>
             </div>
           </div>
         </div>
       </div>
       {/* Topbar End */}
       {/* Navbar Start */}
-      <nav className="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" className="navbar-brand d-flex align-items-center px-4 px-lg-5">
-          <h1 className="m-0 text-primary"><i className="far fa-hospital me-3" />Klinik</h1>
-        </a>
-                     
-        {Show &&
-          <h6 className="text-primary">Welcome  "{User.userName}"</h6>
-        }
-        <button type="button" className="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <nav
+        className="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn"
+        data-wow-delay="0.1s"
+      >
+        <NavLink
+          to="/"
+          className="navbar-brand d-flex align-items-center px-4 px-lg-5"
+        >
+          <h1 className="m-0 text-primary">
+            <i className="far fa-hospital me-3" />
+            HospiHub
+          </h1>
+        </NavLink>
+        <button
+          type="button"
+          className="navbar-toggler me-4"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse"
+        >
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto p-4 p-lg-0">
-            <NavLink to="/home" className="nav-item nav-link active">Home</NavLink>
-            <NavLink to="/" className="nav-item nav-link active">About</NavLink>
-            <NavLink to="/" className="nav-item nav-link active">Servi</NavLink>
-            <div className="nav-item dropdown">
-              <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+
+            <NavLink to="/" className="nav-item nav-link active">
+              Home
+            </NavLink>
+            <NavLink to="/About" className="nav-item nav-link active">
+              About
+            </NavLink>
+            <NavLink to="/Services" className="nav-item nav-link active">
+              Service
+            </NavLink>
+            {/* <div className="nav-item dropdown">
+              <a
+                href="#"
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                Pages
+              </a>
               <div className="dropdown-menu rounded-0 rounded-bottom m-0">
-                <a href="feature.html" className="dropdown-item">Feature</a>
-                <a href="team.html" className="dropdown-item">Our Doctor</a>
-                <a href="appointment.html" className="dropdown-item">Appointment</a>
-                <a href="testimonial.html" className="dropdown-item">Testimonial</a>
-                <a href="404.html" className="dropdown-item">404 Page</a>
+                <NavLink to="/Feature" className="dropdown-item">
+                  Feature
+                </NavLink>
+                <NavLink to="/OurDoctor" className="dropdown-item">
+                  Our Doctor
+                </NavLink>
+                <NavLink to="/Appointment" className="dropdown-item">
+                  Appointment
+                </NavLink>
+                <NavLink to="/Testimonial" className="dropdown-item">
+                  Testimonial
+                </NavLink>
+                <NavLink to="/404" className="dropdown-item">
+                  404 Page
+                </NavLink>
               </div>
-            </div>
-            <a href="contact.html" className="nav-item nav-link">Contact</a>
+            </div> */}
+            <NavLink to="/Contact" className="nav-item nav-link">
+              Contact
+            </NavLink>
           </div>
-          <button className="btn btn-primary ">Sign Up</button>
+          {!UserExist && (<button className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
+
+          )}
+
+          {UserExist && (<DropdownButton
+
+            eventKey={3}
+            title={
+              <span>
+                <i className="fa fa-user fa-fw"></i>{UserName}
+              </span>
+            }
+          >
+            <Dropdown.Item eventKey="1">
+              <button style={{ border: "none" }} onClick={handleReload}>User Profile</button>
+            </Dropdown.Item>
+            {UserIsPatient && (<Dropdown.Item eventKey="1">
+              <button style={{ border: "none" }} onClick={toMedicalRecord}>Medical Record</button>
+            </Dropdown.Item>)}
+
+            <Dropdown.Item eventKey="3">
+              <button style={{ border: "none" }} onClick={byyyyy}>LogOut</button>
+            </Dropdown.Item>
+          </DropdownButton>)}
         </div>
+
+        
       </nav>
 
 
