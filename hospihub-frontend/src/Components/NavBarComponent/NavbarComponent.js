@@ -60,6 +60,10 @@ function NavbarComponent() {
     navigate('/SignIn')
     navigate(0)
   }
+  const goToSignUp=()=>{ 
+    navigate('/SignUp')
+    navigate(0)
+  }
   
   
   return (
@@ -177,7 +181,7 @@ function NavbarComponent() {
               Contact
             </a>
           </div>
-          {!UserExist && ( <button className="btn btn-primary ">Sign Up</button>
+          {!UserExist && ( <button  className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
           
           )}
          
