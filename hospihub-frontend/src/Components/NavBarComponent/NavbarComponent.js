@@ -76,7 +76,7 @@ function NavbarComponent() {
           <div className="col-lg-7 px-5 text-start">
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
               <small className="fa fa-map-marker-alt text-primary me-2" />
-              <small>123 Street, New York, USA</small>
+              <small>Ariana Ghazela </small>
             </div>
             <div className="h-100 d-inline-flex align-items-center py-3">
               <small className="far fa-clock text-primary me-2" />
@@ -123,15 +123,15 @@ function NavbarComponent() {
         className="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn"
         data-wow-delay="0.1s"
       >
-        <a
-          href="index.html"
+        <NavLink
+         to="/"
           className="navbar-brand d-flex align-items-center px-4 px-lg-5"
         >
           <h1 className="m-0 text-primary">
             <i className="far fa-hospital me-3" />
-            Klinik
+            HospiHub
           </h1>
-        </a>
+        </NavLink>
         <button
           type="button"
           className="navbar-toggler me-4"
@@ -142,14 +142,12 @@ function NavbarComponent() {
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto p-4 p-lg-0">
-            <NavLink to="/home" className="nav-item nav-link active">
-              Home
-            </NavLink>
-            <NavLink to="/" className="nav-item nav-link active">
+            
+            <NavLink to="/About" className="nav-item nav-link active">
               About
             </NavLink>
-            <NavLink to="/" className="nav-item nav-link active">
-              Servi
+            <NavLink to="/Services" className="nav-item nav-link active">
+              Service
             </NavLink>
             <div className="nav-item dropdown">
               <a
@@ -160,32 +158,33 @@ function NavbarComponent() {
                 Pages
               </a>
               <div className="dropdown-menu rounded-0 rounded-bottom m-0">
-                <a href="feature.html" className="dropdown-item">
+                <NavLink to="/Feature" className="dropdown-item">
                   Feature
-                </a>
-                <a href="team.html" className="dropdown-item">
+                </NavLink>
+                <NavLink to="/OurDoctor" className="dropdown-item">
                   Our Doctor
-                </a>
-                <a href="appointment.html" className="dropdown-item">
+                </NavLink>
+                <NavLink to="/Appointment" className="dropdown-item">
                   Appointment
-                </a>
-                <a href="testimonial.html" className="dropdown-item">
+                </NavLink>
+                <NavLink to="/Testimonial" className="dropdown-item">
                   Testimonial
-                </a>
-                <a href="404.html" className="dropdown-item">
+                </NavLink>
+                <NavLink to="/404" className="dropdown-item">
                   404 Page
-                </a>
+                </NavLink>
               </div>
             </div>
-            <a href="contact.html" className="nav-item nav-link">
+            <NavLink to="/Contact"  className="nav-item nav-link">
               Contact
-            </a>
+            </NavLink>
           </div>
           {!UserExist && ( <button  className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
           
           )}
          
-         {UserExist && (<DropdownButton
+         {UserExist && (<DropdownButton 
+           
             eventKey={3}
             title={
               <span>
