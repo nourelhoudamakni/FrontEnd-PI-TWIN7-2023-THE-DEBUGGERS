@@ -17,7 +17,7 @@ function SignInComponent() {
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
-  
+  const navigate = useNavigate();
 
   //passport Sign In 
   // const navigate = useNavigate();
@@ -55,13 +55,20 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
+       
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
+              console.log('here')
               if (response.data.secret) {
                 setShow(true);
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
+                  setTimeout(function() {
+                    console.log('La fonction anonyme a été exécutée !');
+                  }, 500);
+                  navigate('/home');
+                  navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -69,6 +76,11 @@ function SignInComponent() {
               } else {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
+                setTimeout(function() {
+                  console.log('La fonction anonyme a été exécutée !');
+                }, 500);
+                navigate('/home');
+                navigate(0)
               }
             });
         }
