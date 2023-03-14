@@ -15,13 +15,13 @@ function EmailVerificationMessage () {
                 <div className="card-body ">
                   <div className="text-center">
                     <h3 className="font-weight-bold mb-3">Congratulations!</h3>
-                    <p className="text-muted">Form submitted successfully. Check your inbox to reset your password.</p>
+                    <p className="text-muted">Form submitted successfully. Check your inbox to confirm your email.</p>
                     <div className="row mb-5">
                       <div className="col-md-8 offset-md-2">
                         <img className="img-fluid" src="../assetsTemplates/templateForm/images/mailVerif.jpg" alt="send_mail" />
                       </div>
                     </div>
-                    <Link to ={'/home'}>Turn back</Link>
+                    <Link to ={'/signIn'}>Turn back</Link>
                   </div>
                 </div>
               </div>
