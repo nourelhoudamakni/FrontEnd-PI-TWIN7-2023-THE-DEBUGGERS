@@ -61,7 +61,11 @@ function SignInComponent() {
                 setShow(true);
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
+                  setTimeout(function() {
+                    console.log('La fonction anonyme a été exécutée !');
+                  }, 500);
                   navigate('/home');
+                  //navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -70,6 +74,8 @@ function SignInComponent() {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
                 navigate('/home');
+                navigate(0)
+            
               }
             });
         }

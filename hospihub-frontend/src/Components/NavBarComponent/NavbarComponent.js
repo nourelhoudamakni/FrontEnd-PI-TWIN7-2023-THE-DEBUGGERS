@@ -1,30 +1,63 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { DropdownButton,Dropdown } from 'react-bootstrap';
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 function NavbarComponent() {
   
   const [UserExist, setUserExist] = useState(false);
-  const [UserName, setUserName] = useState('');
+   const [UserName, setUserName] = useState('');
+  const [UserIsPatient, setUserIsPatient] = useState('false');
   const token = localStorage.getItem('jwtToken');
+
+ const navigate = useNavigate();
   useEffect(() => {
     if(token){ 
-   
+     // navigate(0)
       setUserExist(true); 
       const decodedToken = jwt_decode(token);
       const id=decodedToken.id;
+     
+
       axios
               .get(`http://localhost:5000/patient/getUserById/${id}`)
               .then((response) => {
                  setUserName(response.data.userName)
+                 if(response.data.role=='patient'){ 
+                  setUserIsPatient(true);
+                 }
                 })
       
     }
-  })
+  });
+  const handleReload= ()=>{
+    navigate('/UpdateProfile');
+    navigate(0)
+  }
+  const toMedicalRecord=()=>{ 
+    navigate('/Medicalrecord/Summary');
+    navigate(0)
+  }
+  const byyyyy=()=>{ 
+    localStorage.clear();
+
+    // Vider les cookies
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf('=');
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+    }
+    
+    navigate('/SignIn')
+    navigate(0)
+  }
+  
   
   return (
     <>
@@ -141,7 +174,9 @@ function NavbarComponent() {
               Contact
             </a>
           </div>
-          {!UserExist && ( <button className="btn btn-primary ">Sign Up</button>)}
+          {!UserExist && ( <button className="btn btn-primary ">Sign Up</button>
+          
+          )}
          
          {UserExist && (<DropdownButton
             eventKey={3}
@@ -152,12 +187,14 @@ function NavbarComponent() {
             }
           >
             <Dropdown.Item eventKey="1">
-              <i ></i> User Profile
+             <button  onClick={handleReload}>User Profile</button> 
             </Dropdown.Item>
+           {UserIsPatient &&( <Dropdown.Item eventKey="1">
+             <button  onClick={toMedicalRecord}>Medical Record</button> 
+            </Dropdown.Item>)}
            
-            <Dropdown.Item divider />
             <Dropdown.Item eventKey="3">
-              <i></i> Logout
+            <button  onClick={byyyyy}>LogOut</button>
             </Dropdown.Item>
           </DropdownButton>)} 
         </div>
