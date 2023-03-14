@@ -92,33 +92,36 @@ function SignUpComponent() {
   };
     return (
       <>
-        <img
-          className=""
-          src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }} alt=""
-        />
-        <div className="position-absolute top-50 start-50 translate-middle container">
-          <div className="card col-12 col-lg-6 offset-lg-7 pt-5">
-            <div className="card-body">
-              <div className="row align-items-center">
-                <div className="">
-                  <div className="text-center my-5">
+      <div> 
+      <img
+        className=" imgForm img-fluid d-none d-lg-block position-absolute "
+        src="../assetsTemplates/templateForm/images/img.jpg"
+        style={{ width: "100%", height: "100%" }}
+      />'
+        <div className=" ">
+        <div className=" container pt-lg-5 pb-lg-5 ">
+        <div className="  card col-12  col-lg-6  offset-lg-6 " >
+          <div className="card-body styleCard">
+            <div className="row align-items-center">
+              <div className="">
+                <div className="text-center my-5">
                     <h3 className="font-weight-bold mb-3">Sign Up</h3>
                     <p className="text-muted">Create a free account now.</p>
                   </div>
   
                   <form onSubmit={handleSubmit}>
-                    <div className="form-group d-flex  justify-content-between">
-                      <div className="form-icon-wrapper">
-                        <input type="text" className="form-control" id="firstName" placeholder="Enter first name"  style={{ width: "120%" }} value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
-  
-                      </div>
-                
-                      <div className="form-icon-wrapper mx-5">
-                        <input type="text" className="form-control " id="lastName" placeholder="Enter last name"  style={{ width: "120%" }} value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
-  
-                      </div>
+            
+                    <div className="row gx-3 mb-3">
+                    <div className="col-md-6">
+                      <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"   value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/>
+
                     </div>
+
+                    <div className="col-md-6">
+                      <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value={lastName} onChange={(e) => setLastName(e.target.value) } onBlur={() =>setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required/> 
+                    </div>
+                  </div>
+
                     {lastNameErrorMessage && (
                     <Alert
                       className="form-group"
@@ -155,29 +158,33 @@ function SignUpComponent() {
                     </Alert>
                   )}
   
-                    <label htmlFor="fullname">Date of Birth</label>
-                    <div className="form-group  d-flex  justify-content-between">
-                      <div className="form-icon-wrapper ">
-                        <input type="date" className="form-control " id="email" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
-                      </div>
+                   
   
   
   
-                      <div className="form-icon-wrapper d-flex justify-content-between">
-                        <div style={{ marginRight: "50px" }}>
-                          <label style={{ marginRight: "15px", fontSize: "15px" }}> Male </label>
-                          <input
+                    <div className="row gx-3 mb-3">
+                    <div className="col-md-4">
+                      <label className="small mb-1" htmlFor="inputOrgName">Date of birth</label>
+                      <input className="form-control" id="inputOrgName" type="date" placeholder="Date of birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
+                    </div>
+                    <div className="col-md-6 offset-md-1 ">
+                      <div className="row gx-3 mt-3">
+                      <label className="small mt-3 col-md-3" htmlFor="inputOrgName">Gender:</label>
+                      
+                      <div className="col-md-4 mt-3">
+                        
+                        <label style={{ marginRight: "15px", fontSize: "15px" }}> Male </label>
+                        <input
                             type="radio"
                             name="gender"
                             value="MALE"
                             checked={gender === "MALE"}
                             onChange={(e) => setGender(e.target.value)}
                             />
-
-                        </div>
-                        <div style={{ marginRight: "20px" }}>
-                          <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
-                          <input
+                      </div>
+                      <div  className="col-md-4 mt-3">
+                        <label style={{ marginRight: "15px", fontSize: "15px" }} >  Female </label>
+                        <input
                             type="radio"
                             name="gender"
                             value="FEMALE"
@@ -185,10 +192,10 @@ function SignUpComponent() {
                             onChange={(e) => setGender(e.target.value)}
                           />
   
-                        </div>
                       </div>
-                    </div>
-  
+                      </div>
+                   </div>
+                  </div>
   
                     <div className="form-group">
                       <div className="form-icon-wrapper">
@@ -278,7 +285,7 @@ function SignUpComponent() {
                   )}
                     <div className="form-group">
   
-                      <select className="  form-control" onChange={handleRoleChange}>
+                      <select className="  form-control bg-light p-2" onChange={handleRoleChange}>
                         <option value="">Choose Role</option>
                         <option value="patient">patient</option>
                         <option value="doctor">doctor </option>
@@ -329,8 +336,8 @@ function SignUpComponent() {
             </div>
           </div>
         </div>
-  
-  
+        </div>
+        </div>  
       </>
     );
   }
