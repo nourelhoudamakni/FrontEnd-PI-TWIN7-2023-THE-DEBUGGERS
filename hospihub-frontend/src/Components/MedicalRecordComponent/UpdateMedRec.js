@@ -98,15 +98,15 @@ function UpdateMedicalRecordComponent(props) {
 
 
     return (
-        <div className='container-lg px-4 mt-4'>
-            <div className=" row ">
+        <div className='container pt-5 '>
+            <div className=" row  ">
                 <div className="col-lg-4">
                     <SideNavBarComponent user={User}></SideNavBarComponent>
                 </div>
 
                 {/* Account details card*/}
-                <div className='col-lg-8 col-md-12 mb-5'>
-                    <div className="card cardMD  ">
+                <div className='col-lg-8  mb-5'>
+                    <div className="card cardMD  cardRes">
                         <div className="card-header "><i className="fas fa-user-md iconMed" />Summary of The medical Record </div>
                         <div className="card-body">
                             <form >
@@ -213,14 +213,15 @@ function UpdateMedicalRecordComponent(props) {
                                 <button className="btn btn-primary" type="button" onClick={handleUpdateMedical}>Save changes</button>
                             </form>
 
-                            <div className="row ">
-                                <div className=" col-md-4 ">
-                                    <img className="img-fluid Image" src="../assetsTemplates/images/files.png" alt="" style={{ width: "150px", height: "auto"}} />
+                            <div className="row d-flex justify-content-end ">
+                                <div className=" col-lg-4 col-md-4 col-4 " >
+                                    <img className="img-fluid Image" src="../assetsTemplates/images/files.png" alt="" style={{ width: "auto", height: "auto"}} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
 

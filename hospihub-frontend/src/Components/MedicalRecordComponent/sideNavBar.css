@@ -4,7 +4,7 @@
     top: 0;
     background: #4169d6;
     padding-top: 50px;
-    border-radius: 20px;
+    border-radius: 5px;
     margin-left: 10%;
     width:350px;
     height: 850px;
@@ -12,6 +12,7 @@
     transition-property: left;
     overflow-y: auto;
     position: sticky;
+   
 }
 .title{
     color: rgba(3, 7, 11, 0.607) !important;
@@ -20,7 +21,7 @@
 .profile_info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: center;
 }
 

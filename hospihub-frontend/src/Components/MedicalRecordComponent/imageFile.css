@@ -6,19 +6,18 @@
   .uploaded-files-list > div {
     display: flex;
     flex-direction: column;
- 
-    margin: 10px;
+    margin: 5px;
   }
   
   .uploaded-files-list img {
-    max-width: 60%;
+    max-width: 50%;
     height: auto;
     margin-bottom: 5px;
   }
 
   .uploaded-files-list button {
     background-color: #f44336;
-    max-width: 20%;
+    max-width:50% ;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -29,4 +28,5 @@
   
   .uploaded-files-list button:hover {
     background-color: #d32f2f;
+  
   }

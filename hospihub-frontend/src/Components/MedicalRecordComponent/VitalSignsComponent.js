@@ -59,7 +59,7 @@ function VitalSignsComponent() {
     }, [User]);
 
 
-    
+
 
 
 
@@ -143,70 +143,65 @@ function VitalSignsComponent() {
 
 
     return (
+        <div className=' container pt-5 pb-5 '>
+            <div className=" row  ">
+                <div className="col-lg-4">
+                    <SideNavBarComponent user={User}></SideNavBarComponent>
+                </div>
 
+                <div className=' mb-5 col-lg-8'>
+                    {/* Account details card*/}
+                    <div className="card cardMD  cardRes">
+                        <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
+                        <div className="card-body">
+                            <form>
+                                {/* Form Group (username)*/}
 
+                                <div className="row ">
+                                    <div className=' col-lg-12 d-flex flex-column'>
+                                        <div className="col-md-12">
+                                            <label className="small mb-1">Hereditary or Chronic Diseases</label>
+                                            <textarea className="form-control" id="inputdisease" type="text-area" placeholder="Enter your hereditary or chronic diseases " name='disease' value={disease} onChange={(e) => onValueChange(e)} />
+                                        </div>
+                                        <div className="col-md-12">
+                                            <label className="small mb-1">Allergies</label>
+                                            <textarea className="form-control" id="inputallergies" type="text" placeholder="Enter your allergies " name='allergies' value={allergies} onChange={(e) => onValueChange(e)} />
+                                        </div>
+                                        <div className="col-md-5 mt-3 ">
+                                            <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
+                                        </div>
 
-        <div className=" row gx-3 mt-5">
-            <div className="offset-xl-1 col-xl-3">
-                <SideNavBarComponent  user={User}></SideNavBarComponent>
-            </div>
+                                    </div>
 
-            <div className='d-flex flex-column mb-4 col-xl-6'>
-                {/* Account details card*/}
-                <div className="card cardMD  ">
-                    <div className="card-header "><i className="fas fa-heartbeat" /> Vital Signs </div>
-                    <div className="card-body">
-                        <form>
-                            {/* Form Group (username)*/}
+                                   
 
-                            <div className="row gx-3 mb-3">
-                                <div className="col-md-6">
-                                    <label className="small mb-1">Hereditary or Chronic Diseases</label>
-                                    <input className="form-control" id="inputdisease" type="text" placeholder="Enter your hereditary or chronic diseases " name='disease' value={disease} onChange={(e) => onValueChange(e)} />
                                 </div>
 
-                            </div>
-
-                            <div className="row gx-3 mb-3">
-                                <div className="col-md-6">
-                                    <label className="small mb-1">Allergies</label>
-                                    {/* <Select
-                                    closeMenuOnSelect={false}
-                                    components={animatedComponents}
-                                    isMulti
-                                    options={diseasetab}
-                                    value={disease}
-
-                                /> */}
-                                    <input className="form-control" id="inputallergies" type="text" placeholder="Enter your allergies " name='allergies' value={allergies} onChange={(e) => onValueChange(e)} />
-                                </div>
-                            </div>
-                            <div className="row gx-3 mb-3">
-
-                                <div className="col-md-6">
-                                    <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div >
 
 
 
-                <div className="card cardMD mt-5 ">
-                    <div className="card-header "><i className="fas fa-file" /> Upload medical document </div>
-                    <div className="card-body">
-                        <form>
-                            {/* Form Group (username)*/}
 
 
-                            <div className="row gx-3 mb-3">
-                                <label className=" mb-1">My document Medical</label>
 
-                                <div className="uploaded-files-list">
-                                   {/* affichager des files du medical record */}
-                                    {/* {files.map((file) => {
+                            </form>
+                        </div>
+                    </div >
+
+
+
+                    <div className="card cardMD cardRes mt-5">
+                        <div className="card-header "><i className="fas fa-file" /> Upload medical document </div>
+                        <div className="card-body">
+                            <form>
+                                {/* Form Group (username)*/}
+
+
+                                <div className="row gx-3 mb-3">
+                                    <label className=" mb-1">My document Medical</label>
+
+                                    <div className="uploaded-files-list">
+                                        {/* affichager des files du medical record */}
+                                        {/* {files.map((file) => {
                                         const imageUrl = `http://localhost:5000/uploads/${file.name}`;
                                         return (
                                             <div key={file.name}>
@@ -216,7 +211,7 @@ function VitalSignsComponent() {
                                             </div>
                                         );
                                     })} */}
-                                </div>
+                                    </div>
 
 
 
@@ -248,9 +243,10 @@ function VitalSignsComponent() {
                                     ))}
                                 </div>
 
-                        </form>
-                    </div>
-                </div >
+                            </form>
+                        </div>
+                    </div >
+                </div>
             </div>
         </div>
 

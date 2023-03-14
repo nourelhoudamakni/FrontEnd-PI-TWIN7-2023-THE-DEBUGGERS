@@ -27,7 +27,7 @@ function SideNavBarComponent(props) {
 
 
         {/*sidebar start*/}
-        <div className="sidebar">
+        <div className="sidebar  ">
           <div className="profile_info">
             <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="profile_image" alt="" />
             <h4 className="title">{props.user.userName}</h4>

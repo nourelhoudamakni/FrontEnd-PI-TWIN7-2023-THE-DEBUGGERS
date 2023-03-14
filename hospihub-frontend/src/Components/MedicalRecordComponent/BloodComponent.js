@@ -66,14 +66,15 @@ function BloodComponent() {
 
     return (
 
-        <div className='container px-4 mt-4'>
-            <div className="row">
-            <div className=" col-lg-4">
+        <div className='container  pt-5 pb-5'>
+            <div className=" row  ">
+                <div className="col-lg-4">
                 <SideNavBarComponent  user={User}></SideNavBarComponent>
             </div>
 
             {/* Account details card*/}
-            <div className="card cardMD mb-4 col-lg-7 col-md-7 ">
+            <div className='col-lg-8  mb-5'>
+                    <div className="card cardMD cardRes ">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
                     <form>
@@ -110,20 +111,21 @@ function BloodComponent() {
                             </div>
                         </div>
 
-                        <div className="row gx-3 mb-3">
+                        <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
+
+                     </form>
 
 
-                            <div className="col-md-6">
-                                <button className="btn btn-primary " type="button" onClick={handleUpdateMedical}>Save changes</button>
-                            </div>
-                            <div className="col-md-6">
-                                <img className="img-fluid" src="../assetsTemplates/images/human.png" alt="" />
-                            </div>
+                        <div className="row d-flex justify-content-end ">
+                                <div className=" col-lg-8 col-md-8 col-12 mt-5 " >
+                                    <img className="img-fluid Image" src="../assetsTemplates/images/human.png" alt="" style={{ width: "auto", height: "auto"}} />
+                                </div>
                         </div>
 
 
-                    </form>
+                
                 </div>
+            </div>
             </div>
             </div>
         </div>
