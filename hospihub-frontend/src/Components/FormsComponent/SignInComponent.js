@@ -13,9 +13,11 @@ function SignInComponent() {
   const [show, setShow] = useState(false);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
+  const [errorConfirmeMessage, setConfirmeErrorMessage] = useState(false);
+  const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
-  
+  const navigate = useNavigate();
 
   //passport Sign In 
   // const navigate = useNavigate();
@@ -53,13 +55,20 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
+       
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
+              console.log('here')
               if (response.data.secret) {
                 setShow(true);
                 if (secret == response.data.secret) {
                   localStorage.setItem("jwtToken", jwtToken);
+                  setTimeout(function() {
+                    console.log('La fonction anonyme a été exécutée !');
+                  }, 500);
+                  navigate('/');
+                  navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -67,6 +76,11 @@ function SignInComponent() {
               } else {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
+                setTimeout(function() {
+                  console.log('La fonction anonyme a été exécutée !');
+                }, 500);
+                navigate('/');
+                navigate(0)
               }
             });
         }
@@ -76,14 +90,36 @@ function SignInComponent() {
           setSecretErrorMessage(true);
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
+        }
+        if (error.response.data.errors.validated) {
+          setValideErrorMessage(true);
+          setConfirmeErrorMessage(false)
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
         }
         if (error.response.data.errors.email) {
           setEmailErrorMessage(true);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)          
+        }
+        if (error.response.data.errors.confirmed) {
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(true)          
         }
         if (error.response.data.errors.password) {
           setEmailErrorMessage(false);
           setPasswordErrorMessage(true);
           setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
         }
       });
   };
@@ -149,6 +185,34 @@ function SignInComponent() {
                         style={{ marginTop: "-11px", marginBottom: "-13px" }}
                       >
                         email is not used
+                      </div>
+                    </Alert>
+                  )}
+                  {errorConfirmeMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        Your account is not confirmed
+                      </div>
+                    </Alert>
+                  )}
+                  {errorValideMessage && (
+                    <Alert
+                      className="form-group"
+                      variant="danger"
+                      style={{ marginTop: "-13px" }}
+                    >
+                      <div
+                        className="form-icon-wrapper  text-danger"
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                      >
+                        Your account is not validated yet
                       </div>
                     </Alert>
                   )}

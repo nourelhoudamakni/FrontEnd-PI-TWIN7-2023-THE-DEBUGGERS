@@ -15,15 +15,17 @@ function SignUpComponent() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [role, setRole] = useState('');
+  // const [code, setCode] = useState('');
+  // const [phoneNotVerif, setphoneNotVerif] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
   const navigate = useNavigate();
   const [EmailerrorMessage, setEmailErrorMessage] = useState(false);
-  const [PasswordErrorMessage, setPasswordErrorMessage] = useState('');
-  const [PasswordErrorMessage1, setPasswordErrorMessage1] = useState('');
-  const [EmailerrorMessage1, setEmailErrorMessage1] = useState('');
-  const [UsernameErrorMessage, setUsernameErrorMessage] = useState('');
-  const [LastNameErrorMessage, setLastNameErrorMessage] = useState('');
+  const [PasswordErrorMessage, setPasswordErrorMessage] = useState(false);
+  const [PasswordErrorMessage1, setPasswordErrorMessage1] = useState(false);
+  const [EmailerrorMessage1, setEmailErrorMessage1] = useState(false);
+  const [UsernameErrorMessage, setUsernameErrorMessage] = useState(false);
+  const [LastNameErrorMessage, setLastNameErrorMessage] = useState(false);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,10 +42,10 @@ function SignUpComponent() {
       return;
     }
    
-    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
-      setPasswordErrorMessage1(true);
-      return;
-    }
+    // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
+    //   setPasswordErrorMessage1(true);
+    //   return;
+    // }
     
     if (password !== confirmPassword) {
       setPasswordErrorMessage(true);
@@ -63,7 +65,9 @@ function SignUpComponent() {
         dateOfBirth:dateOfBirth,
         role:role,
         confirmPassword:confirmPassword,
-        enableTwoFactorAuth:enableTwoFactorAuth
+        enableTwoFactorAuth:enableTwoFactorAuth,
+         code:"", 
+         phoneNotVerif:""
       }).then(
         (response)=>{
           console.log(response);
@@ -236,7 +240,7 @@ function SignUpComponent() {
   
                       </div>
                     </div>
-                    {PasswordErrorMessage1 && (
+                    {false && (
                     <Alert
                       className="form-group"
                       variant="danger"
@@ -297,7 +301,7 @@ function SignUpComponent() {
                     <div className="form-group">
                       <div className="custom-control custom-checkbox  ">
   
-                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.value)}/>
+                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.checked)}/>
                         <label className="custom-control-label px-5" htmlFor="customCheck1">Enable Two Factor Authentication</label>
                       </div>
                     </div>

@@ -14,19 +14,22 @@ import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalR
 import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
 import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
 import VitalSignsComponent from './Components/MedicalRecordComponent/VitalSignsComponent';
-import ErrorSignInPage from './Components/FormsComponent/ErrorSignInPage'
+import ErrorSignInPage from './Components/FormsComponent/ErrorSignInPage';
+import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 function App() {
   return (
     <>
     <NavbarComponent></NavbarComponent>
     <Routes>
-      <Route path='/home' element={<HomeComponent></HomeComponent>} ></Route>
+      <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
+      <Route path='/UpdateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
+
 
     
       <Route  path='/Medicalrecord' >
