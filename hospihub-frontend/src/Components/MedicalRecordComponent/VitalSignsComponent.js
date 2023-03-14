@@ -59,6 +59,9 @@ function VitalSignsComponent() {
     }, [User]);
 
 
+    
+
+
 
     const onValueChange = (e) => {
         setMedicalRecord({ ...MedicalRecord, [e.target.name]: e.target.value });

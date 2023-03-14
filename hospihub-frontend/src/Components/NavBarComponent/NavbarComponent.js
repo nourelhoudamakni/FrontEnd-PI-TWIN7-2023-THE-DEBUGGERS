@@ -1,6 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 function NavbarComponent() {
+const navigate=useNavigate()
+const [key, setKey] = useState(0);
+
+
+
+
+
+
+
     return ( 
         <>
             
@@ -56,7 +67,7 @@ function NavbarComponent() {
                   </div>
                   <a href="contact.html" className="nav-item nav-link">Contact</a>
                 </div>
-                <button className="btn btn-primary ">Sign Up</button>
+                <button className="btn btn-primary " onClick={handleClick}>Sign Up</button>
               </div>
             </nav>
      
