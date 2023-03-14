@@ -67,7 +67,7 @@ function SignInComponent() {
                   setTimeout(function() {
                     console.log('La fonction anonyme a été exécutée !');
                   }, 500);
-                  navigate('/home');
+                  navigate('/');
                   navigate(0)
                 } else {
                   setEmailErrorMessage(false);
@@ -79,7 +79,7 @@ function SignInComponent() {
                 setTimeout(function() {
                   console.log('La fonction anonyme a été exécutée !');
                 }, 500);
-                navigate('/home');
+                navigate('/');
                 navigate(0)
               }
             });
