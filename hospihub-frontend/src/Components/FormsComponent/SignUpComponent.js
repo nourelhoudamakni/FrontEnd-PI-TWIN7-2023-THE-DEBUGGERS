@@ -297,7 +297,7 @@ function SignUpComponent() {
                     <div className="form-group">
                       <div className="custom-control custom-checkbox  ">
   
-                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.value)}/>
+                        <input type="checkbox" className="custom-control-input" id="customCheck1"  checked={enableTwoFactorAuth} onChange={(e) => setEnableTwoFactorAuth(e.target.checked)}/>
                         <label className="custom-control-label px-5" htmlFor="customCheck1">Enable Two Factor Authentication</label>
                       </div>
                     </div>

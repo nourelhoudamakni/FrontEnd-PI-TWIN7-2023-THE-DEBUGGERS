@@ -7,7 +7,10 @@ import AppointmentComponent from "./AppointmentComponent";
 import ServiceComponent from "./ServiceComponent";
 import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
-
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -24,7 +27,18 @@ function HomeComponent() {
       // If JWT cookie exists, redirect to profile page
       console.log(jwt)
       localStorage.setItem("jwtToken", jwt);
-     
+      const decodedToken = jwt_decode(jwt);
+      axios
+        .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
+        .then(response => {
+          toast.success(`Welcome ${response.data.userName}`, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
     }
   }, []);
 
@@ -32,6 +46,7 @@ function HomeComponent() {
 
   return (
     <>
+        <ToastContainer />
       {/* carousel */}
      
       <div className="slider-detail">
