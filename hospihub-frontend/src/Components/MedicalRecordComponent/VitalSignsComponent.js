@@ -145,6 +145,16 @@ function VitalSignsComponent() {
 
     }
     
+    const handleDeleteFile = (fileName) => {
+        axios.delete(`http://localhost:5000/MedicalRecord/deleteMedicalDocument/${User.MedicalRecord}/${fileName}`)
+          .then((response) => {
+            console.log(response.data);
+            setFiles(files.filter((file) => file !== fileName));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
 
 
     return (
@@ -207,7 +217,7 @@ function VitalSignsComponent() {
 
 
                             <div className="row gx-3 mb-3">
-                                <label className=" mb-1">My document Medical</label>
+                                <label className=" mb-1">My medical documents </label>
 
                                 <div className="uploaded-files-list">
                                  
@@ -217,7 +227,7 @@ function VitalSignsComponent() {
                                             <div key={file.name}>
                                                 <img src={imageUrl} alt={file.name} onError={() => console.log(`Impossible de charger l'image: ${imageUrl}`)} />
                                                 <p>{file.name}</p>
-                                                <button>Supprimer</button>
+                                                <button onClick={() => handleDeleteFile(file) }>Supprimer</button>
                                             </div>
                                         );
                                     })}
