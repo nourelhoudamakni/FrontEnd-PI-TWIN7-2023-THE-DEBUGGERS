@@ -15,7 +15,7 @@ function UpdateMedicalRecordComponent(props) {
     const Place = ["Tunis", "Bizerte", "Nabeul", "Sfax"];
     const Country = ["Tunisia", "Algeria"];
     const civil = ["MARRIED", "SINGLE", "DIVORCED"];
-    const [X, setX] = useState(true)
+  
 
     const {
         email,
@@ -32,7 +32,7 @@ function UpdateMedicalRecordComponent(props) {
 
 
     useEffect(() => {
-        setX(false)
+       
         const token = localStorage.getItem('jwtToken');
 
         if (token) {
