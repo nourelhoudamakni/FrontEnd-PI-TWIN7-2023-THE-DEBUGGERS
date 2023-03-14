@@ -11,7 +11,7 @@ function NavbarComponent() {
   
   const [UserExist, setUserExist] = useState(false);
    const [UserName, setUserName] = useState('');
-  const [UserIsPatient, setUserIsPatient] = useState('false');
+  const [UserIsPatient, setUserIsPatient] = useState(false);
   const token = localStorage.getItem('jwtToken');
 
  const navigate = useNavigate();
@@ -26,8 +26,11 @@ function NavbarComponent() {
       axios
               .get(`http://localhost:5000/patient/getUserById/${id}`)
               .then((response) => {
-                 setUserName(response.data.userName)
-                 if(response.data.role=='patient'){ 
+                console.log(response.data.userName)
+                console.log()
+                 setUserName(response.data['userName'])
+                 console.log(response.data.role==="patient")
+                 if(response.data.role==="patient"){ 
                   setUserIsPatient(true);
                  }
                 })
@@ -187,14 +190,14 @@ function NavbarComponent() {
             }
           >
             <Dropdown.Item eventKey="1">
-             <button  onClick={handleReload}>User Profile</button> 
+             <button style={{border:"none"}} onClick={handleReload}>User Profile</button> 
             </Dropdown.Item>
            {UserIsPatient &&( <Dropdown.Item eventKey="1">
-             <button  onClick={toMedicalRecord}>Medical Record</button> 
+             <button style={{border:"none"}} onClick={toMedicalRecord}>Medical Record</button> 
             </Dropdown.Item>)}
            
             <Dropdown.Item eventKey="3">
-            <button  onClick={byyyyy}>LogOut</button>
+            <button style={{border:"none"}} onClick={byyyyy}>LogOut</button>
             </Dropdown.Item>
           </DropdownButton>)} 
         </div>

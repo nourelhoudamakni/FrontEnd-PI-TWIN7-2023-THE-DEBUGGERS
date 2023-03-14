@@ -57,6 +57,7 @@ function SignInComponent() {
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
+              console.log('here')
               if (response.data.secret) {
                 setShow(true);
                 if (secret == response.data.secret) {
@@ -65,7 +66,7 @@ function SignInComponent() {
                     console.log('La fonction anonyme a été exécutée !');
                   }, 500);
                   navigate('/home');
-                  //navigate(0)
+                  navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -73,9 +74,11 @@ function SignInComponent() {
               } else {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
+                setTimeout(function() {
+                  console.log('La fonction anonyme a été exécutée !');
+                }, 500);
                 navigate('/home');
                 navigate(0)
-            
               }
             });
         }
