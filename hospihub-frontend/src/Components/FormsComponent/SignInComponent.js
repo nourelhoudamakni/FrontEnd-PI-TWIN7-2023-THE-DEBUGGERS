@@ -133,14 +133,14 @@ function SignInComponent() {
   return (
     <div className="">
       <img
-        className="img-fluid"
-        src="../assetsTemplates/templateForm/images/img.jpg"
-        style={{ width: "100%", height: "100%" }}
-        alt=""
-      />
-      <div className="position-absolute top-50 start-50 translate-middle container">
-        <div className="card col-lg-5 offset-lg-7">
-          <div className="card-body">
+          className=" imgForm img-fluid d-none d-lg-block position-absolute "
+          src="../assetsTemplates/templateForm/images/img.jpg"
+          style={{ width: "100%", height: "100%" }}
+        />'
+       <div className="pb-5">
+          <div className=" container pt-lg-5 pb-lg-5 ">
+            <div className="  card col-12  col-lg-5  offset-lg-7 " >
+              <div className="card-body styleCard">
             <div className="row align-items-center">
               <div className="">
                 <div className="text-center my-5">
@@ -302,6 +302,7 @@ function SignInComponent() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
