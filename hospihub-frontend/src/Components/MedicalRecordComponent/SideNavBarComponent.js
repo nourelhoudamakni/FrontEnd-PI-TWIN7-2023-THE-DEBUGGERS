@@ -44,10 +44,10 @@ function SideNavBarComponent(props) {
 
 
           <div className="card cardMD col-lg-9 mx-5 mt-4">
-            <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
+            <div className="card-header "><i className="fas fa-plus" /><button className="btn btn-secondary">Make an appointment</button>  </div> 
           </div>
           <div className="card cardMD col-lg-9 mx-5 mt-4">
-            <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
+            <div className="card-header "><i className="fas fa-plus" /><button className="btn btn-secondary">Update your profile</button></div>
           </div>
         </div>
         

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,8 +61,13 @@ function SignInComponent() {
             .then((response) => {
               console.log('here')
               if (response.data.secret) {
-
+        
                 setShow(true);
+
+                toast.success('Check your email inbox for the secret code we just sent you', {
+                  position: toast.POSITION.TOP_RIGHT
+                });
+
                 if (secret === response.data.secret) {
                   console.log(show)
                 
@@ -133,14 +138,15 @@ function SignInComponent() {
   return (
     <div className="">
       <img
-        className="img-fluid"
-        src="../assetsTemplates/templateForm/images/img.jpg"
-        style={{ width: "100%", height: "100%" }}
-        alt=""
-      />
-      <div className="position-absolute top-50 start-50 translate-middle container">
-        <div className="card col-lg-5 offset-lg-7">
-          <div className="card-body">
+          className=" imgForm img-fluid d-none d-lg-block position-absolute "
+          src="../assetsTemplates/templateForm/images/img.jpg"
+          style={{ width: "100%", height: "100%" }}
+        />'
+        <ToastContainer />
+       <div className="pb-5">
+          <div className=" container pt-lg-5 pb-lg-5 ">
+            <div className="  card col-12  col-lg-5  offset-lg-7 " >
+              <div className="card-body styleCard">
             <div className="row align-items-center">
               <div className="">
                 <div className="text-center my-5">
@@ -302,6 +308,7 @@ function SignInComponent() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
