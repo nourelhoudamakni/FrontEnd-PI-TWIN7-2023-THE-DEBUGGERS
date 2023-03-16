@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import "./carousel.css"
 
 
 
@@ -32,7 +32,7 @@ function HomeComponent() {
         .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
         .then(response => {
           toast.success(`Welcome ${response.data.userName}`, {
-            position: toast.POSITION.TOP_RIGHT
+            position: toast.POSITION.BOTTOM_RIGHT
           });
         })
         .catch(error => {
@@ -61,7 +61,7 @@ function HomeComponent() {
             <div className="carousel-item ">
               <img className="imgcarousel img-fluid " src="assetsTemplates/template2/images/slider/image2.jpg" alt="First slide" />
               <div className="carousel-caption fvgb d-none d-md-block">
-                <h5 className="animated bounceInDown">Best Free Clinic Template</h5>
+                <h5 className="animated bounceInDown">Welcome to HospiHub !</h5>
                 <p className="animated bounceInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,  <br />
                   aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br />
                   sed sagittis at, sagittis quis neque. Praesent.</p>
@@ -73,7 +73,7 @@ function HomeComponent() {
             <div className="carousel-item active">
               <img className=" imgcarousel img-fluid" src="assetsTemplates/template2/images/slider/image5.jpg" alt="Third slide" />
               <div className="carousel-caption vdg-cur d-none d-md-block">
-                <h5 className="animated bounceInDown">Best Free Clinic Template</h5>
+                <h5 className="animated bounceInDown">Welcome to HospiHub !</h5>
                 <p className="animated bounceInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,  <br />
                   aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br />
                   sed sagittis at, sagittis quis neque. Praesent.</p>
@@ -99,7 +99,7 @@ function HomeComponent() {
  <ServiceComponent></ServiceComponent>
  
   {/* Testimonial Start */}
-      
+  <div className="testimonial-wrapper"> 
   <Slider
   dots={true}
   infinite={true}
@@ -161,6 +161,7 @@ function HomeComponent() {
     </div>
   </div>
 </Slider>
+</div>   
   {/* Testimonial End */}
 
 
