@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,8 +61,13 @@ function SignInComponent() {
             .then((response) => {
               console.log('here')
               if (response.data.secret) {
-
+        
                 setShow(true);
+
+                toast.success('Check your email inbox for the secret code we just sent you', {
+                  position: toast.POSITION.TOP_RIGHT
+                });
+
                 if (secret === response.data.secret) {
                   console.log(show)
                 
@@ -137,6 +142,7 @@ function SignInComponent() {
           src="../assetsTemplates/templateForm/images/img.jpg"
           style={{ width: "100%", height: "100%" }}
         />'
+        <ToastContainer />
        <div className="pb-5">
           <div className=" container pt-lg-5 pb-lg-5 ">
             <div className="  card col-12  col-lg-5  offset-lg-7 " >

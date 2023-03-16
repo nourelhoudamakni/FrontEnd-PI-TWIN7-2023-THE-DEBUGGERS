@@ -6,6 +6,8 @@ import axios from "axios";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie";
+import './navbar.css';
+import { FaUser, FaUserCircle, FaFileMedicalAlt, FaSignOutAlt } from 'react-icons/fa';
 
 function NavbarComponent() {
 
@@ -196,30 +198,37 @@ function NavbarComponent() {
           {!UserExist && (<button className="btn btn-primary " on onClick={goToSignIn} style={{ marginLeft: "10px",marginRight:"10px"}}>Sign In</button>
 
           )}
+{UserExist && (
+  <DropdownButton
+    eventKey={3}
+    title={
+      <span>
+        <FaUserCircle /> {UserName}
+      </span>
+    }
+  >
+    <Dropdown.Item eventKey="1">
+      <Link onClick={handleReload}>
+        <FaUser /> User Profile
+      </Link>
+    </Dropdown.Item>
+    {UserIsPatient && (
+      <Dropdown.Item eventKey="2">
+        <Link  onClick={toMedicalRecord}>
+          <FaFileMedicalAlt /> Medical Record
+        </Link>
+      </Dropdown.Item>
+    )}
+    <Dropdown.Item eventKey="3">
+      <Link  onClick={byyyyy}>
+        <FaSignOutAlt /> Log Out
+      </Link>
+    </Dropdown.Item>
+  </DropdownButton>
+)}
 
-          {UserExist && (<DropdownButton
 
-            eventKey={3}
-            title={
-              <span>
-                <i className="fa fa-user fa-fw"></i>{UserName}
-              </span>
-            }
-          >
-            <Dropdown.Item eventKey="1">
-              <button style={{ border: "none" }} onClick={handleReload}>User Profile</button>
-            </Dropdown.Item>
-            {UserIsPatient && (<Dropdown.Item eventKey="1">
-              <button style={{ border: "none" }} onClick={toMedicalRecord}>Medical Record</button>
-            </Dropdown.Item>)}
-
-            <Dropdown.Item eventKey="3">
-              <button style={{ border: "none" }} onClick={byyyyy}>LogOut</button>
-            </Dropdown.Item>
-          </DropdownButton>)}
-        </div>
-
-        
+        </div>      
       </nav>
 
 

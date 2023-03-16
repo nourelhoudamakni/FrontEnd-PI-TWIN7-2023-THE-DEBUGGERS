@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Alert from "react-bootstrap/Alert";
 
+
 function SignUpComponent() {
   const [userName, setUserName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -100,7 +101,7 @@ function SignUpComponent() {
         />'
         <div className=" pb-4">
           <div className=" container pt-lg-5 pb-lg-5 ">
-            <div className="  card col-12  col-lg-6  offset-lg-6 " >
+            <div className="  card col-12  col-lg-7  offset-lg-6 " >
               <div className="card-body styleCard">
                 <div className="row align-items-center">
                   <div className="">

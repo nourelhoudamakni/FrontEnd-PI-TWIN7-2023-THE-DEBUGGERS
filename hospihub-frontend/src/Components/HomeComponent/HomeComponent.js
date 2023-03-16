@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import "./carousel.css"
 
 
 
@@ -99,7 +99,7 @@ function HomeComponent() {
  <ServiceComponent></ServiceComponent>
  
   {/* Testimonial Start */}
-      
+  <div className="testimonial-wrapper"> 
   <Slider
   dots={true}
   infinite={true}
@@ -161,6 +161,7 @@ function HomeComponent() {
     </div>
   </div>
 </Slider>
+</div>   
   {/* Testimonial End */}
 
 
