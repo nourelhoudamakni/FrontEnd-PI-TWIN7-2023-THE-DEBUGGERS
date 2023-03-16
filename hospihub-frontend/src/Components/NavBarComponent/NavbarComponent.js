@@ -67,6 +67,11 @@ function NavbarComponent() {
     navigate(0)
   }
 
+  const goToSignIn = () => {
+    navigate('/SignIn')
+    navigate(0)
+  }
+
 
   return (
     <>
@@ -185,6 +190,10 @@ function NavbarComponent() {
             </NavLink>
           </div>
           {!UserExist && (<button className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
+
+          )}
+
+          {!UserExist && (<button className="btn btn-primary " on onClick={goToSignIn} style={{ marginLeft: "10px",marginRight:"10px"}}>Sign In</button>
 
           )}
 
