@@ -78,8 +78,11 @@ function SignInComponent() {
                   setTimeout(function() {
                     console.log('La fonction anonyme a été exécutée !');
                   }, 500);
-                  navigate('/');
-                  navigate(0)
+                  if(localStorage){
+                    navigate('/');
+                  }
+                 
+                  // navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -90,8 +93,10 @@ function SignInComponent() {
                 setTimeout(function() {
                   console.log('La fonction anonyme a été exécutée !');
                 }, 500);
-                navigate('/');
-                navigate(0)
+                if(localStorage){
+                  navigate('/');
+                }
+                // navigate(0)
               }
             });
         }
