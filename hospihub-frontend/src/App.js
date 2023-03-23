@@ -9,7 +9,6 @@ import SignUpComponent from './Components/FormsComponent/SignUpComponent';
 import ResetPasswordComponent from './Components/FormsComponent/ResetPassComponent';
 import ForgotPasswordComponent from './Components/FormsComponent/ForgetPassComponent';
 import EmailVerificationMessage from './Components/FormsComponent/EmailVerificationMessage';
-import SideNavBarComponent from './Components/MedicalRecordComponent/SideNavBarComponent';
 import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalRecordComponent';
 import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
 import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
@@ -22,9 +21,9 @@ function App() {
   return (
     <>
     <NavbarComponent></NavbarComponent>
+    
     <Routes>
       <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
-     
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>

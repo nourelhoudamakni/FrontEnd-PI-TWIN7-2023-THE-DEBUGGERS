@@ -14,12 +14,14 @@ function NavbarComponent() {
   const [UserExist, setUserExist] = useState(false);
   const [UserName, setUserName] = useState('');
   const [UserIsPatient, setUserIsPatient] = useState(false);
+  const [test, setTest] = useState(false);
   const token = localStorage.getItem('jwtToken');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-
+  
+    console.log('navbar')
     if (token) {
       // navigate(0)
       setUserExist(true);
@@ -77,6 +79,8 @@ function NavbarComponent() {
 
   return (
     <>
+    {test &&(<p>test</p>)}
+    
       <div
         className="container-fluid bg-light p-0 wow fadeIn"
         data-wow-delay="0.1s"
