@@ -17,10 +17,16 @@ function SignInComponent() {
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
   const navigate = useNavigate();
 
   //passport Sign In 
   // const navigate = useNavigate();
+  if (showAlert) {
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+  }
 
   useEffect(() => {
     const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
@@ -64,9 +70,9 @@ function SignInComponent() {
         
                 setShow(true);
 
-                toast.success('Check your email inbox for the secret code we just sent you', {
-                  position: toast.POSITION.TOP_RIGHT
-                });
+                // toast.success('Check your email inbox for the secret code we just sent you', {
+                //   position: toast.POSITION.TOP_RIGHT
+                // });
 
                 if (secret === response.data.secret) {
                   console.log(show)
@@ -277,6 +283,7 @@ function SignInComponent() {
                       </div>
                     </div>
                   )}
+
                   {errorSecretMessage && (
                     <Alert
                       className="form-group"
