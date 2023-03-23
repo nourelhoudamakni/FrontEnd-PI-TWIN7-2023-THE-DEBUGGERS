@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { Alert } from 'react-bootstrap';
 
 function BloodComponent() {
+   
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({});
     const [ConfirmeMessage,setConfirmeMessage]=useState(false);
@@ -16,13 +17,13 @@ function BloodComponent() {
         weight,
         size
        }=MedicalRecord 
-
+       const token = localStorage.getItem('jwtToken');
+      
+       const decodedToken = jwt_decode(token);
+     //   setIdUser(decodedToken.id);
+       console.log(decodedToken.id)
     useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-          const decodedToken = jwt_decode(token);
-        //   setIdUser(decodedToken.id);
-          console.log(decodedToken.id)
+      
             axios.get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
               .then(response => {
                
@@ -33,7 +34,7 @@ function BloodComponent() {
                 console.error(error);
               });
           
-        }
+       
       }, []);
 
       useEffect(() => {

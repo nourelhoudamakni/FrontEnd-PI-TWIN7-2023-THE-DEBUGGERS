@@ -5,20 +5,26 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Alert from "react-bootstrap/Alert";
 import { Button, Modal } from "react-bootstrap";
-
+import FlagSelect from "react-flags-select";
+import { getCountryCallingCode } from "react-phone-number-input";
 function UpdateProfile() {
   const [User, setUser] = useState({});
   const [opt, setopt] = useState({});
   const [incorrectCode, setincorrectCode] = useState(false);
   const [greatCode, setgrearCode] = useState(false);
+  const [showTime, setShowTime] = useState(true);
   const [MedicalRecord, setMedicalRecord] = useState({});
   const [UsernameErrorMessage, setUsernameErrorMessage] = useState("");
   const [LastNameErrorMessage, setLastNameErrorMessage] = useState("");
   const [PhoneNumberErrorMessage, setPhoneNumberErrorMessage] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [disableResendButton, setResendButton] = useState(true);
+  const [phoneCode, setPhoneCode] = useState("");
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [intervalId, setIntervalId] = useState(null);
+  const [time, setTime] = useState(30);
   //onBlur={() =>setPhoneNumberErrorMessage(!/^\d{8}$/.test(User.phoneNumber)) } required
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
@@ -74,7 +80,7 @@ function UpdateProfile() {
     //   setPhoneNumberErrorMessage(true);
     //   return;
     // }
-    
+
     const token = localStorage.getItem("jwtToken");
     if (token) {
       const decodedToken = jwt_decode(token);
@@ -104,42 +110,64 @@ function UpdateProfile() {
   const handleVerifMobile = () => {
     const token = localStorage.getItem("jwtToken");
     const decodedToken = jwt_decode(token);
-    const id =decodedToken.id;
-  
-    
-    axios
-    .post(
-      `http://localhost:5000/patient/verifSms/${id}`,{codeEnter:opt})
-      .then((response) => {setgrearCode(true); setincorrectCode(false);}) 
-      
-      .catch((error) => {
-        if (error.response.data['error']) {
-            setincorrectCode(true);
-            setgrearCode(false)
-            setTimeout(() => {
-              setincorrectCode(false);
-              setgrearCode(false)
-            }, 3000); // 3 seconds
-          }
-    })
-    ;
-    
+    const id = decodedToken.id;
 
+    axios
+      .post(`http://localhost:5000/patient/verifSms/${id}`, { codeEnter: opt })
+      .then((response) => {
+        setgrearCode(true);
+        setincorrectCode(false);
+      })
+
+      .catch((error) => {
+        if (error.response.data["error"]) {
+          setincorrectCode(true);
+          setgrearCode(false);
+          setTimeout(() => {
+            setincorrectCode(false);
+            setgrearCode(false);
+          }, 3000); // 3 seconds
+        }
+      });
   };
-  const handleSentCode=()=>{
+  const handleSentCode = () => {
+    setShowTime(true) 
+    setResendButton(true)
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    const newIntervalId = setInterval(() => {
+      setTime((prevTime) => {
+        const updatedTime = prevTime - 1;
+        if (updatedTime === 0) {
+          clearInterval(newIntervalId);
+          setTime(30)
+          setShowTime(false)
+          setResendButton(false)
+          
+        }
+        return updatedTime;
+      });
+    },1000);
+    setIntervalId(newIntervalId);
     const token = localStorage.getItem("jwtToken");
     const decodedToken = jwt_decode(token);
-    const id =decodedToken.id;
-    console.log(User.phoneNumber)
-    const phone=User.phoneNumber
-    axios
-    .post(
-      `http://localhost:5000/patient/sendSms/${id}`,{phone:phone}
-      
-    )
-    ;
-    
-  }
+    const id = decodedToken.id;
+    const phone =phoneCode+User.phoneNumber;
+    axios.post(`http://localhost:5000/patient/sendSms/${id}`, { phone: phone });
+  };
+  const handleSelectedCountry = (countryCode) => {
+    const callingCode = getCountryCallingCode(countryCode);
+    setPhoneCode(callingCode);
+    setSelectedCountry(countryCode + "(" + "+" + callingCode + ")");
+  };
+  useEffect(() => {
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [intervalId]);
 
   return (
     <>
@@ -258,7 +286,7 @@ function UpdateProfile() {
                     Date of birth
                   </label>
                   <input
-                  style={{width:"140px"}}
+                    style={{ width: "140px" }}
                     className="form-control"
                     id="inputDateofbirth"
                     type="date"
@@ -290,40 +318,51 @@ function UpdateProfile() {
               {/* Form Row*/}
               <div className="row gx-3 mb-3">
                 {/* Form Group (phone number)*/}
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <label className="small mb-1" htmlFor="inputPhone">
                     Phone number
                   </label>
-                  <input
-                  style={{width:"180px"}}
-                    className="form-control"
-                    id="inputPhone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    name="phoneNumber"
-                    value={User.phoneNumber}
-                    onChange={(e) => onValueChange(e)}
-                    onBlur={() =>
-                      setPhoneNumberErrorMessage(
-                        !/^\d{8}$/.test(User.phoneNumber)
-                      )
-                    }
-                    required
-                  />
-                  <button
-                    className="btn btn-secondary mt-2"
-                    type="button"
-                    style={{ width: "180px" }}
-                    onClick={() => {
-                      handleShow();
-                      handleSentCode();
-                    }}
-                  >
-                    Verif your Number !
-                  </button>
+                  <div className="d-flex">
+                    <FlagSelect 
+                    
+                      onSelect={handleSelectedCountry}
+                      placeholder={
+                        selectedCountry ? selectedCountry : "Select a country"
+                      }
+                    />
+                    <input
+                      style={{ width:"156px",fontSize:"16px",height:"45px"}}
+                      className="form-control ms-2"
+                      id="inputPhone"
+                      type="tel"
+                      placeholder="your phone Number"
+                      name="phoneNumber"
+                      value={User.phoneNumber}
+                      onChange={(e) => onValueChange(e)}
+                      onBlur={() =>
+                        setPhoneNumberErrorMessage(
+                          !/^\d{8}$/.test(User.phoneNumber)
+                        )
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between mt-2">
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      style={{ width: "100%" }}
+                      onClick={() => {
+                        handleShow();
+                        handleSentCode();
+                      }}
+                    >
+                     Send code via SMS
+                    </button>
+                    <span style={{ width: "50%" }}></span>
+                  </div>
                 </div>
               </div>
-              
 
               {/* Save changes button*/}
               <button
@@ -337,68 +376,92 @@ function UpdateProfile() {
             </form>
 
             <>
-            {(show &&   <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Verify Phone</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <img
-                    className="img-fluid "
-                    style={{ width: "100px" }}
-                    src="assetsTemplates/images/mobile.jpg"
-                    alt="First slide"
-                  />
-                  code is sent to your phone number !
-                  <input
-                    className="form-control mt-3 "
-                    id="inputPhone"
-                    type="text"
-                    placeholder="Enter the opt here"
-                    name="opt"
-                    onChange={(e) => setopt(e.target.value)}
-                  />
-                    <br></br>
-                  {greatCode && (
-                <Alert
-                  className="form-group"
-                  variant="success"
-                  style={{ marginTop: "-13px" }}
-                >
-                  <div
-                    className="form-icon-wrapper  text-success"
-                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                  >
-                   Phone Number Updated !
+              {show && (
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Verify Phone</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                  <Alert
+                        className="form-group"
+                        variant="success"
+                       
+                      >
+                        <div
+                          className="form-icon-wrapper  "
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          code is sent to your phone number ! 
+                        </div>
+                      </Alert>
+                    <img
                    
-                  </div>
-                </Alert>)}
-                <br></br>
-                {incorrectCode && (
-                <Alert
-                  className="form-group"
-                  variant="danger"
-                  style={{ marginTop: "-13px" }}
-                >
-                  <div
-                    className="form-icon-wrapper  text-danger "
-                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                  >
-                   Incorrect code !
-                 
-                  </div>
-                </Alert>)}
-                
-
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleVerifMobile}>
-                    verif
-                  </Button>
-                </Modal.Footer>
-              </Modal>)} 
+                      className="img-fluid  "
+                      style={{ width: "140px",marginLeft:"150px" }}
+                      src="assetsTemplates/images/mobile.jpg"
+                      alt="First slide"
+                    />
+                    
+                    <input
+                      className="form-control mt-3 "
+                      id="inputPhone"
+                      type="text"
+                      placeholder="Enter the opt here"
+                      name="opt"
+                      onChange={(e) => setopt(e.target.value)}
+                    />
+                    <br></br>
+                    {greatCode && (
+                      <Alert
+                        className="form-group"
+                        variant="success"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-success"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Phone Number Updated !
+                        </div>
+                      </Alert>
+                    )}
+                    <br></br>
+                    {incorrectCode && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger "
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Incorrect code !
+                        </div>
+                      </Alert>
+                    )}
+                   
+                    {showTime && (<>Resend after  {time} </> )} 
+                    <Button variant="primary" 
+                    disabled={disableResendButton} 
+                    onClick={() => {
+                      handleSentCode();
+                    }}
+                    >
+                      Resend
+                    </Button>
+                  </Modal.Body>
+                  <Modal.Footer>
+                   
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleVerifMobile}>
+                      verif
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              )}
             </>
           </div>
         </div>
