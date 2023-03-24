@@ -17,6 +17,7 @@ import ErrorSignInPage from './Components/FormsComponent/ErrorSignInPage';
 import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
+import UpdatePassword from './Components/HomeComponent/updatePassword';
 function App() {
   return (
     <>
@@ -30,12 +31,14 @@ function App() {
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
-      <Route path='/UpdateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<></>}></Route>
 
-
+      <Route path='/UpdateProfile'>
+        <Route path='publicProfile'  element={<UpdateProfile></UpdateProfile>} ></Route>
+        <Route path='UpdatePassword' element={<UpdatePassword></UpdatePassword>} ></Route>
+      </Route>
     
       <Route  path='/Medicalrecord' >
           <Route index  element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
