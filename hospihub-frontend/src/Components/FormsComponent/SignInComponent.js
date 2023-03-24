@@ -18,20 +18,11 @@ function SignInComponent() {
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
-<<<<<<< Updated upstream
-  const [showAlert, setShowAlert] = useState(true);
-=======
 
->>>>>>> Stashed changes
   const navigate = useNavigate();
 
   //passport Sign In 
   // const navigate = useNavigate();
-  if (showAlert) {
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
-  }
 
   
   if (showAlert && show) {
@@ -299,8 +290,6 @@ function SignInComponent() {
                     </div>                   
                   )}
 
-<<<<<<< Updated upstream
-=======
                 {show && showAlert && (
                     <Alert
                     className="form-group"
@@ -316,7 +305,6 @@ function SignInComponent() {
                   </Alert>                
                   )}
 
->>>>>>> Stashed changes
                   {errorSecretMessage && (
                     <Alert
                       className="form-group"
