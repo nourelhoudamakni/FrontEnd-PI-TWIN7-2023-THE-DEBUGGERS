@@ -30,6 +30,11 @@ function SignUpComponent() {
   const [usernameErrorMessage, setUsernameErrorMessage] = useState(false);
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState(false);
 
+  const [password1, setPassword1] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName)) {
@@ -248,8 +253,12 @@ function SignUpComponent() {
                       </div>
                       <div className="form-group">
                         <div className="form-icon-wrapper">
-                          <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
-                          <i className="form-icon-left mdi mdi-lock" />
+                          <input type={showPassword ? 'text' : 'password'}
+                           className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
+                          <i
+          className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
+          onClick={toggleShowPassword}
+        />
 
                         </div>
                       </div>
