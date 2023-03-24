@@ -1,16 +1,15 @@
 import { NavLink } from "react-router-dom";
-import './sideNavBar.css';
+import './sideNavBar.css'
 
 function SideNavBarComponent(props) {
   return (
     <>
-      <div>
-
+     <div>
         {/*mobile navigation bar start*/}
         <div className="mobile_nav">
-          <div className="nav_bar">
-            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="mobile_profile_image" alt="" />
-            <i className="fa fa-bars nav_btn" />
+          <div className="nav_barr">
+            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="mobile_profile_imagee" alt="" />
+            <i className="fa fa-bars nav_btnn" />
           </div>
           <div className="mobile_nav_items">
 
@@ -27,11 +26,11 @@ function SideNavBarComponent(props) {
 
 
         {/*sidebar start*/}
-        <div className="sidebar  ">
-          <div className="profile_info">
-            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="profile_image" alt="" />
-            <h4 className="title">{props.user.userName}</h4>
-            <h4 className="title">{`Welcome Back ${props.user.userName} !`}</h4>
+        <div className="sidebarr">
+          <div className="profile_infoo">
+            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="profile_imagee" alt="" />
+            <h4 className="titlee">{props.user.userName}</h4>
+            <h4 className="titlee">{`Welcome Back ${props.user.userName} !`}</h4>
           </div>
 
           <NavLink to="/Medicalrecord/Summary" className="nav-item nav-link "><i className="fas fa-user" /><span>Summary Of the medical record</span></NavLink>
@@ -43,10 +42,10 @@ function SideNavBarComponent(props) {
 
 
 
-          <div className="card cardMD col-lg-9 mx-5 mt-4">
+          <div className="cardd cardMD col-lg-9 mx-5 mt-4">
             <div className="card-header "><i className="fas fa-plus" /><button className="btn btn-secondary">Make an appointment</button>  </div> 
           </div>
-          <div className="card cardMD col-lg-9 mx-5 mt-4">
+          <div className="cardd cardMD col-lg-9 mx-5 mt-4 mb-5">
             <div className="card-header "><i className="fas fa-plus" /><button className="btn btn-secondary">Update your profile</button></div>
           </div>
         </div>

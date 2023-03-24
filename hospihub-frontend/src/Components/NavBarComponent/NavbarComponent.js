@@ -44,7 +44,7 @@ function NavbarComponent() {
     }
   }, []);
   const handleReload = () => {
-    navigate('/UpdateProfile');
+    navigate('/UpdateProfile/publicProfile');
     navigate(0)
   }
   const toMedicalRecord = () => {
