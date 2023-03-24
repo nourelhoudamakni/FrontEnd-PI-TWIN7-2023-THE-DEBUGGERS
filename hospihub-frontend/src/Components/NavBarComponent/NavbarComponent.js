@@ -213,7 +213,7 @@ function NavbarComponent() {
   >
     <Dropdown.Item eventKey="1">
       <Link onClick={handleReload}>
-        <FaUser /> User Profile
+      <FaUser /> {UserIsPatient ? 'Patient Profile' : 'Doctor Profile'}
       </Link>
     </Dropdown.Item>
     {UserIsPatient && (
