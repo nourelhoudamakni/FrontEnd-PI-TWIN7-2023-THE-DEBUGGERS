@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 
 function EmailVerificationMessage () {
     return (
+      
      <div className="">
+      
       <img
                 className="img-fluid"
                 src="../assetsTemplates/templateForm/images/image.jpg"

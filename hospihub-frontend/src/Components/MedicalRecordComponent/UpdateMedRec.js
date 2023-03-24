@@ -42,7 +42,6 @@ function UpdateMedicalRecordComponent(props) {
             console.log(decodedToken.id)
             axios.get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
                 .then(response => {
-
                     setUser(response.data);
                     console.log(response.data);
                     console.log(User);
