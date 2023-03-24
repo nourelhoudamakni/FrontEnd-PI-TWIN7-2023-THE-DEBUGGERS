@@ -1,5 +1,5 @@
 
-.sidebar {
+.sidebarr {
  
     top: 0;
     background: #4169d6;
@@ -7,38 +7,37 @@
     border-radius: 5px;
     margin-left: 10%;
     width:350px;
-    height: 850px;
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;
     position: sticky;
    
 }
-.title{
+.titlee{
     color: rgba(3, 7, 11, 0.607) !important;
 }
 
-.profile_info {
+.profile_infoo {
     display: flex;
     flex-direction: column;
 
     align-items: center;
 }
 
-.sidebar .profile_info .profile_image {
+.sidebarr .profile_infoo .profile_imagee {
     width: 100px;
     height: 100px;
     border-radius: 100px;
     margin-bottom: 10px;
 }
 
-.sidebar .profile_info h4 {
+.sidebarr .profile_infoo h4 {
     color: #ccc;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.sidebar a {
+.sidebarr a {
     color: #fff;
     display: block;
     width: 100%;
@@ -53,12 +52,12 @@
    
 }
 
-.sidebar a:hover {
+.sidebarr a:hover {
     background: #19B3D3;
     color: #fff;
 }
 
-.sidebar i {
+.sidebarr i {
     padding-right: 10px;
     font-size: 20px;
 }
@@ -109,7 +108,7 @@ label #sidebar_btn:hover {
     margin-left: 60px;
 }
 
-#check:checked~.sidebar .profile_info {
+#check:checked~.sidebar .profile_infoo {
     display: none;
 }
 
@@ -121,7 +120,7 @@ label #sidebar_btn:hover {
     display: none;
 }
 
-.content .card p {
+.content .cardd p {
     background: #fff;
     padding: 15px;
     margin-bottom: 10px;
@@ -156,7 +155,7 @@ label #sidebar_btn:hover {
         width: calc(100% - 0%);
     }
 
-    .nav_bar {
+    .nav_barr {
         background: #4169d6;
         width: (100% - 0px);
         margin-top: 70px;
@@ -166,13 +165,13 @@ label #sidebar_btn:hover {
         padding: 10px 20px;
     }
 
-    .nav_bar .mobile_profile_image {
+    .nav_barr .mobile_profile_imagee {
         width: 50px;
         height: 50px;
         border-radius: 50%;
     }
 
-    .nav_bar .nav_btn {
+    .nav_barr .n {
         color: #fff;
         font-size: 22px;
         cursor: pointer;
@@ -180,7 +179,7 @@ label #sidebar_btn:hover {
         transition-property: color;
     }
 
-    .nav_bar .nav_btn:hover {
+    .nav_barr .nav_btnn:hover {
         color: #19B3D3;
     }
 
@@ -201,11 +200,11 @@ label #sidebar_btn:hover {
      
     }
 
-    .mobile_nav_items a:hover {
+    .mobile_nav_itemss a:hover {
         background: #19B3D3;
     }
 
-    .mobile_nav_items i {
+    .mobile_nav_itemss i {
         padding-right: 10px;
     }
 

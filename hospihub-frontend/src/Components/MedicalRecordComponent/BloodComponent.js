@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { Alert } from 'react-bootstrap';
 
 function BloodComponent() {
+   
     const [User, setUser] = useState({});
     const [MedicalRecord, setMedicalRecord] = useState({});
     const [ConfirmeMessage,setConfirmeMessage]=useState(false);
@@ -16,13 +17,13 @@ function BloodComponent() {
         weight,
         size
        }=MedicalRecord 
-
+       const token = localStorage.getItem('jwtToken');
+      
+       const decodedToken = jwt_decode(token);
+     //   setIdUser(decodedToken.id);
+       console.log(decodedToken.id)
     useEffect(() => {
-        const token = localStorage.getItem('jwtToken');
-        if (token) {
-          const decodedToken = jwt_decode(token);
-        //   setIdUser(decodedToken.id);
-          console.log(decodedToken.id)
+      
             axios.get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
               .then(response => {
                
@@ -33,7 +34,7 @@ function BloodComponent() {
                 console.error(error);
               });
           
-        }
+       
       }, []);
 
       useEffect(() => {
@@ -121,11 +122,11 @@ function BloodComponent() {
 
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="inputOrgName">weight</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.."  value={weight} name='weight' onChange={(e) => onValueChange(e)} />
+                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.." min="0" max="500"  value={weight} name='weight' onChange={(e) => onValueChange(e)} />
                             </div>
                             <div className="col-md-6">
-                                <label className="small mb-1" htmlFor="inputOrgName">size</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your size" value={size} name='size' onChange={(e) => onValueChange(e)} />
+                                <label className="small mb-1" htmlFor="inputOrgName">size(cm)</label>
+                                <input className="form-control" id="inputOrgName" type="number" min="0" max="300"  placeholder="Enter your size" value={size} name='size' onChange={(e) => onValueChange(e)} />
                             </div>
                         </div>
 

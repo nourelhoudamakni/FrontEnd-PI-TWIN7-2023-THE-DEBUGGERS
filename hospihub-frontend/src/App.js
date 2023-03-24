@@ -9,7 +9,6 @@ import SignUpComponent from './Components/FormsComponent/SignUpComponent';
 import ResetPasswordComponent from './Components/FormsComponent/ResetPassComponent';
 import ForgotPasswordComponent from './Components/FormsComponent/ForgetPassComponent';
 import EmailVerificationMessage from './Components/FormsComponent/EmailVerificationMessage';
-import SideNavBarComponent from './Components/MedicalRecordComponent/SideNavBarComponent';
 import MedicalRecordComponent from './Components/MedicalRecordComponent/MedicalRecordComponent';
 import UpdateMedicalRecordComponent from './Components/MedicalRecordComponent/UpdateMedRec';
 import BloodComponent from './Components/MedicalRecordComponent/BloodComponent';
@@ -18,25 +17,28 @@ import ErrorSignInPage from './Components/FormsComponent/ErrorSignInPage';
 import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
+import UpdatePassword from './Components/HomeComponent/updatePassword';
 function App() {
   return (
     <>
     <NavbarComponent></NavbarComponent>
+    
     <Routes>
       <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
-     
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
       <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
-      <Route path='/UpdateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<></>}></Route>
 
-
+      <Route path='/UpdateProfile'>
+        <Route path='publicProfile'  element={<UpdateProfile></UpdateProfile>} ></Route>
+        <Route path='UpdatePassword' element={<UpdatePassword></UpdatePassword>} ></Route>
+      </Route>
     
       <Route  path='/Medicalrecord' >
           <Route index  element={<MedicalRecordComponent></MedicalRecordComponent>} ></Route>
