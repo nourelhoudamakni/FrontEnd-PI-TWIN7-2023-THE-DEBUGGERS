@@ -14,12 +14,14 @@ function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
   const [errorConfirmeMessage, setConfirmeErrorMessage] = useState(false);
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
+
   const navigate = useNavigate();
 
 
@@ -31,7 +33,15 @@ function SignInComponent() {
   //passport Sign In 
   // const navigate = useNavigate();
 
+  
+  if (showAlert && show) {
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+  }
+
   useEffect(() => {
+
     const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
        console.log(jwtCookie)
 
@@ -73,9 +83,9 @@ function SignInComponent() {
         
                 setShow(true);
 
-                toast.success('Check your email inbox for the secret code we just sent you', {
-                  position: toast.POSITION.TOP_RIGHT
-                });
+                // toast.success('Check your email inbox for the secret code we just sent you', {
+                //   position: toast.POSITION.TOP_RIGHT
+                // });
 
                 if (secret === response.data.secret) {
                   console.log(show)
@@ -291,8 +301,24 @@ function SignInComponent() {
                         />
                         <i className="form-icon-left mdi mdi-lock" />
                       </div>
-                    </div>
+                    </div>                   
                   )}
+
+                {show && showAlert && (
+                    <Alert
+                    className="form-group"
+                    variant="success"
+                    style={{ marginTop: "-13px" }}
+                  >
+                    <div
+                      className="form-icon-wrapper  text-success"
+                      style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                    >
+                      Check your email inbox for the secret code we just sent you
+                    </div>
+                  </Alert>                
+                  )}
+
                   {errorSecretMessage && (
                     <Alert
                       className="form-group"
