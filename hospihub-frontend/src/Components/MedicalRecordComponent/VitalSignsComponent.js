@@ -7,6 +7,7 @@ import Select from 'react-select';
 import './imageFile.css';
 import { Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import React from 'react';
 
 
 function VitalSignsComponent() {
@@ -18,11 +19,11 @@ function VitalSignsComponent() {
     const [fileLimit, setFileLimit] = useState(false);
     const baseUrl = "http://localhost:5000/uploads/";
     const [ConfirmeMessage, setConfirmeMessage] = useState(false);
+    
     const navigate=useNavigate()
 
     const diseaseList=["Cystic Fibrosis", "Huntington's Disease", "Sickle Cell Anemia", "Hemophilia", "Type 1 Diabetes", "Muscular Dystrophy", "Multiple Sclerosis", "Alzheimer's Disease", "Parkinson's Disease", "Rheumatoid Arthritis", "Inherited cardiomyopathies", "Celiac disease", "Epilepsy", "Polycystic kidney disease", "Hemochromatosis", "Wilson's disease", "Alpha-1 antitrypsin deficiency", "Hereditary angioedema", "Ehlers-Danlos syndrome", "Primary immunodeficiency diseases", "Fragile X Syndrome", "Down Syndrome", "Turner Syndrome", "Klinefelter Syndrome", "Sickle Cell Trait", "Thalassemia", "Hereditary Hemorrhagic Telangiectasia", "Marfan Syndrome", "Familial Hypercholesterolemia", "Huntington's Disease-like 2", "Cystinosis", "Gaucher Disease", "Niemann-Pick Disease", "Fabry Disease", "Mucopolysaccharidoses", "Albinism", "Hereditary Breast and Ovarian Cancer Syndrome", "Lynch Syndrome", "Hereditary Nonpolyposis Colorectal Cancer", "Fanconi Anemia", "Xeroderma Pigmentosum", "Friedreich Ataxia", "Batten Disease"];
     const allergiesList=["Peanut allergy", "Tree nut allergy", "Shellfish allergy", "Fish allergy", "Milk allergy", "Egg allergy", "Soy allergy", "Wheat allergy", "Corn allergy", "Latex allergy", "Sesame allergy", "Mustard allergy", "Sulfite allergy", "Sunflower seed allergy", "Kiwi fruit allergy", "Banana allergy", "Avocado allergy", "Meat allergy", "Medication allergy", "Insect sting allergy", "Pollens allergy", "Mold allergy", "Dust allergy", "Pet dander allergy", "Cockroach allergy", "Sun allergy", "Water allergy", "Cold allergy", "Exercise-induced allergy", "Nickel allergy", "Chemical allergy", "Perfume allergy", "Cosmetics allergy", "Inhalant allergy", "Food dye allergy", "Artificial preservatives allergy", "Artificial sweeteners allergy", "Grass allergy", "Hay fever allergy", "Fruit allergy", "Vegetable allergy", "Ragweed allergy", "Pollen food syndrome", "Topical allergy", "Contact dermatitis allergy", "Metal allergy", "Cigarette smoke allergy"];
-
 
 
 

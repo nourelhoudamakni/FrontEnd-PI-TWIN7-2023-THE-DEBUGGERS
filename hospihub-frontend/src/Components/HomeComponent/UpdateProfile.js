@@ -131,7 +131,7 @@ function UpdateProfile() {
       });
   };
   const handleSentCode = () => {
-    setShowTime(true) 
+    setShowTime(true)
     setResendButton(true)
     if (intervalId) {
       clearInterval(intervalId);
@@ -144,16 +144,16 @@ function UpdateProfile() {
           setTime(30)
           setShowTime(false)
           setResendButton(false)
-          
+
         }
         return updatedTime;
       });
-    },1000);
+    }, 1000);
     setIntervalId(newIntervalId);
     const token = localStorage.getItem("jwtToken");
     const decodedToken = jwt_decode(token);
     const id = decodedToken.id;
-    const phone =phoneCode+User.phoneNumber;
+    const phone = phoneCode + User.phoneNumber;
     axios.post(`http://localhost:5000/patient/sendSms/${id}`, { phone: phone });
   };
   const handleSelectedCountry = (countryCode) => {
@@ -236,7 +236,7 @@ function UpdateProfile() {
                     onBlur={() =>
                       setLastNameErrorMessage(
                         !/^[a-zA-Z\s]+$/.test(User.firstName) ||
-                          !/^[a-zA-Z\s]+$/.test(User.lastName)
+                        !/^[a-zA-Z\s]+$/.test(User.lastName)
                       )
                     }
                     required
@@ -258,7 +258,7 @@ function UpdateProfile() {
                     onBlur={() =>
                       setLastNameErrorMessage(
                         !/^[a-zA-Z\s]+$/.test(User.firstName) ||
-                          !/^[a-zA-Z\s]+$/.test(User.lastName)
+                        !/^[a-zA-Z\s]+$/.test(User.lastName)
                       )
                     }
                     required
@@ -323,15 +323,15 @@ function UpdateProfile() {
                     Phone number
                   </label>
                   <div className="d-flex">
-                    <FlagSelect 
-                    
+                    <FlagSelect
+
                       onSelect={handleSelectedCountry}
                       placeholder={
                         selectedCountry ? selectedCountry : "Select a country"
                       }
                     />
                     <input
-                      style={{ width:"156px",fontSize:"16px",height:"45px"}}
+                      style={{ width: "156px", fontSize: "16px", height: "45px" }}
                       className="form-control ms-2"
                       id="inputPhone"
                       type="tel"
@@ -357,7 +357,7 @@ function UpdateProfile() {
                         handleSentCode();
                       }}
                     >
-                     Send code via SMS
+                      Send code via SMS
                     </button>
                     <span style={{ width: "50%" }}></span>
                   </div>
@@ -382,26 +382,26 @@ function UpdateProfile() {
                     <Modal.Title>Verify Phone</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                  <Alert
-                        className="form-group"
-                        variant="success"
-                       
+                    <Alert
+                      className="form-group"
+                      variant="success"
+
+                    >
+                      <div
+                        className="form-icon-wrapper  "
+                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
                       >
-                        <div
-                          className="form-icon-wrapper  "
-                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                        >
-                          code is sent to your phone number ! 
-                        </div>
-                      </Alert>
+                        code is sent to your phone number !
+                      </div>
+                    </Alert>
                     <img
-                   
+
                       className="img-fluid  "
-                      style={{ width: "140px",marginLeft:"150px" }}
+                      style={{ width: "140px", marginLeft: "150px" }}
                       src="assetsTemplates/images/mobile.jpg"
                       alt="First slide"
                     />
-                    
+
                     <input
                       className="form-control mt-3 "
                       id="inputPhone"
@@ -440,19 +440,19 @@ function UpdateProfile() {
                         </div>
                       </Alert>
                     )}
-                   
-                    {showTime && (<>Resend after  {time} </> )} 
-                    <Button variant="primary" 
-                    disabled={disableResendButton} 
-                    onClick={() => {
-                      handleSentCode();
-                    }}
+
+                    {showTime && (<>Resend after  {time} </>)}
+                    <Button variant="primary"
+                      disabled={disableResendButton}
+                      onClick={() => {
+                        handleSentCode();
+                      }}
                     >
                       Resend
                     </Button>
                   </Modal.Body>
                   <Modal.Footer>
-                   
+
                     <Button variant="secondary" onClick={handleClose}>
                       Close
                     </Button>
