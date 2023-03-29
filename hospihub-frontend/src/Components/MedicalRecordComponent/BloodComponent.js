@@ -122,11 +122,11 @@ function BloodComponent() {
 
                             <div className="col-md-6">
                                 <label className="small mb-1" htmlFor="inputOrgName">weight</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.."  value={weight} name='weight' onChange={(e) => onValueChange(e)} />
+                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your weight.." min="0" max="500"  value={weight} name='weight' onChange={(e) => onValueChange(e)} />
                             </div>
                             <div className="col-md-6">
-                                <label className="small mb-1" htmlFor="inputOrgName">size</label>
-                                <input className="form-control" id="inputOrgName" type="number" placeholder="Enter your size" value={size} name='size' onChange={(e) => onValueChange(e)} />
+                                <label className="small mb-1" htmlFor="inputOrgName">size(cm)</label>
+                                <input className="form-control" id="inputOrgName" type="number" min="0" max="300"  placeholder="Enter your size" value={size} name='size' onChange={(e) => onValueChange(e)} />
                             </div>
                         </div>
 

@@ -7,6 +7,9 @@ import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +23,12 @@ function SignInComponent() {
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
 
   const navigate = useNavigate();
+
+
+  const [password1, setPassword1] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   //passport Sign In 
   // const navigate = useNavigate();
@@ -241,21 +250,26 @@ function SignInComponent() {
                     </Alert>
                   )}
 
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="form-icon-wrapper">
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Enter password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <i className="form-icon-left mdi mdi-lock" />
-                    </div>
-                  </div>
+
+{/* //////////////////////////////// */}
+<div className="form-group">
+      <label htmlFor="password">Password</label>
+      <div className="form-icon-wrapper">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          className="form-control"
+          id="password"
+          placeholder="Enter password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <i
+          className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
+          onClick={toggleShowPassword}
+        />
+      </div>
+    </div>
 
                   {errorPasswordMessage && (
                     <Alert

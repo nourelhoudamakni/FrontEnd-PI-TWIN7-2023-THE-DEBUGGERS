@@ -13,8 +13,7 @@ function UpdateMedicalRecordComponent(props) {
     const [MedicalRecord, setMedicalRecord] = useState({});
     const [ConfirmeMessage,setConfirmeMessage]=useState(false);
     /////////les enumerations 
-    const Place = ["Tunis", "Bizerte", "Nabeul", "Sfax"];
-    const Country = ["Tunisia", "Algeria"];
+    const Country =["Afrique du Sud", "Algérie", "Angola", "Bénin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroun", "République centrafricaine", "Tchad", "Comores", "République du Congo", "République démocratique du Congo", "Côte d'Ivoire", "Djibouti", "Égypte", "Guinée équatoriale", "Érythrée", "Eswatini", "Éthiopie", "Gabon", "Gambie", "Ghana", "Guinée", "Guinée-Bissau", "Kenya", "Lesotho", "Liberia", "Libye", "Madagascar", "Malawi", "Mali", "Mauritanie", "Maurice", "Maroc", "Mozambique", "Namibie", "Niger", "Nigeria", "Rwanda", "Sao Tomé-et-Principe", "Sénégal", "Seychelles", "Sierra Leone", "Somalie", "Soudan", "Soudan du Sud", "Tanzanie", "Togo", "Tunisie", "Ouganda", "Zambie", "Zimbabwe"];
     const civil = ["MARRIED", "SINGLE", "DIVORCED"];
    
 
@@ -156,17 +155,7 @@ function UpdateMedicalRecordComponent(props) {
                                         <input className="form-control" id="inputDateofbirth" type="date" name='dateOfBirth' placeholder="Enter your Date of birth " value={formattedDate} onChange={(e) => onValueChange(e)} />
                                     </div>
 
-                                    <div className="col-md-4">
-                                        <label className="small mb-1">Place of Birth</label>
-                                        <select className="form-control bg-light p-1 m-1" value={placeOfBirth} name='placeOfBirth' onChange={(e) => onValueChange(e)}>
-                                            <option value="" selected>Select Place of Birth</option>
-                                            {Place.map((P) => (
-                                                <option key={P} value={P}>
-                                                    {P}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
+                                   
 
 
                                     <div className="col-md-4">
@@ -202,7 +191,7 @@ function UpdateMedicalRecordComponent(props) {
 
                                     <div className="col-md-4">
                                         <label className="small mb-1" htmlFor="numberofChil">Number of children</label>
-                                        <input className="form-control" id="numberofChil" type="number" placeholder="Enter your nbr of children.." name='numberOfChildren' value={numberOfChildren} onChange={(e) => onValueChange(e)} />
+                                        <input className="form-control" id="numberofChil" type="number" placeholder="Enter your nbr of children.." min="0" max="9" name='numberOfChildren' value={numberOfChildren} onChange={(e) => onValueChange(e)} />
                                     </div>
                                     <div className="col-md-4">
                                         <label className="small mb-1" htmlFor="Profession">Profession</label>

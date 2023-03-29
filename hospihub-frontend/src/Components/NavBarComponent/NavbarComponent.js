@@ -44,7 +44,7 @@ function NavbarComponent() {
     }
   }, []);
   const handleReload = () => {
-    navigate('/UpdateProfile');
+    navigate('/UpdateProfile/publicProfile');
     navigate(0)
   }
   const toMedicalRecord = () => {
@@ -213,7 +213,7 @@ function NavbarComponent() {
   >
     <Dropdown.Item eventKey="1">
       <Link onClick={handleReload}>
-        <FaUser /> User Profile
+      <FaUser /> {UserIsPatient ? 'Patient Profile' : 'Doctor Profile'}
       </Link>
     </Dropdown.Item>
     {UserIsPatient && (
