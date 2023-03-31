@@ -1,6 +1,5 @@
 import '../MedicalRecordComponent/imageFile.css';
 import '../MedicalRecordComponent/sideNavBar.css';
-import { Alert } from 'react-bootstrap';
 import SideNavBarComponent from '../PatientInfoFromDoc/HamzaSideBar';
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -91,36 +90,23 @@ return (
                     <div className="card-header "><i className="fas fa-user-md iconMed" />Summary of The medical Record </div>
 
                     <div className="card-body">
-                        {ConfirmeMessage && (
-                            <Alert
-                                className="form-group"
-                                variant="success"
-                                style={{ marginTop: "-13px" ,height:"50px"}}
-                            >
-                                <div
-                                    className="form-icon-wrapper  "
-                                >
-                                    Your Medical Record is updated succesfully !
-                                </div>
-                            </Alert>
-                        )}
                         <form >
                             {/* Form Group (username)*/}
                             <div className="mb-3">
-                                <label className="small mb-1" htmlFor="inputUsername" >Username (how your name will appear to other users on the site)</label>
-                                <input className="form-control" id="inputUsername" type="text" placeholder="Enter your username" value={User.userName} disabled />
+                                <label className="small mb-1" htmlFor="inputUsername" >Username</label>
+                                <input className="form-control" id="inputUsername" type="text" placeholder="username" value={User.userName} disabled />
                             </div>
                             {/* Form Row*/}
                             <div className="row gx-3 mb-3">
                                 {/* Form Group (first name)*/}
                                 <div className="col-md-6">
                                     <label className="small mb-1" htmlFor="inputFirstName">First name</label>
-                                    <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value={User.firstName} disabled />
+                                    <input className="form-control" id="inputFirstName" type="text" placeholder="first name" value={User.firstName} disabled />
                                 </div>
                                 {/* Form Group (last name)*/}
                                 <div className="col-md-6">
                                     <label className="small mb-1" htmlFor="inputLastName">Last name</label>
-                                    <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value={User.lastName} disabled />
+                                    <input className="form-control" id="inputLastName" type="text" placeholder="last name" value={User.lastName} disabled />
                                 </div>
                             </div>
 
@@ -131,7 +117,7 @@ return (
 
                                 <div className="col-md-4">
                                     <label className="small mb-1" htmlFor="inputDateofbirth">Date of birth</label>
-                                    <input className="form-control" id="inputDateofbirth" type="date" name='dateOfBirth' placeholder="Enter your Date of birth " value={formattedDate} disabled/>
+                                    <input className="form-control" id="inputDateofbirth" type="date" name='dateOfBirth' placeholder="Date of birth " value={formattedDate} disabled/>
                                 </div>
 
                                
@@ -170,11 +156,11 @@ return (
 
                                 <div className="col-md-4">
                                     <label className="small mb-1" htmlFor="numberofChil">Number of children</label>
-                                    <input className="form-control" id="numberofChil" type="number" placeholder="Enter your nbr of children.." min="0" max="9" name='numberOfChildren' value={numberOfChildren} disabled/>
+                                    <input className="form-control" id="numberofChil" type="number" placeholder="nbr of children.." min="0" max="9" name='numberOfChildren' value={numberOfChildren} disabled/>
                                 </div>
                                 <div className="col-md-4">
                                     <label className="small mb-1" htmlFor="Profession">Profession</label>
-                                    <input className="form-control" id="Profession" type="text" placeholder="Enter your Profession" name='profession' value={profession} disabled/>
+                                    <input className="form-control" id="Profession" type="text" placeholder="Profession" name='profession' value={profession} disabled/>
                                 </div>
 
                             </div>
@@ -182,14 +168,14 @@ return (
                             {/* Form Group (email address)*/}
                             <div className="mb-3">
                                 <label className="small mb-1" htmlFor="inputEmailAddress" >Email address</label>
-                                <input className="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" defaultValue="name@example.com" name='email' value={email} disabled />
+                                <input className="form-control" id="inputEmailAddress" type="email" placeholder="email address" defaultValue="name@example.com" name='email' value={email} disabled />
                             </div>
                             {/* Form Row*/}
                             <div className="row gx-3 mb-3">
                                 {/* Form Group (phone number)*/}
                                 <div className="col-md-6">
                                     <label className="small mb-1" htmlFor="inputPhone" >Phone number</label>
-                                    <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" name='phoneNumber' value={User.phoneNumber} disabled />
+                                    <input className="form-control" id="inputPhone" type="tel" placeholder="phone number" name='phoneNumber' value={User.phoneNumber} disabled />
                                 </div>
                                 {/* Form Group (birthday)*/}
 
