@@ -18,6 +18,12 @@ import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
 import UpdatePassword from './Components/HomeComponent/updatePassword';
+import WorktimeDoc from './Components/FormsComponent/WorktimeDoc';
+import SeeAppointments from './Components/FormsComponent/SeeAppointments';
+import MedicalRecForDoc from './Components/PatientInfoFromDoc/MedicalRecForDoc';
+import HamzaBlood from './Components/PatientInfoFromDoc/HamzaBlood';
+import HamzaVital from './Components/PatientInfoFromDoc/HamzaVital';
+
 function App() {
   return (
     <>
@@ -45,8 +51,16 @@ function App() {
           <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
           <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
           <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+          <Route path='SummaryAlpha/:id' element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
+          <Route path='BloodandMeasurementsAlpha/:id' element={<HamzaBlood></HamzaBlood>} ></Route>
+          <Route path='VitalSignsAlpha/:id' element={<HamzaVital></HamzaVital>} ></Route>
       </Route>
-   
+
+      <Route path='/AddWorktime'>
+        <Route path='WorktimeDoc'  element={<WorktimeDoc></WorktimeDoc>} ></Route>
+        <Route path='AppointmentsList'  element={<SeeAppointments></SeeAppointments>} ></Route>
+      </Route>
+    <Route path='/PatientMedicalRecord/:id'  element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
       
     </Routes> 
    
