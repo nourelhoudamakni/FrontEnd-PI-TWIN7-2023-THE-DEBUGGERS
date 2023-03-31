@@ -18,6 +18,7 @@ import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
 import AppointmentForm from './Components/AppointmentComponent/AppointmentForm';
+import AppointmentListDialog from './Components/AppointmentComponent/AppointmentListDialog';
 function App() {
   return (
     <>
@@ -34,7 +35,9 @@ function App() {
       <Route path='/UpdateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
-      <Route path='/AppointmentForm' element={<AppointmentForm></AppointmentForm>} ></Route>
+
+      <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
+      
       <Route path='/Contact' element={<></>}></Route>
 
 
