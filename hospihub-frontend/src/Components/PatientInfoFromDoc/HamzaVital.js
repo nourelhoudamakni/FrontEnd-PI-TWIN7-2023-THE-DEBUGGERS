@@ -194,12 +194,12 @@ function HamzaVital(props) {
                                 <div className="row col-lg-12 ">
                                     <div className="col-lg-10">
                                         <label className="small mb-1">Hereditary or Chronic Diseases</label>
-                                        <textarea className="form-control" id="inputdisease" type="text" placeholder="hereditary or chronic diseases " name='disease' disabled/>
+                                        <textarea className="form-control" id="inputdisease" type="text" placeholder="hereditary or chronic diseases " value={disease} name='disease' disabled/>
                                     </div>
 
                                     <div className="col-lg-10">
                                         <label className="small mb-1">Allergies</label>
-                                        <textarea className="form-control" id="inputallergies" type="text" placeholder="allergies " name='allergies' disabled/>
+                                        <textarea className="form-control" id="inputallergies" type="text" placeholder="allergies " value={allergies} name='allergies' disabled/>
                                     </div>
 
 

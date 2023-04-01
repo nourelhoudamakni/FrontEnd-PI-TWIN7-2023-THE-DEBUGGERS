@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import '../MedicalRecordComponent/sideNavBar.css';
 
 
 function HamzaSideBar(props) {
@@ -44,9 +45,12 @@ function HamzaSideBar(props) {
           <NavLink to={`/Medicalrecord/BloodandMeasurementsAlpha/${props.user._id}`} className="nav-item nav-link "><i className="fas fa-plus-square" /><span>Blood groups and measurements</span></NavLink>
           <NavLink to={`/Medicalrecord/VitalSignsAlpha/${props.user._id}`} className="nav-item nav-link "><i className="fas fa-heartbeat" /><span>Vital Signs</span></NavLink>
           <div className="text-center" style={{marginTop: '20px',marginBottom: '20px' }}>
-    <button className="btn btn-secondary" type="button" onClick={handleBackToWorkspace}>
-      Back to workspace
-    </button>
+          <button className="btn btn-primary" onClick={handleBackToWorkspace} style={{ backgroundColor: "green" }}>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <i className="fas fa-arrow-left mt-1" style={{ display: "inline-block", verticalAlign: "middle" }}></i>
+    Go back to workspace
+  </div>
+</button>
   </div>
         </div>
         

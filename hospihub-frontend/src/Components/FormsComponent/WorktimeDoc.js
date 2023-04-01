@@ -82,7 +82,7 @@ function WorktimeDoc() {
                                 <div className="card-body">
                                     <div className="form-group d-flex flex-row">
                                         <div style={{ width: "50%" }} className="offset-md-1">
-                                            <label htmlFor="worktime">Select worktime dates:</label>
+                                            <label htmlFor="worktime"><b>Select worktime dates:</b></label>
                                             <Calendar
                                                 onChange={handleDateSelect}
                                                 value={selectedDates}
@@ -92,12 +92,14 @@ function WorktimeDoc() {
                                         <div style={{ width: "50%", marginLeft: "50px" }}>
                                             {selectedDates.length > 0 && (
                                                 <>
-                                                    <label>Selected dates:</label>
+                                                    <label><b>Selected dates:</b></label>
+                                                    <div style={{ backgroundColor: "white", borderRadius: "10px"  }}>
                                                     <ul>
                                                         {selectedDates.map((date, index) => (
                                                             <li key={index}>{date.toLocaleDateString()}</li>
                                                         ))}
                                                     </ul>
+                                                    </div>
                                                 </>
                                             )}
                                         </div>

@@ -94,10 +94,10 @@ function SeeAppointments() {
                     <div className="col-lg-4">
                         <SidebarApp />
                     </div>
-                    <div className="col-lg-8 mb-5">
-                        <div className="">
+                    <div className="col-lg-7 mb-5" >
+                        <div className="" >
                             {/* Account details card*/}
-                            <div className="card cardMD px-5 cardRes">
+                            <div className="card cardMD px-5 cardRes"  style={{width: "110%"}}>
                                 <div className="card-header ">
                                     <i className="fas fa-user-md iconMed" />
                                     doctor {doctor.userName}'s appointments
@@ -158,71 +158,75 @@ function SeeAppointments() {
                                     </div>
                                     <div className="form-group d-flex flex-row justify-content-center">
                                         <div className="text-center">
-                                            {patients.length !== 0 && (
-                                                <table className="table table-bordered table-striped table-hover w-100">
-                                                    <thead className="thead-dark">
-                                                        <tr>
-                                                            <th></th>
-                                                            <th>PatientId</th>
-                                                            <th>Patient first name</th>
-                                                            <th>Patient last name</th>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                            <th>State</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {appointments
-                                                            .filter((appointment) =>
-                                                                showValidated && appointment.isVerified
-                                                                    ? true
-                                                                    : showUnvalidated && !appointment.isVerified
-                                                                        ? true
-                                                                        : !showValidated && !showUnvalidated
-                                                                            ? true
-                                                                            : false
-                                                            )
-                                                            .slice(pagesVisited, pagesVisited + appointmentsPerPage)
-                                                            .map((appointment, index) => {
-                                                                const patient = patients[index];
-                                                                return (
-                                                                    <tr key={appointment._id}>
-                                                                        <td>
-                                                                            <Link to={`/PatientMedicalRecord/${patients[index]?._id}`}>
-                                                                                Patient's info
-                                                                            </Link>
-                                                                        </td>
-                                                                        <td>
-                                                                            {patient?._id}
-                                                                        </td>
-                                                                        <td>{patient?.firstName}</td>
-                                                                        <td>{patient?.lastName}</td>
-                                                                        <td>{moment(appointment.Date).format("MMMM Do YYYY")}</td>
-                                                                        <td>{moment(appointment.Date).format("h:mm:ss a")}</td>
-                                                                        {!appointment.isVerified ? (
-                                                                            <td>
-                                                                                <button
-                                                                                    className="btn btn-primary"
-                                                                                    style={{
-                                                                                        width: "60px",
-                                                                                        marginBottom: "0px",
-                                                                                        marginTop: "0px",
-                                                                                    }}
-                                                                                    type="button"
-                                                                                    onClick={() => handleValidate(appointment._id)}
-                                                                                >
-                                                                                    Done
-                                                                                </button>
-                                                                            </td>
-                                                                        ) : (
-                                                                            <td></td>
-                                                                        )}
-                                                                    </tr>
-                                                                );
-                                                            })}
-                                                    </tbody>
-                                                </table>
-                                            )}
+                                        {patients.length !== 0 && (
+  <table className="table table-bordered table-striped table-hover w-100">
+    <thead className="thead-dark">
+      <tr>
+        <th></th>
+        <th>PatientId</th>
+        <th>Patient first name</th>
+        <th>Patient last name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      {appointments
+        .filter((appointment) =>
+          showValidated && appointment.isVerified
+            ? true
+            : showUnvalidated && !appointment.isVerified
+            ? true
+            : !showValidated && !showUnvalidated
+            ? true
+            : false
+        )
+        .slice(pagesVisited, pagesVisited + appointmentsPerPage)
+        .map((appointment, index) => {
+          const patient = patients[index];
+          return (
+            <tr key={appointment._id}>
+              <td>
+              <button className="btn btn-success" onClick={() => { window.location.href=`/PatientMedicalRecord/${patients[index]?._id}` }}>
+    i
+</button>
+
+              </td>
+              <td>{patient?._id}</td>
+              <td>{patient?.firstName}</td>
+              <td>{patient?.lastName}</td>
+              <td style={{ whiteSpace: "nowrap" }}>
+                {moment(appointment.Date).format("MMMM Do YYYY")}
+              </td>
+              <td style={{ whiteSpace: "nowrap" }}>
+                {moment(appointment.Date).format("h:mm:ss a")}
+              </td>
+              {!appointment.isVerified ? (
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    style={{
+                      width: "60px",
+                      marginBottom: "0px",
+                      marginTop: "0px",
+                    }}
+                    type="button"
+                    onClick={() => handleValidate(appointment._id)}
+                  >
+                    Done
+                  </button>
+                </td>
+              ) : (
+                <td></td>
+              )}
+            </tr>
+          );
+        })}
+    </tbody>
+  </table>
+)}
+
 
                                             <ReactPaginate
                                                 previousLabel={<i className="fa fa-chevron-left"></i>}
