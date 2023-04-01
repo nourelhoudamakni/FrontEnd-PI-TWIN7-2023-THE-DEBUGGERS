@@ -18,11 +18,14 @@ import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
 import UpdatePassword from './Components/HomeComponent/updatePassword';
+import DoctorsListComponent from './Components/MedicalRecordComponent/doctorsListComponent';
+import PatientList from './Components/MedicalRecordComponent/patientList';
+import SingleChat from './Components/MedicalRecordComponent/SingleChat';
+import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
 function App() {
   return (
     <>
     <NavbarComponent></NavbarComponent>
-    
     <Routes>
       <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
@@ -33,11 +36,13 @@ function App() {
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
-      <Route path='/Contact' element={<></>}></Route>
+      <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
 
       <Route path='/UpdateProfile'>
         <Route path='publicProfile'  element={<UpdateProfile></UpdateProfile>} ></Route>
         <Route path='UpdatePassword' element={<UpdatePassword></UpdatePassword>} ></Route>
+        <Route path='patientList' element={<PatientList></PatientList>} ></Route> 
+        <Route path='chat' element={<SingleChat></SingleChat>} ></Route>     
       </Route>
     
       <Route  path='/Medicalrecord' >
@@ -45,6 +50,8 @@ function App() {
           <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
           <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
           <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+          <Route path='chat' element={<SingleChatPatient></SingleChatPatient>} ></Route> 
+          <Route path='DoctorsList' element={<DoctorsListComponent></DoctorsListComponent>} ></Route>
       </Route>
    
       

@@ -7,7 +7,11 @@ import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
+import {setToken , selectToken} from "../../redux/slices/authSlice"
+
 function SignInComponent() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -18,11 +22,14 @@ function SignInComponent() {
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   //passport Sign In 
-  // const navigate = useNavigate();
+
 
   useEffect(() => {
+  
     const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
        console.log(jwtCookie)
 
@@ -55,7 +62,7 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
-       
+         
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
@@ -80,7 +87,7 @@ function SignInComponent() {
                   }, 500);
            
                     navigate('/');
-                   navigate(0)
+                    navigate(0);
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -93,7 +100,7 @@ function SignInComponent() {
                 }, 500);
   
                   navigate('/');
-                 navigate(0)
+                  navigate(0);
               }
             });
         }
@@ -136,13 +143,13 @@ function SignInComponent() {
         }
       });
   };
-
+ 
   return (
     <div className="">
       <img
           className=" imgForm img-fluid d-none d-lg-block position-absolute "
           src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%" }} alt='img'
         />'
         <ToastContainer />
        <div className="pb-5">
@@ -296,7 +303,9 @@ function SignInComponent() {
 
                   <div className="form-group">
                     <div className="d-md-flex justify-content-between align-items-center">
-                      <button className="btn btn-primary">Sign In</button>
+                      <button className="btn btn-primary"
+                    
+                      >Sign In</button>
                       <div className="mt-3 mt-md-0">
                         <NavLink to="/ForgetPassword">
                           I forgot my password!

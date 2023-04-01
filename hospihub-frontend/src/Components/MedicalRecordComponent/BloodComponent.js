@@ -75,11 +75,11 @@ function BloodComponent() {
         <div className='container  pt-5 pb-5'>
             <div className=" row  ">
                 <div className="col-lg-4">
-                <SideNavBarComponent  user={User}></SideNavBarComponent>
-            </div>
+                  <SideNavBarComponent  user={User}></SideNavBarComponent>
+                </div>
 
-            {/* Account details card*/}
-            <div className='col-lg-8  mb-5'>
+             {/* Account details card*/}
+             <div className='col-lg-8  mb-5'>
                     <div className="card cardMD cardRes ">
                 <div className="card-header "><i className="fas fa-plus-square" /> Blood groups and Measurements </div>
                 <div className="card-body">
