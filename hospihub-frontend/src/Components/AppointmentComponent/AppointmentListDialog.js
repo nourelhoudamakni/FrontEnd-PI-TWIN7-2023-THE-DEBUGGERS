@@ -5,6 +5,8 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/
 import { DataGrid } from '@mui/x-data-grid';
 import { format , parse } from 'date-fns';
 import jwt_decode from "jwt-decode";
+import moment from "moment";
+
 
 
 function AppointmentListDialog(props) {
@@ -27,20 +29,29 @@ function AppointmentListDialog(props) {
   }
 
 
-const columns = [
-  {
-    field: 'Date',
-    headerName: 'Date',
-    flex: 1,
-    valueFormatter: (params) => format(new Date(params.value), 'dd/MM/yyyy'),
-  },
-  {
-    field: 'Heure',
-    headerName: 'Heure',
-    flex: 1,
-    valueFormatter: (params) => format(parse(params.value, 'HH:mm', new Date()), 'hh:mm a'),
-  },
-];
+  const columns = [
+    {
+      field: 'Date',
+      headerName: 'Date',
+      flex: 1,
+      valueFormatter: (params) => moment(params.value).format("DD/MM/YYYY"),
+    },
+    {
+      field: 'Heure',
+      headerName: 'Heure',
+      flex: 1,
+      valueFormatter: (params) => moment(params.value).format("HH:mm"),
+      valueGetter: (params) => {
+        const date = moment(params.row.Date);
+        return date.isValid() ? date.format("YYYY-MM-DDTHH:mm:ss.SSSZ") : null;
+      }
+    }
+  ];  
+  
+  
+  
+  
+  
 
   console.log("appointments:", appointments);
 
