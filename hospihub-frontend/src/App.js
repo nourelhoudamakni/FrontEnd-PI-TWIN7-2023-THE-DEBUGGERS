@@ -24,6 +24,7 @@ import MedicalRecForDoc from './Components/PatientInfoFromDoc/MedicalRecForDoc';
 import HamzaBlood from './Components/PatientInfoFromDoc/HamzaBlood';
 import HamzaVital from './Components/PatientInfoFromDoc/HamzaVital';
 import AppointmentForm from './Components/AppointmentComponent/AppointmentForm';
+import AppointmentListDialog from './Components/AppointmentComponent/AppointmentListDialog';
 
 function App() {
   return (
@@ -40,7 +41,9 @@ function App() {
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
-      <Route path='/AppointmentForm' element={<AppointmentForm></AppointmentForm>} ></Route>
+
+      <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
+      
       <Route path='/Contact' element={<></>}></Route>
 
       <Route path='/UpdateProfile'>
