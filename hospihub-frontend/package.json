@@ -29,7 +29,7 @@
     "react-dom": "^18.2.0",
     "react-flags-select": "^2.2.3",
     "react-icons": "^4.8.0",
-    "react-paginate": "^8.1.4",
+    "react-paginate": "^8.1.5",
     "react-phone-number-input": "^3.2.19",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
