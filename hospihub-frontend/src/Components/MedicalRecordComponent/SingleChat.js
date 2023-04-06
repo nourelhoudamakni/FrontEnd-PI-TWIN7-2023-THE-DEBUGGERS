@@ -11,6 +11,7 @@ function SingleChat() {
   const navigate = useNavigate();
   const token = localStorage.getItem("jwtToken");
   const [messages, setMessages] = useState([]);
+  const [messagesProps, setMessagesProps] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [selectedChat, setselectedChat] = useState({});
   var decodedToken = jwt_decode(token);
@@ -58,8 +59,7 @@ function SingleChat() {
             chatId:selectedChat[0]._id,
             userConnectedId:decodedToken.id
         });   
-        setMessages([...messages, { text: data.data.content }]);
-      
+        setMessages([...messages, { text: data.data.content }]);   
     }catch(error){ 
         console.log(error.message)
     }
@@ -70,9 +70,11 @@ function SingleChat() {
     const chatId=selectedChat[0]._id
   
     try{ 
+      console.log("chat id is "+chatId)
       const data=await axios.get(`http://localhost:5000/message/${chatId}`);
       const contents = data.data.map((message) => message.content);
-      setMessages(contents)
+      setMessages(data.data)
+      setMessagesProps(data)
     }catch(err){ 
       console.log(err.message);
     }

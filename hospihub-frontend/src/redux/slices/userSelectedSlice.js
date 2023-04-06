@@ -3,7 +3,9 @@ const userSelectedSlice=createSlice({
  name:"userSelectedSlice", 
  initialState:{ 
     selectedUser:"",
-    selectedReceiver:""
+    selectedReceiver:"",
+    messagesProps:[]
+
  }, 
  reducers:{ 
   selectUser(state,action){ 
@@ -11,6 +13,9 @@ const userSelectedSlice=createSlice({
   },
   selectReceiver(state,action){ 
     state.selectedReceiver=action.payload;
+   },
+   selectMessagesProps(state,action){ 
+    state.messagesProps=action.payload;
    },
   unselectedPoduct(state,action){ 
     state.selectedUser=null;
@@ -22,6 +27,7 @@ const userSelectedSlice=createSlice({
 export const { 
   selectUser, 
   unselectedPoduct, 
-  selectReceiver
+  selectReceiver,
+  selectMessagesProps
   }=userSelectedSlice.actions;
 export default userSelectedSlice.reducer;
