@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
+import Alert from 'react-bootstrap/Alert';
 
 function AppointmentForm() {
   const [hospitals, setHospitals] = useState([]);
   const [hospitalServices, setHospitalServices] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState(false);
   const token = localStorage.getItem('jwtToken');
   const decodedToken = jwt_decode(token);
 
@@ -39,10 +42,17 @@ function AppointmentForm() {
   }
 
   async function handleTakeAppointment() {
-    const response = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointment}/take`, {
-      patientId: decodedToken.id
-    });
-    console.log(response.data);
+    try {
+      const res = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointment}/take`, {
+        patientId: decodedToken.id
+      });
+      setMessage(res.data.message);
+      setError(false);
+    } catch (err) {
+      setMessage('');
+      setError(true);
+      console.error(err);
+    }
     // show success message or redirect to another page
   }
 
@@ -105,6 +115,21 @@ function AppointmentForm() {
                       <div class="col-md-6">
                         <button class="btn btn-primary mt-4" onClick={handleTakeAppointment}>Take Appointment</button>
                       </div>
+                    </div>
+                    <div style={{ marginTop: '10px' }}>
+                      {error ? (
+                        <Alert variant="danger" onClose={() => setError(false)} dismissible>
+                          Error taking appointment
+                        </Alert>
+                      ) : (
+                        <div style={{ marginTop: '10px' }}>
+                          {message && (
+                            <Alert variant="success" onClose={() => setMessage('')} dismissible>
+                              {message}
+                            </Alert>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
