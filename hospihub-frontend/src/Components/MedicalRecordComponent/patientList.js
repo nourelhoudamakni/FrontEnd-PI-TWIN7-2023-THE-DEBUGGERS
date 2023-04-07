@@ -6,7 +6,7 @@ import axios from "axios";
 import SideNavBarUpdateProfile from "../HomeComponent/sideNavbarUpdateProfile";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { selectReceiver, selectUser } from "../../redux/slices/userSelectedSlice";
+import { selectReceiver, selectUser } from "../../Redux/slices/userSelectedSlice";
 function PatientList(){
     const dispatch=useDispatch();
     const [User, setUser] = useState({});

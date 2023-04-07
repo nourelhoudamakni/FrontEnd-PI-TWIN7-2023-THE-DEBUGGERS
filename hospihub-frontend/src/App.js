@@ -29,6 +29,7 @@ import DoctorsListComponent from './Components/MedicalRecordComponent/doctorsLis
 import PatientList from './Components/MedicalRecordComponent/patientList';
 import SingleChat from './Components/MedicalRecordComponent/SingleChat';
 import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
+import List from './Components/MedicalRecordComponent/list';
 
 function App() {
   return (
@@ -47,7 +48,8 @@ function App() {
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
       <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
-      
+   
+
       <Route path='/Contact' element={<></>}></Route>
 
       <Route path='/UpdateProfile'>
