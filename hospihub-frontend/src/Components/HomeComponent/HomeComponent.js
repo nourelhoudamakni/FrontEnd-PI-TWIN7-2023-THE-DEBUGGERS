@@ -13,12 +13,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./carousel.css"
 import NavbarComponent from "../NavBarComponent/NavbarComponent";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../Redux/slices/authSlice";
 
 
 
 function HomeComponent() {
 
   useEffect(async() => {
+
     const jwtCookie = await document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
        console.log(jwtCookie)
   
@@ -41,7 +44,7 @@ function HomeComponent() {
         });
 
     }
-    
+   
   }, []);
   
 

@@ -2,15 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
-import Alert from 'react-bootstrap/Alert';
+import AppointmentListDialog from './AppointmentListDialog';
+import { Button } from '@mui/material';
+
+
+
 
 function AppointmentForm() {
   const [hospitals, setHospitals] = useState([]);
   const [hospitalServices, setHospitalServices] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedServiceId, setSelectedServiceId] = useState('');
+
+
+
   const token = localStorage.getItem('jwtToken');
   const decodedToken = jwt_decode(token);
 
@@ -30,32 +37,30 @@ function AppointmentForm() {
     setHospitalServices(response.data);
   }
 
-  async function handleHospitalServiceChange(event) {
-    const hospitaServicelId = event.target.value;
-
-    const response = await axios.get(`http://localhost:5000/patient/appointments/${hospitaServicelId}`);
-    setAppointments(response.data);
-  }
-
   async function handleAppointmentSelect(event) {
     setSelectedAppointment(event.target.value);
   }
 
   async function handleTakeAppointment() {
-    try {
-      const res = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointment}/take`, {
-        patientId: decodedToken.id
-      });
-      setMessage(res.data.message);
-      setError(false);
-    } catch (err) {
-      setMessage('');
-      setError(true);
-      console.error(err);
-    }
+    const response = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointment}/take`, {
+      patientId: decodedToken.id
+    });
+    console.log(response.data);
     // show success message or redirect to another page
   }
 
+  async function handleSearch ()  {
+    
+    const response = await axios.get(`http://localhost:5000/doctor/getDoctorAppointmentsWithLeastPatients/${selectedServiceId}`);
+    setAppointments(response.data);
+    console.log("testtt :", response.data)
+    setOpenDialog(true);
+  }
+
+  const handleClose = () => {
+    setOpenDialog(false); 
+  }
+  
   return (
     <div className="">
       <img
@@ -88,48 +93,27 @@ function AppointmentForm() {
                       </div>
                       <div class="col-md-6">
                         <label class="form-label" for="service-select">Choose a service:</label>
-                        <select class="form-select" id="service-select" onChange={handleHospitalServiceChange}>
-                          <option value="">Select a service</option>
+                        <select class="form-select" id="service-select" onChange={(e) => setSelectedServiceId(e.target.value)}> 
+                          <option value="">Select a service</option> 
                           {hospitalServices.map(service => (
                             <option key={service._id} value={service._id}>
                               {service.ServiceName}
                             </option>
                           ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label class="form-label" for="appointment-select">Choose an appointment:</label>
-                        <select class="form-select" id="appointment-select" onChange={handleAppointmentSelect}>
-                          <option value="">Select an appointment</option>
-                          {appointments.map(appointment => (
-                            <option key={appointment._id} value={appointment._id}>
-                              {appointment.Titre}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <button class="btn btn-primary mt-4" onClick={handleTakeAppointment}>Take Appointment</button>
-                      </div>
-                    </div>
-                    <div style={{ marginTop: '10px' }}>
-                      {error ? (
-                        <Alert variant="danger" onClose={() => setError(false)} dismissible>
-                          Error taking appointment
-                        </Alert>
-                      ) : (
-                        <div style={{ marginTop: '10px' }}>
-                          {message && (
-                            <Alert variant="success" onClose={() => setMessage('')} dismissible>
-                              {message}
-                            </Alert>
-                          )}
+                        </select> 
+                        <div class="row">
+                        <div class="col-md-10">
+                        <button class="btn btn-primary mt-5 " onClick={handleSearch}>Show available Appointments</button>
+
                         </div>
-                      )}
+                        </div>
+                        <AppointmentListDialog appointments={appointments} open={openDialog} onClose={handleClose} />
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                      </div>
                     </div>
                   </div>
                 </div>

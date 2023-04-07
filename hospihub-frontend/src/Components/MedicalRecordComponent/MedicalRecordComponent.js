@@ -15,9 +15,7 @@ function MedicalRecordComponent() {
             <div className="container-xl px-4 mt-4">
                 <hr className="mt-0 mb-4" />
                 <div className="row">
-                    <div className="col-xl-4">
-                        
-                        
+                    <div className="col-xl-4">                       
                     </div>
                     <div className="col-xl-8">
                        
