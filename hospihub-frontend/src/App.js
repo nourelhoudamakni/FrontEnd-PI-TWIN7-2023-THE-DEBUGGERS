@@ -18,14 +18,19 @@ import UpdateProfile from './Components/HomeComponent/UpdateProfile';
 import AboutComponent from './Components/HomeComponent/About';
 import ServiceComponent from './Components/HomeComponent/ServiceComponent';
 import UpdatePassword from './Components/HomeComponent/updatePassword';
-import DoctorsListComponent from './Components/MedicalRecordComponent/doctorsListComponent';
-import PatientList from './Components/MedicalRecordComponent/patientList';
-import SingleChat from './Components/MedicalRecordComponent/SingleChat';
-import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
+import WorktimeDoc from './Components/FormsComponent/WorktimeDoc';
+import SeeAppointments from './Components/FormsComponent/SeeAppointments';
+import MedicalRecForDoc from './Components/PatientInfoFromDoc/MedicalRecForDoc';
+import HamzaBlood from './Components/PatientInfoFromDoc/HamzaBlood';
+import HamzaVital from './Components/PatientInfoFromDoc/HamzaVital';
+import AppointmentForm from './Components/AppointmentComponent/AppointmentForm';
+import AppointmentListDialog from './Components/AppointmentComponent/AppointmentListDialog';
+
 function App() {
   return (
     <>
     <NavbarComponent></NavbarComponent>
+    
     <Routes>
       <Route path='/' element={<HomeComponent></HomeComponent>} ></Route>
       <Route path='/SignIn' element={<SignInComponent></SignInComponent>} ></Route>
@@ -36,13 +41,14 @@ function App() {
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
-      <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
+
+      <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
+      
+      <Route path='/Contact' element={<></>}></Route>
 
       <Route path='/UpdateProfile'>
         <Route path='publicProfile'  element={<UpdateProfile></UpdateProfile>} ></Route>
         <Route path='UpdatePassword' element={<UpdatePassword></UpdatePassword>} ></Route>
-        <Route path='patientList' element={<PatientList></PatientList>} ></Route> 
-        <Route path='chat' element={<SingleChat></SingleChat>} ></Route>     
       </Route>
     
       <Route  path='/Medicalrecord' >
@@ -50,10 +56,16 @@ function App() {
           <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
           <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
           <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
-          <Route path='chat' element={<SingleChatPatient></SingleChatPatient>} ></Route> 
-          <Route path='DoctorsList' element={<DoctorsListComponent></DoctorsListComponent>} ></Route>
+          <Route path='SummaryAlpha/:id' element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
+          <Route path='BloodandMeasurementsAlpha/:id' element={<HamzaBlood></HamzaBlood>} ></Route>
+          <Route path='VitalSignsAlpha/:id' element={<HamzaVital></HamzaVital>} ></Route>
       </Route>
-   
+
+      <Route path='/AddWorktime'>
+        <Route path='WorktimeDoc'  element={<WorktimeDoc></WorktimeDoc>} ></Route>
+        <Route path='AppointmentsList'  element={<SeeAppointments></SeeAppointments>} ></Route>
+      </Route>
+    <Route path='/PatientMedicalRecord/:id'  element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
       
     </Routes> 
    

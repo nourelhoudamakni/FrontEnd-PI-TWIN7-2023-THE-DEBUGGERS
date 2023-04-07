@@ -1,7 +1,7 @@
 import './formUpdateMed.css';
 import SideNavBarComponent from './SideNavBarComponent';
 import jwt_decode from "jwt-decode";
-import axios from "axios";
+import axios from "axios"
 import { useEffect, useState } from "react"
 import { Alert } from 'react-bootstrap';
 

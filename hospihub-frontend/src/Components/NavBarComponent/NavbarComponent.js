@@ -47,6 +47,12 @@ function NavbarComponent() {
     navigate('/UpdateProfile/publicProfile');
     navigate(0)
   }
+
+  const handleworkspapce = () => {
+    navigate('/AddWorktime/WorktimeDoc');
+    navigate(0)
+  }
+
   const toMedicalRecord = () => {
     navigate('/Medicalrecord/Summary');
     navigate(0)
@@ -211,11 +217,22 @@ function NavbarComponent() {
       </span>
     }
   >
-    <Dropdown.Item eventKey="1">
+    {UserIsPatient&&(<Dropdown.Item eventKey="1">
       <Link onClick={handleReload}>
-        <FaUser /> User Profile
+      <FaUser /> {UserIsPatient ? 'Patient Profile' : 'Doctor Profile'}
       </Link>
-    </Dropdown.Item>
+    </Dropdown.Item>)}
+    {!UserIsPatient&&(<Dropdown.Item eventKey="1">
+      <Link onClick={handleReload}>
+        <FaUser /> Doctor Profile
+      </Link>
+    </Dropdown.Item>)}
+    {!UserIsPatient&&(<Dropdown.Item eventKey="4">
+      <Link onClick={handleworkspapce}>
+        <FaUser /> Doctor workspace
+      </Link>
+    </Dropdown.Item>)}
+    
     {UserIsPatient && (
       <Dropdown.Item eventKey="2">
         <Link  onClick={toMedicalRecord}>

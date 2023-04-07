@@ -18,6 +18,11 @@ function SignUpComponent() {
   const [role, setRole] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [enableTwoFactorAuth, setEnableTwoFactorAuth] = useState(false);
+  const [hospital, setHospital] = useState('');
+  const [hospitals, setHospitals] = useState([]);
+  const [services, setServices] = useState([]);
+  const [service, setService] = useState('');
+  const [hospitalId, setHospitalId] = useState('');
   // const [code, setCode] = useState('');
   // const [phoneNotVerif, setphoneNotVerif] = useState('');
 
@@ -29,6 +34,12 @@ function SignUpComponent() {
   const [emailErrorMessage1, setEmailErrorMessage1] = useState(false);
   const [usernameErrorMessage, setUsernameErrorMessage] = useState(false);
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+ 
+
+
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,9 +87,13 @@ function SignUpComponent() {
             setEmailErrorMessage(true);
             return;
           }
+          if(service){
+            axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}`);
+          }
           navigate('/EmailVerifiaction');
         }
       )
+
       console.log(userName)
     } catch (error) {
 
@@ -91,6 +106,40 @@ function SignUpComponent() {
     setRole(event.target.value);
     console.log(event.target.value);
   };
+
+  const handleHospitalChange = (event) => {
+    setHospital(event.target.value);
+  }
+
+  const handleServiceChange = (event) => {
+    setService(event.target.value);
+  }
+
+
+
+  useEffect(() => {
+    async function fetchHospitals() {
+      const response = await axios.get('http://localhost:5000/hospital/getAllHospitals');
+      setHospitals(response.data);
+    }
+    fetchHospitals();
+  }, []);
+
+  useEffect(() => {
+    async function fetchServices() {
+      if (hospital) {
+        setServices()
+        const response = await axios.get(`http://localhost:5000/service/gethospitalservices/${hospital}`);
+        setServices(response.data);
+      }
+    }
+    if (hospital) {
+      fetchServices();
+    }
+  }, [hospital]);
+
+
+
   return (
     <>
       <div>
@@ -183,9 +232,9 @@ function SignUpComponent() {
                                 onChange={(e) => setGender(e.target.value)}
                               />
                             </div>
-                          
-                     
-                              
+
+
+
                             <div className="col-md-5">
                               <label className="small mb-1" htmlFor="inputFirstName">Female</label>
                               <input
@@ -197,8 +246,8 @@ function SignUpComponent() {
                               />
                             </div>
 
-                         
-                     
+
+
                           </div>
                         </div>
                       </div>
@@ -248,8 +297,12 @@ function SignUpComponent() {
                       </div>
                       <div className="form-group">
                         <div className="form-icon-wrapper">
-                          <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
-                          <i className="form-icon-left mdi mdi-lock" />
+                          <input type={showPassword ? 'text' : 'password'}
+                            className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
+                          <i
+                            className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
+                            onClick={toggleShowPassword}
+                          />
 
                         </div>
                       </div>
@@ -299,16 +352,43 @@ function SignUpComponent() {
                         </select>
 
                       </div>
+                      {/* {role=='doctor'&&
+                                              <select className="  form-control bg-light p-2" onChange={handleRoleChange}>
+                                              <option value="">Choose Hospital</option>
+                                              {Hospitals.map((H) => (
+                                                <option key={H} value={H.HospitalName}>
+                                                    {H.HospitalName}
+                                                </option>
+                                            ))}
+                                            </select>
+                        } */}
 
-                      {/* {role == 'doctor' && <div className="form-group">
-                      <select className="  form-control" onChange={handleHospitalChange}>
-                        <option value="">Choose Hospital</option>
-                        {Hospitals.map((h)=>{
-                          return<option value={h.HospitalName}>{h.HospitalName}</option>
-                        })}
-                      </select>
-                    </div>
-                    } */}
+
+{role === 'doctor' && (
+  <div className="form-group">
+    <select className="form-control bg-light p-2" onChange={handleHospitalChange}>
+      <option value="">Choose hospital</option>
+      {hospitals.map((hospital) => (
+        <option key={hospital._id} value={hospital._id}>
+          {hospital.HospitalName}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
+
+{services && services.length > 0 && (
+  <div className="form-group">
+    <select className="form-control bg-light p-2" onChange={handleServiceChange}>
+      <option value="">Choose a service</option>
+      {services.map((s) => (
+        <option key={s._id} value={s._id}>
+          {s.ServiceName}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
 
 
                       <div className="form-group">

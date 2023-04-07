@@ -7,29 +7,41 @@ import Alert from "react-bootstrap/Alert";
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch, useSelector } from "react-redux";
-import {setToken , selectToken} from "../../redux/slices/authSlice"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function SignInComponent() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
   const [secret, setSecret] = useState("");
   const [errorEmailMessage, setEmailErrorMessage] = useState(false);
   const [errorConfirmeMessage, setConfirmeErrorMessage] = useState(false);
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
+
+  const [password1, setPassword1] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   //passport Sign In 
+  // const navigate = useNavigate();
 
+  
+  if (showAlert && show) {
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 3000);
+  }
 
   useEffect(() => {
-  
+
     const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
        console.log(jwtCookie)
 
@@ -62,7 +74,7 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
-         
+       
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
@@ -71,9 +83,9 @@ function SignInComponent() {
         
                 setShow(true);
 
-                toast.success('Check your email inbox for the secret code we just sent you', {
-                  position: toast.POSITION.TOP_RIGHT
-                });
+                // toast.success('Check your email inbox for the secret code we just sent you', {
+                //   position: toast.POSITION.TOP_RIGHT
+                // });
 
                 if (secret === response.data.secret) {
                   console.log(show)
@@ -87,7 +99,7 @@ function SignInComponent() {
                   }, 500);
            
                     navigate('/');
-                    navigate(0);
+                   navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
@@ -100,7 +112,7 @@ function SignInComponent() {
                 }, 500);
   
                   navigate('/');
-                  navigate(0);
+                 navigate(0)
               }
             });
         }
@@ -143,13 +155,13 @@ function SignInComponent() {
         }
       });
   };
- 
+
   return (
     <div className="">
       <img
           className=" imgForm img-fluid d-none d-lg-block position-absolute "
           src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }} alt='img'
+          style={{ width: "100%", height: "100%" }}
         />'
         <ToastContainer />
        <div className="pb-5">
@@ -238,21 +250,26 @@ function SignInComponent() {
                     </Alert>
                   )}
 
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <div className="form-icon-wrapper">
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Enter password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <i className="form-icon-left mdi mdi-lock" />
-                    </div>
-                  </div>
+
+{/* //////////////////////////////// */}
+<div className="form-group">
+      <label htmlFor="password">Password</label>
+      <div className="form-icon-wrapper">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          className="form-control"
+          id="password"
+          placeholder="Enter password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <i
+          className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
+          onClick={toggleShowPassword}
+        />
+      </div>
+    </div>
 
                   {errorPasswordMessage && (
                     <Alert
@@ -284,8 +301,24 @@ function SignInComponent() {
                         />
                         <i className="form-icon-left mdi mdi-lock" />
                       </div>
-                    </div>
+                    </div>                   
                   )}
+
+                {show && showAlert && (
+                    <Alert
+                    className="form-group"
+                    variant="success"
+                    style={{ marginTop: "-13px" }}
+                  >
+                    <div
+                      className="form-icon-wrapper  text-success"
+                      style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                    >
+                      Check your email inbox for the secret code we just sent you
+                    </div>
+                  </Alert>                
+                  )}
+
                   {errorSecretMessage && (
                     <Alert
                       className="form-group"
@@ -303,9 +336,7 @@ function SignInComponent() {
 
                   <div className="form-group">
                     <div className="d-md-flex justify-content-between align-items-center">
-                      <button className="btn btn-primary"
-                    
-                      >Sign In</button>
+                      <button className="btn btn-primary">Sign In</button>
                       <div className="mt-3 mt-md-0">
                         <NavLink to="/ForgetPassword">
                           I forgot my password!
