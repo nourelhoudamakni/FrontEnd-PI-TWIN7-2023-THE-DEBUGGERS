@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from "react-redux";
+import {setToken , selectToken} from "../../redux/slices/authSlice"
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
@@ -23,7 +25,7 @@ function SignInComponent() {
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const [password1, setPassword1] = useState('');
   const [showPassword, setShowPassword] = useState(false);
