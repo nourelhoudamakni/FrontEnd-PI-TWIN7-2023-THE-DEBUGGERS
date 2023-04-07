@@ -25,6 +25,11 @@ import HamzaBlood from './Components/PatientInfoFromDoc/HamzaBlood';
 import HamzaVital from './Components/PatientInfoFromDoc/HamzaVital';
 import AppointmentForm from './Components/AppointmentComponent/AppointmentForm';
 import AppointmentListDialog from './Components/AppointmentComponent/AppointmentListDialog';
+import DoctorsListComponent from './Components/MedicalRecordComponent/doctorsListComponent';
+import PatientList from './Components/MedicalRecordComponent/patientList';
+import SingleChat from './Components/MedicalRecordComponent/SingleChat';
+import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
+import List from './Components/MedicalRecordComponent/list';
 
 function App() {
   return (
@@ -41,14 +46,17 @@ function App() {
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
-
+      <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
       <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
-      
+   
+
       <Route path='/Contact' element={<></>}></Route>
 
       <Route path='/UpdateProfile'>
         <Route path='publicProfile'  element={<UpdateProfile></UpdateProfile>} ></Route>
         <Route path='UpdatePassword' element={<UpdatePassword></UpdatePassword>} ></Route>
+        <Route path='patientList' element={<PatientList></PatientList>} ></Route> 
+        <Route path='chat' element={<SingleChat></SingleChat>} ></Route> 
       </Route>
     
       <Route  path='/Medicalrecord' >
@@ -59,6 +67,8 @@ function App() {
           <Route path='SummaryAlpha/:id' element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
           <Route path='BloodandMeasurementsAlpha/:id' element={<HamzaBlood></HamzaBlood>} ></Route>
           <Route path='VitalSignsAlpha/:id' element={<HamzaVital></HamzaVital>} ></Route>
+          <Route path='chat' element={<SingleChatPatient></SingleChatPatient>} ></Route> 
+          <Route path='DoctorsList' element={<DoctorsListComponent></DoctorsListComponent>} ></Route>
       </Route>
 
       <Route path='/AddWorktime'>
