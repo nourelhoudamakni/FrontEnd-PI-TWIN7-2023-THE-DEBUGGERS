@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaComment } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { selectReceiver, selectUser } from "../../Redux/slices/userSelectedSlice";
+import { selectReceiver, selectUser } from "../../redux/slices/userSelectedSlice";
 import { useNavigate } from "react-router-dom";
 function DoctorsListComponent() {
   const [User, setUser] = useState({});
