@@ -19,14 +19,17 @@ import { selectToken } from "../../Redux/slices/authSlice";
 
 
 function HomeComponent() {
+  const handleBookAppointmentClick = () => {
+    window.location.href = '/AppointmentForm';
+  };
 
-  useEffect(async() => {
+  useEffect(async () => {
 
     const jwtCookie = await document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
-       console.log(jwtCookie)
-  
+    console.log(jwtCookie)
+
     const jwt = await jwtCookie ? jwtCookie.split('=')[1] : null;
-    
+
     if (jwt) {
       // If JWT cookie exists, redirect to profile page
       console.log(jwt)
@@ -44,16 +47,16 @@ function HomeComponent() {
         });
 
     }
-   
+
   }, []);
-  
+
 
 
   return (
     <>
-        <ToastContainer />
+      <ToastContainer />
       {/* carousel */}
-     
+
       <div className="slider-detail">
         <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
@@ -82,7 +85,7 @@ function HomeComponent() {
                   aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br />
                   sed sagittis at, sagittis quis neque. Praesent.</p>
                 <div className="row vbh divCarousel">
-                  <div className="btn animated bounceInUp btn-primary "> Book an Appointment </div>
+                  <div className="btn animated bounceInUp btn-primary" onClick={handleBookAppointmentClick}>Book an Appointment</div>
                 </div>
               </div>
             </div>
@@ -97,82 +100,82 @@ function HomeComponent() {
           </a>
         </div>
       </div>
-     
- {/* End carousel */}
- <AboutComponent></AboutComponent>
- <ServiceComponent></ServiceComponent>
- 
-  {/* Testimonial Start */}
-  <div className="testimonial-wrapper"> 
-  <Slider
-  dots={true}
-  infinite={true}
-  speed={500}
-  slidesToShow={1}
-  slidesToScroll={1}
-  autoplay={true}
-  autoplaySpeed={3000}
-  arrows={false}
-  className="testimonial-carousel wow fadeInUp"
-  data-wow-delay="0.1s"
->
-  <div className="testimonial-item text-center">
-    <img
-      className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
-      src="../assetsTemplates/template1/img/testimonial-1.jpg"
-      style={{ width: "100px", height: "100px" }}
-    />
-    <div className="testimonial-text rounded text-center p-4">
-      <p>
-        Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-        duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-        erat magna elitr erat sit sit erat at rebum justo sea clita.
-      </p>
-      <h5 className="mb-1">Patient Name</h5>
-      <span className="fst-italic">Profession</span>
-    </div>
-  </div>
-  <div className="testimonial-item text-center">
-    <img
-      className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
-      src="../assetsTemplates/template1/img/testimonial-2.jpg"
-      style={{ width: "100px", height: "100px" }}
-    />
-    <div className="testimonial-text rounded text-center p-4">
-      <p>
-        Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-        duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-        erat magna elitr erat sit sit erat at rebum justo sea clita.
-      </p>
-      <h5 className="mb-1">Patient Name</h5>
-      <span className="fst-italic">Profession</span>
-    </div>
-  </div>
-  <div className="testimonial-item text-center">
-    <img
-      className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
-      src="../assetsTemplates/template1/img/testimonial-3.jpg"
-      style={{ width: "100px", height: "100px" }}
-    />
-    <div className="testimonial-text rounded text-center p-4">
-      <p>
-        Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-        duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-        erat magna elitr erat sit sit erat at rebum justo sea clita.
-      </p>
-      <h5 className="mb-1">Patient Name</h5>
-      <span className="fst-italic">Profession</span>
-    </div>
-  </div>
-</Slider>
-</div>   
-  {/* Testimonial End */}
+
+      {/* End carousel */}
+      <AboutComponent></AboutComponent>
+      <ServiceComponent></ServiceComponent>
+
+      {/* Testimonial Start */}
+      <div className="testimonial-wrapper">
+        <Slider
+          dots={true}
+          infinite={true}
+          speed={500}
+          slidesToShow={1}
+          slidesToScroll={1}
+          autoplay={true}
+          autoplaySpeed={3000}
+          arrows={false}
+          className="testimonial-carousel wow fadeInUp"
+          data-wow-delay="0.1s"
+        >
+          <div className="testimonial-item text-center">
+            <img
+              className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
+              src="../assetsTemplates/template1/img/testimonial-1.jpg"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <div className="testimonial-text rounded text-center p-4">
+              <p>
+                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
+                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
+                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              </p>
+              <h5 className="mb-1">Patient Name</h5>
+              <span className="fst-italic">Profession</span>
+            </div>
+          </div>
+          <div className="testimonial-item text-center">
+            <img
+              className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
+              src="../assetsTemplates/template1/img/testimonial-2.jpg"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <div className="testimonial-text rounded text-center p-4">
+              <p>
+                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
+                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
+                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              </p>
+              <h5 className="mb-1">Patient Name</h5>
+              <span className="fst-italic">Profession</span>
+            </div>
+          </div>
+          <div className="testimonial-item text-center">
+            <img
+              className="img-fluid bg-light rounded-circle p-2 mx-auto mb-4"
+              src="../assetsTemplates/template1/img/testimonial-3.jpg"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <div className="testimonial-text rounded text-center p-4">
+              <p>
+                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
+                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
+                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              </p>
+              <h5 className="mb-1">Patient Name</h5>
+              <span className="fst-italic">Profession</span>
+            </div>
+          </div>
+        </Slider>
+      </div>
+      {/* Testimonial End */}
 
 
- {/* tEAM dOCTOR */}
-<div className="container-xxl py-5">
+      {/* tEAM dOCTOR */}
+      <div className="container-xxl py-5">
         <div className="container">
-          <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{maxWidth: '600px'}}>
+          <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: '600px' }}>
             <p className="d-inline-block border rounded-pill py-1 px-4">Doctors</p>
             <h1>Our Experience Doctors</h1>
           </div>
@@ -244,11 +247,11 @@ function HomeComponent() {
           </div>
         </div>
       </div>
- {/* end tEAM dOCTOR */}
+      {/* end tEAM dOCTOR */}
 
 
-<AppointmentComponent></AppointmentComponent>
-    
+      <AppointmentComponent></AppointmentComponent>
+
 
 
 

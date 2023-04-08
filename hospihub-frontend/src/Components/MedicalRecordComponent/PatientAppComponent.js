@@ -15,19 +15,13 @@ function List () {
         const token = localStorage.getItem('jwtToken');
         if (token) {
             const decodedToken = jwt_decode(token);
-
-
             axios.get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
                 .then(response => {
-
                     setUser(response.data);
-
-
                 })
                 .catch(error => {
                     console.error(error);
                 });
-
         }
     }, []); 
 
@@ -48,13 +42,19 @@ function List () {
         }));
         setAppointments(appointmentsWithServiceName);
       }
-      /*
+    
       const handleDelete = (id) => {
         const appointmentId = id;
+        console.log("appointment id :"+appointmentId);
+        
+        const token = localStorage.getItem('jwtToken');
+        const decodedToken = jwt_decode(token);
+        
         axios
-          .delete(`http://localhost:5000/patient/deleteAppointment/${appointmentId}`)
+          .delete(`http://localhost:5000/patient/deleteAppointment/${decodedToken.id}/${appointmentId}`)
           .then((response) => {
             console.log(response.data);
+            
             // Remove the appointment from the appointments array
             setAppointments(appointments.filter(appointment => appointment.id !== appointmentId));
           })
@@ -62,7 +62,7 @@ function List () {
             console.log(error);
           });
       };
-*/
+
       useEffect(() => {
         handleSearch();
       }, []);
@@ -95,7 +95,7 @@ function List () {
                           <td>{new Date(appointment.Date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                           <td style={{width: '20%'}}>
                            
-                          <button className="btn btn-danger" >Delete</button>
+                          <button className="btn btn-danger" onClick={() => handleDelete(appointment._id)}>Delete</button>
 
 
                           </td>
