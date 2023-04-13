@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import SidebarApp from './SidebarApp';
+import Alert from "react-bootstrap/Alert";
 
 
 function WorktimeDoc() {
@@ -15,23 +16,29 @@ function WorktimeDoc() {
     const [doctorId, setDoctorId] = useState('');
     const [selectedDates, setSelectedDates] = useState([]);
     const [dates, setDates] = useState([]);
+    const [dates0, setDates0] = useState(false);
+    const [dates1, setDates1] = useState(false);
 
     // Function to handle when a date is selected on the calendar
     const handleDateSelect = (date) => {
         const formattedDate = moment(date).format('YYYY-MM-DD');
         setSelectedDates([...selectedDates, date]);
         setDates([...dates, formattedDate]);
-      };
-      
+    };
+
 
     const handleSubmit = () => {
         if (dates.length > 0) {
             axios.put(`http://localhost:5000/appointment/addApp/${doctorId}`, {
                 "WorkTime": dates
             }).then((response) => {
-                toast.success(`Worktime added for doctor ${response.data.userName}`, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                setDates1(true)
+                setTimeout(() => {
+                    setDates1(false);
+                  }, 3000);
+                // toast.success(`Worktime added for doctor ${response.data.userName}`, {
+                //     position: toast.POSITION.BOTTOM_RIGHT
+                // });
             }).catch((error) => {
                 toast.error(`An error occurred while adding worktime: ${error.response.data.message}`, {
                     position: toast.POSITION.BOTTOM_RIGHT
@@ -39,12 +46,16 @@ function WorktimeDoc() {
             })
         }
         else {
-            toast.warning(`Please select worktime`, {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            setDates0(true);
+            setTimeout(() => {
+                setDates0(false);
+              }, 3000);
+            // toast.warning(`Please select worktime`, {
+            //     position: toast.POSITION.BOTTOM_RIGHT
+            // });
         }
     }
-    
+
 
     useEffect(() => {
         const token = localStorage.getItem("jwtToken");
@@ -80,6 +91,22 @@ function WorktimeDoc() {
                                     Add your worktime Mr {doctor.userName}
                                 </div>
                                 <div className="card-body">
+                                    {dates1 &&
+                                        (<div>
+                                            <Alert
+                                                className="form-group"
+                                                variant="success"
+                                                style={{ marginTop: "-13px" }}
+                                            >
+                                                <div
+                                                    className="form-icon-wrapper"
+                                                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                                                >
+                                                    Worktime added successfully
+                                                </div>
+                                            </Alert>
+                                        </div>)
+                                    }
                                     <div className="form-group d-flex flex-row">
                                         <div style={{ width: "50%" }} className="offset-md-1">
                                             <label htmlFor="worktime"><b>Select worktime dates:</b></label>
@@ -93,17 +120,37 @@ function WorktimeDoc() {
                                             {selectedDates.length > 0 && (
                                                 <>
                                                     <label><b>Selected dates:</b></label>
-                                                    <div style={{ backgroundColor: "white", borderRadius: "10px"  }}>
-                                                    <ul>
-                                                        {selectedDates.map((date, index) => (
-                                                            <li key={index}>{date.toLocaleDateString()}</li>
-                                                        ))}
-                                                    </ul>
+                                                    <div style={{ backgroundColor: "white", borderRadius: "10px" }}>
+                                                        <ul>
+                                                            {selectedDates.map((date, index) => (
+                                                                <li key={index}>{date.toLocaleDateString()}</li>
+                                                            ))}
+                                                        </ul>
                                                     </div>
                                                 </>
                                             )}
                                         </div>
                                     </div>
+
+                                    {dates0 &&
+                                        (<div>
+                                            <Alert
+                                                className="form-group"
+                                                variant="danger"
+                                                style={{ marginTop: "-13px" }}
+                                            >
+                                                <div
+                                                    className="form-icon-wrapper  text-danger"
+                                                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                                                >
+                                                    You have to choose your worktime dates first
+                                                </div>
+                                            </Alert>
+                                        </div>)
+                                    }
+
+
+
                                 </div>
                                 <button
                                     className="btn btn-primary offset-md-7"
