@@ -9,6 +9,11 @@ import moment from "moment";
 import SidebarApp from "./SidebarApp";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import Alert from "react-bootstrap/Alert";
+import "./Popup.css"
+
+
 
 function SeeAppointments() {
     const [doctor, setDoctor] = useState({});
@@ -20,16 +25,26 @@ function SeeAppointments() {
     const [showUnvalidated, setShowUnvalidated] = useState(false);
     const [showAll, setShowAll] = useState(true);
 
+    const [showModal, setShowModal] = useState(false);
+    const [dismissAppointmentId, setDismissAppointmentId] = useState('');
+    const [dismissPatientId, setDismissPatientId] = useState('');
+    const [showAlert1, setShowAlert1] = useState(false);
+    const [showAlert2, setShowAlert2] = useState(false);
+
     const appointmentsPerPage = 5;
     const pagesVisited = currentPage * appointmentsPerPage;
 
     const handleValidate = (id) => {
+        setShowAlert1(true)
+        setTimeout(() => {
+            setShowAlert1(false);
+          }, 3000);
         axios
             .put(`http://localhost:5000/doctor/appointments/${id}/verifie`)
             .then((response) => {
-                toast.success(`you have completed an appointment`, {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                });
+                // toast.success(`you have completed an appointment`, {
+                //     position: toast.POSITION.BOTTOM_RIGHT,
+                // });
                 console.log('test');
                 setAppointments((prevState) => {
                     const updatedAppointments = prevState.map((appointment) => {
@@ -42,6 +57,30 @@ function SeeAppointments() {
                 });
             });
     };
+
+    const handleDismiss = (id, patientID) => {
+        console.log('handleDismiss called');
+        setShowModal(true);
+        setDismissAppointmentId(id);
+        setDismissPatientId(patientID);
+    };
+    
+    const handleConfirmDismisspopup = (id, patientID) => {
+        axios.delete(`http://localhost:5000/patient/deleteAppointment/${patientID}`, {
+            data: { idAppointment: id }
+        }).then((response) => {
+            setAppointments(
+                appointments.filter((appointment) => appointment._id !== id)
+            );
+            setShowAlert2(true)
+            setTimeout(() => {
+                setShowAlert2(false);
+              }, 3000);
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
+      
 
     useEffect(() => {
         const token = localStorage.getItem("jwtToken");
@@ -88,7 +127,31 @@ function SeeAppointments() {
 
     return (
         <>
+        {showModal && (
+  <div className="modal-overlay " tabIndex={-1} role="dialog">
+  <div className="custom-modal" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h4 className="modal-title">Confirmation</h4>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>{setShowModal(false)}}>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        <p>Are you sure you want to dismiss this appointment?</p>
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-primary" onClick={()=>{handleConfirmDismisspopup(dismissAppointmentId, dismissPatientId) 
+            setShowModal(false)}}>Confirm</button>
+        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>{setShowModal(false)}}>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+)}
             <ToastContainer />
+            <div className={showModal ? 'blurred' : ''}>
             <div className="container pt-5">
                 <div className="row">
                     <div className="col-lg-4">
@@ -188,7 +251,7 @@ function SeeAppointments() {
           return (
             <tr key={appointment._id}>
               <td>
-              <button className="btn btn-success" onClick={() => { window.location.href=`/PatientMedicalRecord/${patients[index]?._id}` }}>
+              <button className="btn btn-primary" onClick={() => { window.location.href=`/PatientMedicalRecord/${patients[index]?._id}` }}  title="More info about the patient">
     i
 </button>
 
@@ -203,29 +266,49 @@ function SeeAppointments() {
                 {moment(appointment.Date).format("h:mm:ss a")}
               </td>
               {!appointment.isVerified ? (
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    style={{
-                      width: "60px",
-                      marginBottom: "0px",
-                      marginTop: "0px",
-                    }}
-                    type="button"
-                    onClick={() => handleValidate(appointment._id)}
-                  >
-                    Done
-                  </button>
-                </td>
-              ) : (
-                <td></td>
-              )}
+  <td>
+    <div style={{ display: "flex" }}>
+      <button
+        className="btn btn-success"
+        style={{
+          width: "40px",
+          marginBottom: "0px",
+          marginTop: "0px",
+          marginRight: "5px",
+        }}
+        type="button"
+        onClick={() => handleValidate(appointment._id)}
+        title="Validate this appointment"
+      >
+        <i className="fa fa-thumbs-up"></i>
+      </button>
+      <button
+        className="btn btn-danger"
+        style={{
+          width: "40px",
+          marginBottom: "0px",
+          marginTop: "0px",
+        }}
+        type="button"
+        onClick={() => handleDismiss(appointment._id,patient?._id)}
+        title="Dismiss this appointment"
+      >
+        <i className="fa fa-thumbs-down"></i>
+      </button>
+    </div>
+  </td>
+) : (
+  <td></td>
+)}
+
             </tr>
           );
         })}
     </tbody>
   </table>
 )}
+
+
 
 
                                             <ReactPaginate
@@ -242,6 +325,36 @@ function SeeAppointments() {
                                                 nextLinkClassName={"page-link"}
                                                 activeClassName={"active"}
                                             />
+                                            {showAlert1 && (
+                                                <div>
+                                                <Alert
+                                                className="form-group"
+                                                variant="success"
+                                                style={{ marginTop: "13px" }}
+                                            >
+                                                <div
+                                                    className="form-icon-wrapper"
+                                                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                                                >
+                                                    Appointment validated successfully
+                                                </div>
+                                            </Alert>
+                                            </div>
+                                            )}
+                                            {showAlert2 && (
+                                                <Alert
+                                                className="form-group"
+                                                variant="warning"
+                                                style={{ marginTop: "13px" }}
+                                            >
+                                                <div
+                                                    className="form-icon-wrapper"
+                                                    style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                                                >
+                                                    Appointment dismissed successfully
+                                                </div>
+                                            </Alert>
+                                            )}
 
 
 
@@ -253,6 +366,7 @@ function SeeAppointments() {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </>
     );
