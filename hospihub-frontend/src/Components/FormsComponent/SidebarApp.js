@@ -49,6 +49,13 @@ function SidebarApp() {
                                         <i className="fas fa-th"/>
                                         <span>Appointments</span>
                                     </NavLink>
+                                    <NavLink
+                                        to="/UpdateProfile/patientList"
+                                        className="nav-item nav-link "
+                                    >
+                                        <i className="fas fa-user"/>
+                                        <span>Patient List</span>
+                                    </NavLink>
                                 </div>
 
                                 {/*sidebar end*/}

@@ -17,8 +17,6 @@ function SideNavBarComponent(props) {
             <a href="#"><i className="fas fa-th" /><span>Forms</span></a>
             <a href="#"><i className="fas fa-info-circle" /><span>About</span></a>
             <a href="#"><i className="fas fa-sliders-h" /><span>Settings</span></a>
-
-
           </div>
         </div>
         {/*mobile navigation bar end*/}
@@ -36,8 +34,8 @@ function SideNavBarComponent(props) {
           <NavLink to="/Medicalrecord/Summary" className="nav-item nav-link "><i className="fas fa-user" /><span>Summary Of the medical record</span></NavLink>
           <NavLink to="/Medicalrecord/BloodandMeasurements" className="nav-item nav-link "><i className="fas fa-plus-square" /><span>Blood groups and measurements</span></NavLink>
           <NavLink to="/Medicalrecord/VitalSigns" className="nav-item nav-link "><i className="fas fa-heartbeat" /><span>Vital Signs</span></NavLink>
-          <NavLink to="/" className="nav-item nav-link "><i className="fas fa-th" /><span>Appointments</span></NavLink>
-          <NavLink to="/" className="nav-item nav-link "><i className="fas  fa-bell" /><span>Notifications</span></NavLink>
+          <NavLink to="/Medicalrecord/PatientApp" className="nav-item nav-link "><i className="fas fa-th" /><span>Appointments</span></NavLink>
+          <NavLink to="/Medicalrecord/DoctorsList" className="nav-item nav-link "><i className="fas  fa-user"/><span>Doctors List</span></NavLink>
           <NavLink to="/" className="nav-item nav-link "><i className="fas fa-sliders-h" /><span>Settings</span></NavLink>
 
 
