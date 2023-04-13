@@ -21,8 +21,7 @@ function ResetPasswordComponent() {
         }
         else{ 
           setPasswordErrorMessage(true);
-        }
-      
+        }    
       }
   return (
     <div className="">

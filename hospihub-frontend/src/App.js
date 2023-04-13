@@ -30,6 +30,7 @@ import PatientList from './Components/MedicalRecordComponent/patientList';
 import SingleChat from './Components/MedicalRecordComponent/SingleChat';
 import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
 import List from './Components/MedicalRecordComponent/list';
+import PatientAppComponent from './Components/MedicalRecordComponent/PatientAppComponent';
 
 function App() {
   return (
@@ -69,6 +70,8 @@ function App() {
           <Route path='VitalSignsAlpha/:id' element={<HamzaVital></HamzaVital>} ></Route>
           <Route path='chat' element={<SingleChatPatient></SingleChatPatient>} ></Route> 
           <Route path='DoctorsList' element={<DoctorsListComponent></DoctorsListComponent>} ></Route>
+          <Route path='PatientApp' element={<PatientAppComponent></PatientAppComponent>} ></Route>
+
       </Route>
 
       <Route path='/AddWorktime'>
