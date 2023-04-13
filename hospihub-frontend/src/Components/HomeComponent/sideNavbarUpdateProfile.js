@@ -85,7 +85,7 @@ const navigate=useNavigate()
 
           <NavLink to="/UpdateProfile/publicProfile" className="nav-item nav-link "><i className="fas fa-user" /><span>Public Profile</span></NavLink>
           <NavLink to="/UpdateProfile/UpdatePassword" className="nav-item nav-link "><i className="fas fa-key" /><span>Password</span></NavLink>
-          <NavLink to="/UpdateProfile/patientList" className="nav-item nav-link "><i className="fas fa-user" /><span>Patient List</span></NavLink>
+          {/* <NavLink to="/UpdateProfile/patientList" className="nav-item nav-link "><i className="fas fa-user" /><span>Patient List</span></NavLink> */}
         </div>
 
         {/*sidebar end*/}
