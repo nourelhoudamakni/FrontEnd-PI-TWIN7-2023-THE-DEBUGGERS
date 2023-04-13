@@ -82,6 +82,7 @@ function SingleChatPatient() {
     }
   }
   useEffect(()=>{ 
+    console.log("here here here ")
     fetchMessages();
     selectedChatCompare=selectedChat;
   },[selectedChat])
@@ -111,7 +112,9 @@ function SingleChatPatient() {
   
   useEffect(()=>{ 
     if (socket){ 
-      socket.on("message received", (newMessageReceived) => {   
+      socket.on("message received", (newMessageReceived) => {  
+        console.log("here here here")
+        console.log("here here here")     
            fetchMessages()    
            setMessages([...messages, newMessageReceived.content])
         

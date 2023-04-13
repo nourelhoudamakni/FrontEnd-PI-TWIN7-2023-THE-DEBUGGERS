@@ -53,9 +53,8 @@ function SignInComponent() {
       // If JWT cookie exists, redirect to profile page
       console.log(jwt)
       localStorage.setItem("jwtToken", jwt);
-     
     }
-  }, []);
+  },[]);
 
   const handleSignIn = (e) => {
     e.preventDefault();

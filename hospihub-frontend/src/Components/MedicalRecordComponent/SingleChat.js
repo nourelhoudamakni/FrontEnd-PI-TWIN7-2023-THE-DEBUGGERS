@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import { useSelector } from 'react-redux';
 import ScrollableChat from './ScrollableChat';
 import io from "socket.io-client" ;
+import SidebarApp from '../FormsComponent/SidebarApp';
 
 function SingleChat() {
   const socket=io("http://localhost:5000");
@@ -111,7 +112,9 @@ function SingleChat() {
   
   useEffect(()=>{ 
     if (socket){ 
-      socket.on("message received", (newMessageReceived) => {       
+      socket.on("message received", (newMessageReceived) => {   
+        console.log("here here here")    
+        
            fetchMessages()
            setMessages([...messages, newMessageReceived.content])
         
@@ -122,7 +125,7 @@ function SingleChat() {
     <div className="container  pt-5 pb-5">
         <div className=" row  ">
           <div className="col-lg-4">
-            <SideNavBarUpdateProfile user={User}></SideNavBarUpdateProfile>
+            <SidebarApp user={User}></SidebarApp>
           </div>
     <div className="App">
       <h1>{selectedUser}</h1>
