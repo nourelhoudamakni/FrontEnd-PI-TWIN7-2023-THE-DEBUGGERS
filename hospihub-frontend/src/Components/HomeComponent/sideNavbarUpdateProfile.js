@@ -6,7 +6,7 @@ import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 function SideNavBarUpdateProfile(props) {
-  const [uploadedFile, setUploadedFile] = useState()
+const [uploadedFile, setUploadedFile] = useState()
 const navigate=useNavigate()
   const handleChange = (event) => {
     setUploadedFile(event.target.files[0]);

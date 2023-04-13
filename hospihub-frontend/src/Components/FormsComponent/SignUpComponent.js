@@ -157,7 +157,14 @@ function SignUpComponent() {
                     <div className="text-center my-5">
                       <h3 className="font-weight-bold mb-3">Sign Up</h3>
                       <p className="text-muted">Create a free account now.</p>
-                    </div>
+                   
+                    <div className=" ">
+                          <p className="mt-2">
+                            Do you already have an account?
+                            <Link to='/signIn'>Sign in</Link>.
+                          </p>
+                        </div>
+                        </div>
 
                     <form onSubmit={handleSubmit}>
 
@@ -323,7 +330,7 @@ function SignUpComponent() {
                       <div className="form-group">
                         <label htmlFor="password-repeat"></label>
                         <div className="form-icon-wrapper">
-                          <input type="password" className="form-control" id="password-repeat" placeholder="Retype password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setPasswordErrorMessage1(password !== confirmPassword)} required />
+                          <input type="password" className="form-control" id="password-repeat" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setPasswordErrorMessage1(password !== confirmPassword)} required />
                           <i className="form-icon-left mdi mdi-lock" />
 
                         </div>
@@ -344,8 +351,8 @@ function SignUpComponent() {
                       )}
                       <div className="form-group">
 
-                        <select className="form-control bg-light p-2" onChange={handleRoleChange} defaultValue="patient">
-                          <option value="" disabled>Choose Role</option>
+                        <select className="form-control bg-light p-2" onChange={handleRoleChange} required>
+                          <option value="" >Choose Role</option>
                           <option value="patient">Patient</option>
                           <option value="doctor">Doctor</option>
                         </select>
@@ -406,12 +413,7 @@ function SignUpComponent() {
 
                         </div>
 
-                        <div className=" ">
-                          <p className="mt-2">
-                            Do you already have an account?
-                            <Link to='/signIn'>Sign in</Link>.
-                          </p>
-                        </div>
+               
                       </div>
 
                     </form>

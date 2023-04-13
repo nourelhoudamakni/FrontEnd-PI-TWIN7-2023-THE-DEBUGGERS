@@ -113,10 +113,11 @@ function SingleChatPatient() {
   useEffect(()=>{ 
     if (socket){ 
       socket.on("message received", (newMessageReceived) => {  
+        console.log("nour")
+        console.log("nour")
         console.log("here here here")
         console.log("here here here")     
            fetchMessages()    
-           setMessages([...messages, newMessageReceived.content])
         
       })
     }  

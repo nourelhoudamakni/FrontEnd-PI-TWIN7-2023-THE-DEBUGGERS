@@ -7,7 +7,7 @@
     border-radius: 5px;
     margin-left: 10%;
     width:350px;
-    height: 647px;
+    
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;

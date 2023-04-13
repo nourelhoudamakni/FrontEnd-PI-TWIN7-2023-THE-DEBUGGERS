@@ -101,8 +101,8 @@ function UpdateMedicalRecordComponent(props) {
 
     return (
         <div className='container pt-5 '>
-            <div className=" row  ">
-                <div className="col-lg-4">
+            <div className=" row   ">
+                <div className="col-lg-4 ">
                     <SideNavBarComponent user={User}></SideNavBarComponent>
                 </div>
 
