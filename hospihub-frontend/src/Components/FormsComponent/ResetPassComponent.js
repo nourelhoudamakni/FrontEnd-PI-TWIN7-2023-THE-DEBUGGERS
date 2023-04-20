@@ -2,27 +2,33 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert';
-function ResetPasswordComponent() {
-    const { token } = useParams();
-    const navigate = useNavigate();
-    const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
-      const [password, setPassword] = useState('');
-      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
-      const handleResetPassword = (e) => {
-        e.preventDefault();
-        if(passwordRegex.test(password)){
-          axios.post(`http://localhost:5000/reset-password/${token}`,{password:password}).then(
-            () => {
+import { Alert } from 'react-bootstrap';
 
-              navigate('/SignIn');
-      }
-          )
-        }
-        else{ 
-          setPasswordErrorMessage(true);
-        }    
-      }
+function ResetPasswordComponent() {
+  const { token } = useParams();
+  const navigate = useNavigate();
+  const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const [password, setPassword] = useState('');
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
+
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    if(passwordRegex.test(password)){
+      axios.post(`http://localhost:5000/reset-password/${token}`, { password: password })
+        .then(() => {
+          setSuccessMessage('User password has been reset');
+          navigate('/SignIn');
+        })
+        .catch((error) => {
+          setErrorMessage(error.response.data.msg);
+        });
+    } else {
+      setPasswordErrorMessage(true);
+    }    
+  }
   return (
     <div className="">
       <img
@@ -66,6 +72,9 @@ function ResetPasswordComponent() {
                     <button className="btn btn-primary">Change Password</button>
                   </div>
                 </form>
+                {errorPasswordMessage && <Alert variant="danger">Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character</Alert>}
+                {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
               </div>
             </div>
           </div>
