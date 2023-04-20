@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";
-import {setToken , selectToken} from "../../Redux/slices/authSlice"
+import {setToken , selectToken} from "../../redux/slices/authSlice"
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
@@ -53,9 +53,8 @@ function SignInComponent() {
       // If JWT cookie exists, redirect to profile page
       console.log(jwt)
       localStorage.setItem("jwtToken", jwt);
-     
     }
-  }, []);
+  },[]);
 
   const handleSignIn = (e) => {
     e.preventDefault();
