@@ -87,7 +87,7 @@ function SideNavBarComponent(props) {
           <NavLink to="/Medicalrecord/VitalSigns" className="nav-item nav-link "><i className="fas fa-heartbeat" /><span>Vital Signs</span></NavLink>
           <NavLink to="/Medicalrecord/PatientApp" className="nav-item nav-link "><i className="fas fa-th" /><span>Appointments</span></NavLink>
           <NavLink to="/Medicalrecord/DoctorsList" className="nav-item nav-link "><i className="fas  fa-user"/><span>Doctors List</span></NavLink>
-          <NavLink to="/" className="nav-item nav-link "><i className="fas fa-sliders-h" /><span>Settings</span></NavLink>
+          <NavLink to="/Medicalrecord/listPrescriptionsforPatient" className="nav-item nav-link "><i className="fas fa-list" /><span>Prescriptions</span></NavLink>
 
 
 

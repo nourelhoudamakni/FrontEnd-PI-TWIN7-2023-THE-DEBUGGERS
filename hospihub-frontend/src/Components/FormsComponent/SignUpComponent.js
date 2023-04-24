@@ -170,13 +170,13 @@ function SignUpComponent() {
 
                       <div className="row gx-3 mb-3">
                         <div className="col-md-6">
-                          <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() => setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required />
+                          <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name*" value={firstName} onChange={(e) => setFirstName(e.target.value)} onBlur={() => setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required />
 
                         </div>
 
 
                         <div className="col-md-6">
-                          <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value={lastName} onChange={(e) => setLastName(e.target.value)} onBlur={() => setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required />
+                          <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name*" value={lastName} onChange={(e) => setLastName(e.target.value)} onBlur={() => setLastNameErrorMessage(!/^[a-zA-Z\s]+$/.test(firstName) || !/^[a-zA-Z\s]+$/.test(lastName))} required />
                         </div>
                       </div>
 
@@ -197,7 +197,7 @@ function SignUpComponent() {
 
                       <div className="form-group">
                         <div className="form-icon-wrapper">
-                          <input type="text" className="form-control" id="fullname" placeholder="Enter username" value={userName} onChange={(e) => setUserName(e.target.value)} onBlur={() => setUsernameErrorMessage(!/^[a-zA-Z0-9]{3,}$/.test(userName))} required />
+                          <input type="text" className="form-control" id="fullname" placeholder="Enter username*" value={userName} onChange={(e) => setUserName(e.target.value)} onBlur={() => setUsernameErrorMessage(!/^[a-zA-Z0-9]{3,}$/.test(userName))} required />
                           <i className="form-icon-left mdi mdi-account " />
                         </div>
                       </div>
@@ -270,7 +270,7 @@ function SignUpComponent() {
                       <div className="form-group">
 
                         <div className="form-icon-wrapper ">
-                          <input type="email" className="form-control" id="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => { setEmailErrorMessage1(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); setEmailErrorMessage(false); }} required />
+                          <input type="email" className="form-control" id="email" placeholder="Enter email*" value={email} onChange={(e) => setEmail(e.target.value)} onBlur={() => { setEmailErrorMessage1(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)); setEmailErrorMessage(false); }} required />
                           <i className="form-icon-left mdi mdi-email" />
                         </div>
                         {emailErrorMessage1 && (
@@ -305,7 +305,7 @@ function SignUpComponent() {
                       <div className="form-group">
                         <div className="form-icon-wrapper">
                           <input type={showPassword ? 'text' : 'password'}
-                            className="form-control" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
+                            className="form-control" id="password" placeholder="Enter password*" value={password} onChange={(e) => setPassword(e.target.value)} onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(password))} required />
                           <i
                             className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
                             onClick={toggleShowPassword}
@@ -330,7 +330,7 @@ function SignUpComponent() {
                       <div className="form-group">
                         <label htmlFor="password-repeat"></label>
                         <div className="form-icon-wrapper">
-                          <input type="password" className="form-control" id="password-repeat" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setPasswordErrorMessage1(password !== confirmPassword)} required />
+                          <input type="password" className="form-control" id="password-repeat" placeholder="Confirm password*" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onBlur={() => setPasswordErrorMessage1(password !== confirmPassword)} required />
                           <i className="form-icon-left mdi mdi-lock" />
 
                         </div>
@@ -352,7 +352,7 @@ function SignUpComponent() {
                       <div className="form-group">
 
                         <select className="form-control bg-light p-2" onChange={handleRoleChange} required>
-                          <option value="" >Choose Role</option>
+                          <option value="" >Choose Role*</option>
                           <option value="patient">Patient</option>
                           <option value="doctor">Doctor</option>
                         </select>
@@ -373,7 +373,7 @@ function SignUpComponent() {
                       {role === 'doctor' && (
                         <div className="form-group">
                           <select className="form-control bg-light p-2" onChange={handleHospitalChange} required>
-                            <option value="">Choose hospital</option>
+                            <option value="">Choose hospital*</option>
                             {hospitals.map((hospital) => (
                               <option key={hospital._id} value={hospital._id}>
                                 {hospital.HospitalName}
@@ -386,7 +386,7 @@ function SignUpComponent() {
                       {services && services.length > 0 && (
                         <div className="form-group">
                           <select className="form-control bg-light p-2" onChange={handleServiceChange} required>
-                            <option value="">Choose a service</option>
+                            <option value="">Choose a service*</option>
                             {services.map((s) => (
                               <option key={s._id} value={s._id}>
                                 {s.ServiceName}
