@@ -36,7 +36,7 @@ function SignUpComponent() {
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
- 
+
 
 
   const toggleShowPassword = () => setShowPassword(!showPassword);
@@ -87,10 +87,10 @@ function SignUpComponent() {
             setEmailErrorMessage(true);
             return;
           }
-          if(service){
+          if (service) {
             axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}`);
           }
-          navigate('/EmailVerifiaction');
+          navigate(`/EmailVerifiaction/${response.data.data._id}`);
         }
       )
 
@@ -344,11 +344,10 @@ function SignUpComponent() {
                       )}
                       <div className="form-group">
 
-                        <select className="  form-control bg-light p-2" onChange={handleRoleChange}>
+                        <select className="form-control bg-light p-2" onChange={handleRoleChange}>
                           <option value="">Choose Role</option>
-                          <option value="patient">patient</option>
-                          <option value="doctor">doctor </option>
-
+                          <option value="patient">Patient</option>
+                          <option value="doctor">Doctor</option>
                         </select>
 
                       </div>
@@ -364,31 +363,31 @@ function SignUpComponent() {
                         } */}
 
 
-{role === 'doctor' && (
-  <div className="form-group">
-    <select className="form-control bg-light p-2" onChange={handleHospitalChange}>
-      <option value="">Choose hospital</option>
-      {hospitals.map((hospital) => (
-        <option key={hospital._id} value={hospital._id}>
-          {hospital.HospitalName}
-        </option>
-      ))}
-    </select>
-  </div>
-)}
+                      {role === 'doctor' && (
+                        <div className="form-group">
+                          <select className="form-control bg-light p-2" onChange={handleHospitalChange} required>
+                            <option value="">Choose hospital</option>
+                            {hospitals.map((hospital) => (
+                              <option key={hospital._id} value={hospital._id}>
+                                {hospital.HospitalName}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
-{services && services.length > 0 && (
-  <div className="form-group">
-    <select className="form-control bg-light p-2" onChange={handleServiceChange}>
-      <option value="">Choose a service</option>
-      {services.map((s) => (
-        <option key={s._id} value={s._id}>
-          {s.ServiceName}
-        </option>
-      ))}
-    </select>
-  </div>
-)}
+                      {services && services.length > 0 && (
+                        <div className="form-group">
+                          <select className="form-control bg-light p-2" onChange={handleServiceChange} required>
+                            <option value="">Choose a service</option>
+                            {services.map((s) => (
+                              <option key={s._id} value={s._id}>
+                                {s.ServiceName}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
 
 
                       <div className="form-group">
