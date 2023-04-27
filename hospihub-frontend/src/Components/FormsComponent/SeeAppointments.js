@@ -66,7 +66,7 @@ function SeeAppointments() {
     };
     
     const handleConfirmDismisspopup = (id, patientID) => {
-        axios.delete(`http://localhost:5000/patient/deleteAppointment/${patientID}`, {
+        axios.delete(`http://localhost:5000/patient/deleteAppointment/${patientID}/${id}`, {
             data: { idAppointment: id }
         }).then((response) => {
             setAppointments(

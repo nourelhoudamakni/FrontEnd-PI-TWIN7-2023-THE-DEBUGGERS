@@ -116,7 +116,7 @@ function SingleChatPatient() {
         console.log("here here here")
         console.log("here here here")     
            fetchMessages()    
-           setMessages([...messages, newMessageReceived.content])
+          
         
       })
     }  
