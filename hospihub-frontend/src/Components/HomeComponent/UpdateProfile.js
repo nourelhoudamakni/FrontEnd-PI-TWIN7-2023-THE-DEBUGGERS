@@ -8,9 +8,12 @@ import { Button, Modal } from "react-bootstrap";
 import FlagSelect from "react-flags-select";
 import { getCountryCallingCode } from "react-phone-number-input";
 import SideNavBarUpdateProfile from "./sideNavbarUpdateProfile";
-import './sideNavBarProfile.css';
+import "./sideNavBarProfile.css";
 
 function UpdateProfile() {
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
   const [User, setUser] = useState({});
   const [opt, setopt] = useState({});
   const [incorrectCode, setincorrectCode] = useState(false);
@@ -135,12 +138,12 @@ function UpdateProfile() {
       });
   };
   const handleSentCode = () => {
-    if((showSendMessage)==false){ 
-       setshowSendMessage(true)
+    if (showSendMessage == false) {
+      setshowSendMessage(true);
     }
     setTimeout(() => {
-      setshowSendMessage(false)
-  }, 3000); // 3 seconds  
+      setshowSendMessage(false);
+    }, 3000); // 3 seconds
     setShowTime(true);
     setResendButton(true);
     if (intervalId) {
@@ -185,7 +188,7 @@ function UpdateProfile() {
           <div className="col-lg-4">
             <SideNavBarUpdateProfile user={User}></SideNavBarUpdateProfile>
           </div>
-         
+
           <div className="col-lg-8  mb-5">
             <div className="  ">
               {/* Account details card*/}
@@ -348,7 +351,6 @@ function UpdateProfile() {
                                 ? selectedCountry
                                 : "Select a country"
                             }
-                           
                           />
                           <input
                             style={{
@@ -394,7 +396,8 @@ function UpdateProfile() {
                       className="btn btn-primary ml-0 mt-3"
                       style={{ width: "180px" }}
                       type="button"
-                      onClick={handleUpdateProfile}
+                      //   onClick={handleUpdateProfile}
+                      onClick={handleShow2}
                     >
                       Save changes
                     </button>
@@ -407,20 +410,20 @@ function UpdateProfile() {
                           <Modal.Title>Verify Phone</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          {showSendMessage &&(
-                             <Alert className="form-group" variant="success">
-                             <div
-                               className="form-icon-wrapper  "
-                               style={{
-                                 marginTop: "-11px",
-                                 marginBottom: "-13px",
-                               }}
-                             >
-                               code is sent to your phone number !
-                             </div>
-                           </Alert>
+                          {showSendMessage && (
+                            <Alert className="form-group" variant="success">
+                              <div
+                                className="form-icon-wrapper  "
+                                style={{
+                                  marginTop: "-11px",
+                                  marginBottom: "-13px",
+                                }}
+                              >
+                                code is sent to your phone number !
+                              </div>
+                            </Alert>
                           )}
-                         
+
                           <img
                             className="img-fluid  "
                             style={{ width: "140px", marginLeft: "150px" }}
@@ -494,6 +497,22 @@ function UpdateProfile() {
                         </Modal.Footer>
                       </Modal>
                     )}
+                    <Modal show={show2} onHide={handleClose2}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Confirm Changes</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Are you sure to confirm changes ?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose2}>
+                          Close
+                        </Button>
+                        <Button variant="primary" onClick={handleUpdateProfile}>
+                          Save Changes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                   </>
                 </div>
               </div>
@@ -501,8 +520,6 @@ function UpdateProfile() {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 }

@@ -48,7 +48,7 @@ function App() {
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
-      <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
+      <Route path='/EmailVerifiaction/:id' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
