@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   selectReceiver,
   selectUser,
-} from "../../Redux/slices/userSelectedSlice";
+} from "../../redux/slices/userSelectedSlice";
 import SidebarApp from "../FormsComponent/SidebarApp";
 function PatientList() {
   const dispatch = useDispatch();

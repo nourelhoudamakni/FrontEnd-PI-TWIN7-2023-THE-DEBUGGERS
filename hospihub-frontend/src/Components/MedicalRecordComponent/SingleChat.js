@@ -116,7 +116,7 @@ function SingleChat() {
         console.log("here here here")    
         
            fetchMessages()
-           setMessages([...messages, newMessageReceived.content])
+         
         
       })
     }  
