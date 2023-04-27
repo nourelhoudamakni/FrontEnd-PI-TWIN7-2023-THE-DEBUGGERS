@@ -8,6 +8,7 @@ import SideNavBarUpdateProfile from "./sideNavbarUpdateProfile";
 function UpdateProfile() {
   const [User, setUser] = useState({});
   const [oldPassword,setOldPassword]=useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(false);
   const [newPassword,setNewPassword]=useState('');
   const [confirmNewPassword,setConfirmNewPassword]=useState('')
   const [showoldPassword,setShowOldPassword]=useState(false);
@@ -71,6 +72,12 @@ function UpdateProfile() {
       }
       )
   }
+  const handleSubmit = (e) => {
+    if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(newPassword)) {
+      setPasswordErrorMessage(true);
+      return
+  }
+}
 
  
   
@@ -141,9 +148,10 @@ function UpdateProfile() {
                         name="newPassword"
                         required
                         onChange={(e) => setNewPassword(e.target.value)}
+                        onBlur={() => setPasswordErrorMessage(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/.test(newPassword))}
                       />
                     </div>
-                    {shownewPassword && (
+                    {passwordErrorMessage && (
                       <Alert
                         className="form-group"
                         variant="danger"
