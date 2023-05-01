@@ -112,7 +112,6 @@ function VitalSignsComponent(props) {
 
                     setUser(response.data);
 
-
                 })
                 .catch(error => {
                     console.error(error);

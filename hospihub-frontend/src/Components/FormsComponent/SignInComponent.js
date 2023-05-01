@@ -192,7 +192,7 @@ function SignInComponent() {
                 <div className="text-divider">or sign in with email</div>
                 <form onSubmit={handleSignIn}>
                   <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">Email*</label>
                     <div className="form-icon-wrapper">
                       <input
                         type="email"
@@ -254,7 +254,7 @@ function SignInComponent() {
 
 {/* //////////////////////////////// */}
 <div className="form-group">
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">Password*</label>
       <div className="form-icon-wrapper">
         <input
           type={showPassword ? 'text' : 'password'}

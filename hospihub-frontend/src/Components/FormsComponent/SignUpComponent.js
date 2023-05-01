@@ -88,7 +88,7 @@ function SignUpComponent() {
             return;
           }
           if (service) {
-            axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}`);
+            axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}/${hospital}`);
           }
           navigate(`/EmailVerifiaction/${response.data.data._id}`);
         }
