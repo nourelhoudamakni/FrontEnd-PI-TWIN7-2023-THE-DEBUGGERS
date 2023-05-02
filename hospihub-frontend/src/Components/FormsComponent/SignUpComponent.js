@@ -88,9 +88,9 @@ function SignUpComponent() {
             return;
           }
           if (service) {
-            axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}`);
+            axios.put(`http://localhost:5000/doctor/updateDoctorService/${response.data.data._id}/${service}/${hospital}`);
           }
-          navigate('/EmailVerifiaction');
+          navigate(`/EmailVerifiaction/${response.data.data._id}`);
         }
       )
 
@@ -344,8 +344,8 @@ function SignUpComponent() {
                       )}
                       <div className="form-group">
 
-                        <select className="form-control bg-light p-2" onChange={handleRoleChange} defaultValue="patient">
-                          <option value="" disabled>Choose Role</option>
+                        <select className="form-control bg-light p-2" onChange={handleRoleChange}>
+                          <option value="">Choose Role</option>
                           <option value="patient">Patient</option>
                           <option value="doctor">Doctor</option>
                         </select>

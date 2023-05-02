@@ -31,6 +31,11 @@ import SingleChat from './Components/MedicalRecordComponent/SingleChat';
 import SingleChatPatient from './Components/MedicalRecordComponent/SingleChatPatient';
 import List from './Components/MedicalRecordComponent/list';
 import PatientAppComponent from './Components/MedicalRecordComponent/PatientAppComponent';
+import AddPrescriptionComponent from './Components/PatientInfoFromDoc/AddPrescription';
+import ListPrescription from './Components/PatientInfoFromDoc/prescriptionList';
+import UpdatePrescription from './Components/PatientInfoFromDoc/updatePrescription';
+import ListPrescriptionsforPatient from './Components/MedicalRecordComponent/ListPrescriptions';
+import ShowPrescription from './Components/MedicalRecordComponent/ShowPrescription';
 
 function App() {
   return (
@@ -43,7 +48,7 @@ function App() {
       <Route path='/SignUp' element={<SignUpComponent></SignUpComponent>} ></Route>
       <Route path='/reset-password/:token' element={<ResetPasswordComponent></ResetPasswordComponent>} ></Route>
       <Route path='/ForgetPassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>} ></Route>
-      <Route path='/EmailVerifiaction' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
+      <Route path='/EmailVerifiaction/:id' element={<EmailVerificationMessage></EmailVerificationMessage>} ></Route>
       <Route path='/ErrorSignInPage' element={<ErrorSignInPage></ErrorSignInPage>} ></Route>
       <Route path='/About' element={<AboutComponent></AboutComponent>} ></Route>
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
@@ -65,12 +70,19 @@ function App() {
           <Route path='Summary' element={<UpdateMedicalRecordComponent></UpdateMedicalRecordComponent>} ></Route>
           <Route path='BloodandMeasurements' element={<BloodComponent></BloodComponent>} ></Route>
           <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
+          <Route path='listPrescriptionsforPatient' element={<ListPrescriptionsforPatient></ListPrescriptionsforPatient>} ></Route>
+          <Route path='ShowPrescription/:idPrescription' element={<ShowPrescription></ShowPrescription>} ></Route>
+
+
           <Route path='SummaryAlpha/:id' element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
           <Route path='BloodandMeasurementsAlpha/:id' element={<HamzaBlood></HamzaBlood>} ></Route>
           <Route path='VitalSignsAlpha/:id' element={<HamzaVital></HamzaVital>} ></Route>
           <Route path='chat' element={<SingleChatPatient></SingleChatPatient>} ></Route> 
           <Route path='DoctorsList' element={<DoctorsListComponent></DoctorsListComponent>} ></Route>
           <Route path='PatientApp' element={<PatientAppComponent></PatientAppComponent>} ></Route>
+          <Route path='addPrescription/:id' element={<AddPrescriptionComponent></AddPrescriptionComponent>}></Route>
+          <Route path='listPrescriptionsForDoctor/:id' element={<ListPrescription></ListPrescription>}></Route>
+          <Route path='updatePrescription/:id/:idPrescription' element={<UpdatePrescription></UpdatePrescription>}></Route>
 
       </Route>
 

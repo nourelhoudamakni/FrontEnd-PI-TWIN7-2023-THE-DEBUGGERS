@@ -1,8 +1,46 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import './sideNavBar.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useState } from "react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from 'react-bootstrap/Button';
+
 
 function SideNavBarComponent(props) {
+  const [uploadedFile, setUploadedFile] = useState()
+  const navigate=useNavigate()
+  const handleChange = (event) => {
+    setUploadedFile(event.target.files[0]);
+    console.log(uploadedFile)
+
+  };
+
+  const addImageprofile = (e) => {
+
+    const formData = new FormData();
+    // uploadedFile.forEach(file => {
+    //   console.log(file)
+    //   formData.append('file', uploadedFile, uploadedFile.name);
+    //   console.log(formData)
+    // });
+     formData.append('file', uploadedFile, uploadedFile.name);
+
+    axios.put(`http://localhost:5000/patient/addImageProfile/${props.user._id}`, formData)
+      .then((response) => {
+        console.log(response.data)
+        navigate(0)
+       
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+  }
+
   return (
+
     <>
      <div>
         {/*mobile navigation bar start*/}
@@ -24,19 +62,32 @@ function SideNavBarComponent(props) {
 
 
         {/*sidebar start*/}
-        <div className="sidebarr">
-          <div className="profile_infoo">
-            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="profile_imagee" alt="" />
-            <h4 className="titlee">{props.user.userName}</h4>
-            <h4 className="titlee">{`Welcome Back ${props.user.userName} !`}</h4>
+        <div className="sidebar">
+        <div className="image-upload ">
+            <label htmlFor="file-input">
+              <img src="../assetsTemplates/images/rotate.png" className="image-upload " alt="" />
+            </label>
+            <input id="file-input" onChange={(e) => handleChange(e)} type="file" />
           </div>
+
+          <div className="profile_info">
+            <img src={`http://127.0.0.1:8887/userProfile/${props.user.image}`} className="profile_image  " alt="" />
+            
+            <Button  onClick={()=>addImageprofile()}>
+            <FontAwesomeIcon icon={faPlus} className="px-2" />Change Image
+            </Button>
+            <h4 className="title mt-2">{props.user.userName}</h4>
+            <h4 className="title">{`Welcome Back ${props.user.userName} !`}</h4>
+          </div>
+
+
 
           <NavLink to="/Medicalrecord/Summary" className="nav-item nav-link "><i className="fas fa-user" /><span>Summary Of the medical record</span></NavLink>
           <NavLink to="/Medicalrecord/BloodandMeasurements" className="nav-item nav-link "><i className="fas fa-plus-square" /><span>Blood groups and measurements</span></NavLink>
           <NavLink to="/Medicalrecord/VitalSigns" className="nav-item nav-link "><i className="fas fa-heartbeat" /><span>Vital Signs</span></NavLink>
           <NavLink to="/Medicalrecord/PatientApp" className="nav-item nav-link "><i className="fas fa-th" /><span>Appointments</span></NavLink>
           <NavLink to="/Medicalrecord/DoctorsList" className="nav-item nav-link "><i className="fas  fa-user"/><span>Doctors List</span></NavLink>
-          <NavLink to="/" className="nav-item nav-link "><i className="fas fa-sliders-h" /><span>Settings</span></NavLink>
+          <NavLink to="/Medicalrecord/listPrescriptionsforPatient" className="nav-item nav-link "><i className="fas fa-list" /><span>Prescriptions</span></NavLink>
 
 
 
