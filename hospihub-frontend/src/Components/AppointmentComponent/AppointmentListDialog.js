@@ -60,6 +60,7 @@ function AppointmentListDialog(props) {
     const response = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointmentId}/take`, {
       patientId: decodedToken.id
     });
+    window.location.href = '/Medicalrecord/PatientApp';
     console.log(response.data);
   }
   return (

@@ -7,6 +7,7 @@
     border-radius: 5px;
     margin-left: 10%;
     width:350px;
+    height: 647px;
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;
@@ -211,4 +212,27 @@ label #sidebar_btn:hover {
     .active {
         display: block;
     }
+}
+
+.image-upload {
+ 
+    border-radius: 50%;
+    
+    overflow-y: hidden;
+}
+.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{   
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    position: absolute;
+    margin-left: 210px;
+    top: 180px;
+
+    color: var(--white);
 }

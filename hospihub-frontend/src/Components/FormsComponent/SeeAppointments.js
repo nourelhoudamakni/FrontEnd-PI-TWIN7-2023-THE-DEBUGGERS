@@ -220,7 +220,7 @@ function SeeAppointments() {
                                         </div>
                                     </div>
                                     <div className="form-group d-flex flex-row justify-content-center">
-                                        <div className="text-center">
+                                        <div className="text-center table-responsive">
                                         {patients.length !== 0 && (
   <table className="table table-bordered table-striped table-hover w-100">
     <thead className="thead-dark">

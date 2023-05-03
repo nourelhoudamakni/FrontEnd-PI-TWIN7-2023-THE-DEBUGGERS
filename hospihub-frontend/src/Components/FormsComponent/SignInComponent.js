@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";
 import {setToken , selectToken} from "../../redux/slices/authSlice"
+import { setToken, selectToken } from "../../Redux/slices/authSlice"
 
 function SignInComponent() {
   const [email, setEmail] = useState("");
@@ -23,6 +24,8 @@ function SignInComponent() {
   const [errorValideMessage, setValideErrorMessage] = useState(false);
   const [errorPasswordMessage, setPasswordErrorMessage] = useState(false);
   const [errorSecretMessage, setSecretErrorMessage] = useState(false);
+  const [errorBlockedMessage, setBlockedErrorMessage] = useState(false);
+  const [errorArchivedMessage, setArchivedErrorMessage] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +38,7 @@ function SignInComponent() {
   //passport Sign In 
   // const navigate = useNavigate();
 
-  
+
   if (showAlert && show) {
     setTimeout(() => {
       setShowAlert(false);
@@ -45,16 +48,16 @@ function SignInComponent() {
   useEffect(() => {
 
     const jwtCookie = document.cookie ? document.cookie.split('; ').find(row => row.startsWith('jwt=')) : null;
-       console.log(jwtCookie)
+    console.log(jwtCookie)
 
     const jwt = jwtCookie ? jwtCookie.split('=')[1] : null;
-    
+
     if (jwt) {
       // If JWT cookie exists, redirect to profile page
       console.log(jwt)
       localStorage.setItem("jwtToken", jwt);
     }
-  },[]);
+  }, []);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -75,13 +78,13 @@ function SignInComponent() {
           const jwtToken = jwtCookie.split("=")[1];
           const decodedToken = jwt_decode(jwtToken);
           const id = decodedToken.id;
-       
+
           axios
             .get(`http://localhost:5000/patient/getUserById/${id}`)
             .then((response) => {
               console.log('here')
               if (response.data.secret) {
-        
+
                 setShow(true);
 
                 // toast.success('Check your email inbox for the secret code we just sent you', {
@@ -90,30 +93,34 @@ function SignInComponent() {
 
                 if (secret === response.data.secret) {
                   console.log(show)
-                
-                    localStorage.clear();
-                    // Vider les cookies
-                   
+
+                  localStorage.clear();
+                  // Vider les cookies
+
                   localStorage.setItem("jwtToken", jwtToken);
-                  setTimeout(function() {
+                  setTimeout(function () {
                     console.log('La fonction anonyme a été exécutée !');
                   }, 500);
-           
-                    navigate('/');
-                   navigate(0)
+
+                  navigate('/');
+                  navigate(0)
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
+                  setValideErrorMessage(false);
+                  setConfirmeErrorMessage(false)
+                  setBlockedErrorMessage(false);
+                  setArchivedErrorMessage(false);
                 }
               } else {
                 setShow(false);
                 localStorage.setItem("jwtToken", jwtToken);
-                setTimeout(function() {
+                setTimeout(function () {
                   console.log('La fonction anonyme a été exécutée !');
                 }, 500);
-  
-                  navigate('/');
-                 navigate(0)
+
+                navigate('/');
+                navigate(0)
               }
             });
         }
@@ -125,6 +132,8 @@ function SignInComponent() {
           setPasswordErrorMessage(false);
           setValideErrorMessage(false);
           setConfirmeErrorMessage(false)
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(false);
         }
         if (error.response.data.errors.validated) {
           setValideErrorMessage(true);
@@ -132,20 +141,26 @@ function SignInComponent() {
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
           setSecretErrorMessage(false);
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(false);
         }
         if (error.response.data.errors.email) {
           setEmailErrorMessage(true);
           setPasswordErrorMessage(false);
           setSecretErrorMessage(false);
           setValideErrorMessage(false);
-          setConfirmeErrorMessage(false)          
+          setConfirmeErrorMessage(false)
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(false);
         }
         if (error.response.data.errors.confirmed) {
           setEmailErrorMessage(false);
           setPasswordErrorMessage(false);
           setSecretErrorMessage(false);
           setValideErrorMessage(false);
-          setConfirmeErrorMessage(true)          
+          setConfirmeErrorMessage(true)
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(false);
         }
         if (error.response.data.errors.password) {
           setEmailErrorMessage(false);
@@ -153,6 +168,26 @@ function SignInComponent() {
           setSecretErrorMessage(false);
           setValideErrorMessage(false);
           setConfirmeErrorMessage(false)
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(false);
+        }
+        if (error.response.data.errors.blocked) {
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
+          setBlockedErrorMessage(true);
+          setArchivedErrorMessage(false);
+        }
+        if (error.response.data.errors.archived) {
+          setEmailErrorMessage(false);
+          setPasswordErrorMessage(false);
+          setSecretErrorMessage(false);
+          setValideErrorMessage(false);
+          setConfirmeErrorMessage(false)
+          setBlockedErrorMessage(false);
+          setArchivedErrorMessage(true);
         }
       });
   };
@@ -160,198 +195,226 @@ function SignInComponent() {
   return (
     <div className="">
       <img
-          className=" imgForm img-fluid d-none d-lg-block position-absolute "
-          src="../assetsTemplates/templateForm/images/img.jpg"
-          style={{ width: "100%", height: "100%" }}
-        />'
-        <ToastContainer />
-       <div className="pb-5">
-          <div className=" container pt-lg-5 pb-lg-5 ">
-            <div className="  card col-12  col-lg-5  offset-lg-7 " >
-              <div className="card-body styleCard">
-            <div className="row align-items-center">
-              <div className="">
-                <div className="text-center my-5">
-                  <h3 className="font-weight-bold mb-3">Sign In</h3>
-                  <p className="text-muted">Sign in to Latform to continue</p>
-                </div>
-                <div className="text-center d-none d-lg-inline">
-                  <p>
-                    Don't have an account?
-                    <NavLink to="/SignUp">Create a free account</NavLink>.
-                  </p>
-                </div>
-                <div className="social-links justify-content-center">
-                  <a
-                    href="http://localhost:5000/auth/google"
-                    className="bg-google"
-                  >
-                    <i className="mdi mdi-google" /> Connect with Google
-                  </a>
-                </div>
-                <div className="text-divider">or sign in with email</div>
-                <form onSubmit={handleSignIn}>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <div className="form-icon-wrapper">
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        placeholder="Enter email"
-                        autoFocus
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                      <i className="form-icon-left mdi mdi-email" />
-                    </div>
+        className=" imgForm img-fluid d-none d-lg-block position-absolute "
+        src="../assetsTemplates/templateForm/images/img.jpg"
+        style={{ width: "100%", height: "100%" }}
+      />'
+      <ToastContainer />
+      <div className="pb-5">
+        <div className=" container pt-lg-5 pb-lg-5 ">
+          <div className="  card col-12  col-lg-5  offset-lg-7 " >
+            <div className="card-body styleCard">
+              <div className="row align-items-center">
+                <div className="">
+                  <div className="text-center my-5">
+                    <h3 className="font-weight-bold mb-3">Sign In</h3>
+                    <p className="text-muted">Sign in to Latform to continue</p>
                   </div>
-
-                  {errorEmailMessage && (
-                    <Alert
-                      className="form-group"
-                      variant="danger"
-                      style={{ marginTop: "-13px" }}
+                  <div className="text-center d-none d-lg-inline">
+                    <p>
+                      Don't have an account?
+                      <NavLink to="/SignUp">Create a free account</NavLink>.
+                    </p>
+                  </div>
+                  <div className="social-links justify-content-center">
+                    <a
+                      href="http://localhost:5000/auth/google"
+                      className="bg-google"
                     >
-                      <div
-                        className="form-icon-wrapper  text-danger"
-                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                      >
-                        email is not used
-                      </div>
-                    </Alert>
-                  )}
-                  {errorConfirmeMessage && (
-                    <Alert
-                      className="form-group"
-                      variant="danger"
-                      style={{ marginTop: "-13px" }}
-                    >
-                      <div
-                        className="form-icon-wrapper  text-danger"
-                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                      >
-                        Your account is not confirmed
-                      </div>
-                    </Alert>
-                  )}
-                  {errorValideMessage && (
-                    <Alert
-                      className="form-group"
-                      variant="danger"
-                      style={{ marginTop: "-13px" }}
-                    >
-                      <div
-                        className="form-icon-wrapper  text-danger"
-                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                      >
-                        Your account is not validated yet
-                      </div>
-                    </Alert>
-                  )}
-
-
-{/* //////////////////////////////// */}
-<div className="form-group">
-      <label htmlFor="password">Password</label>
-      <div className="form-icon-wrapper">
-        <input
-          type={showPassword ? 'text' : 'password'}
-          className="form-control"
-          id="password"
-          placeholder="Enter password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <i
-          className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
-          onClick={toggleShowPassword}
-        />
-      </div>
-    </div>
-
-                  {errorPasswordMessage && (
-                    <Alert
-                      className="form-group"
-                      variant="danger"
-                      style={{ marginTop: "-13px" }}
-                    >
-                      <div
-                        className="form-icon-wrapper  text-danger"
-                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                      >
-                        incorrect password
-                      </div>
-                    </Alert>
-                  )}
-
-                  {show && (
+                      <i className="mdi mdi-google" /> Connect with Google
+                    </a>
+                  </div>
+                  <div className="text-divider">or sign in with email</div>
+                  <form onSubmit={handleSignIn}>
                     <div className="form-group">
-                      <label htmlFor="password">Secret</label>
+                      <label htmlFor="email">Email*</label>
                       <div className="form-icon-wrapper">
                         <input
-                          type="Secret"
+                          type="email"
+                          className="form-control"
+                          id="email"
+                          placeholder="Enter email"
+                          autoFocus
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <i className="form-icon-left mdi mdi-email" />
+                      </div>
+                    </div>
+
+                    {errorEmailMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          email is not used
+                        </div>
+                      </Alert>
+                    )}
+                    {errorConfirmeMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Your account is not confirmed
+                        </div>
+                      </Alert>
+                    )}
+                    {errorValideMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Your account is not validated yet
+                        </div>
+                      </Alert>
+                    )}
+                    {errorBlockedMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Sorry your account is blocked
+                        </div>
+                      </Alert>
+                    )}
+                    {errorArchivedMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Sorry your account is archived
+                        </div>
+                      </Alert>
+                    )}
+
+
+                    {/* //////////////////////////////// */}
+                    <div className="form-group">
+                      <label htmlFor="password">Password*</label>
+                      <div className="form-icon-wrapper">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
                           className="form-control"
                           id="password"
-                          placeholder="Enter secret code"
+                          placeholder="Enter password"
                           required
-                          value={secret}
-                          onChange={(e) => setSecret(e.target.value)}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
-                        <i className="form-icon-left mdi mdi-lock" />
+                        <i
+                          className={`form-icon-left mdi mdi-${showPassword ? 'eye' : 'eye-off'}`}
+                          onClick={toggleShowPassword}
+                        />
                       </div>
-                    </div>                   
-                  )}
-
-                {show && showAlert && (
-                    <Alert
-                    className="form-group"
-                    variant="success"
-                    style={{ marginTop: "-13px" }}
-                  >
-                    <div
-                      className="form-icon-wrapper  text-success"
-                      style={{ marginTop: "-11px", marginBottom: "-13px" }}
-                    >
-                      Check your email inbox for the secret code we just sent you
                     </div>
-                  </Alert>                
-                  )}
 
-                  {errorSecretMessage && (
-                    <Alert
-                      className="form-group"
-                      variant="danger"
-                      style={{ marginTop: "-13px" }}
-                    >
-                      <div
-                        className="form-icon-wrapper  text-danger"
-                        style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                    {errorPasswordMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
                       >
-                        incorrect Secret
-                      </div>
-                    </Alert>
-                  )}
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          incorrect password
+                        </div>
+                      </Alert>
+                    )}
 
-                  <div className="form-group">
-                    <div className="d-md-flex justify-content-between align-items-center">
-                      <button className="btn btn-primary">Sign In</button>
-                      <div className="mt-3 mt-md-0">
-                        <NavLink to="/ForgetPassword">
-                          I forgot my password!
-                        </NavLink>
+                    {show && (
+                      <div className="form-group">
+                        <label htmlFor="password">Secret</label>
+                        <div className="form-icon-wrapper">
+                          <input
+                            type="Secret"
+                            className="form-control"
+                            id="password"
+                            placeholder="Enter secret code"
+                            required
+                            value={secret}
+                            onChange={(e) => setSecret(e.target.value)}
+                          />
+                          <i className="form-icon-left mdi mdi-lock" />
+                        </div>
+                      </div>
+                    )}
+
+                    {show && showAlert && (
+                      <Alert
+                        className="form-group"
+                        variant="success"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-success"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          Check your email inbox for the secret code we just sent you
+                        </div>
+                      </Alert>
+                    )}
+
+                    {errorSecretMessage && (
+                      <Alert
+                        className="form-group"
+                        variant="danger"
+                        style={{ marginTop: "-13px" }}
+                      >
+                        <div
+                          className="form-icon-wrapper  text-danger"
+                          style={{ marginTop: "-11px", marginBottom: "-13px" }}
+                        >
+                          incorrect Secret
+                        </div>
+                      </Alert>
+                    )}
+
+                    <div className="form-group">
+                      <div className="d-md-flex justify-content-between align-items-center">
+                        <button className="btn btn-primary">Sign In</button>
+                        <div className="mt-3 mt-md-0">
+                          <NavLink to="/ForgetPassword">
+                            I forgot my password!
+                          </NavLink>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
