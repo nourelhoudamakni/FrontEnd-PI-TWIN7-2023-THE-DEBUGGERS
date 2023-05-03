@@ -106,6 +106,10 @@ function SignInComponent() {
                 } else {
                   setEmailErrorMessage(false);
                   setPasswordErrorMessage(false);
+                  setValideErrorMessage(false);
+                  setConfirmeErrorMessage(false)
+                  setBlockedErrorMessage(false);
+                  setArchivedErrorMessage(false);
                 }
               } else {
                 setShow(false);
