@@ -61,6 +61,7 @@ function List () {
           .catch((error) => {
             console.log(error);
           });
+          window.location.href = '/Medicalrecord/PatientApp';
       };
 
       useEffect(() => {
