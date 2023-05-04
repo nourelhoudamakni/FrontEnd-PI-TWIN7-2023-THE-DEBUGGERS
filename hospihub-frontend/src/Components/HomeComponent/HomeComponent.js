@@ -19,6 +19,7 @@ import { selectToken } from "../../redux/slices/authSlice";
 
 
 function HomeComponent() {
+
   const handleBookAppointmentClick = () => {
     window.location.href = '/AppointmentForm';
   };
