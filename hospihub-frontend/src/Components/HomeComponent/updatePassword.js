@@ -71,6 +71,7 @@ function UpdateProfile() {
           setShowNewPassword(false);
         }
       });
+      handleClose2();
   };
   const handleSubmit = (e) => {
     if (
