@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { ToastContainer } from 'react-toastify';
 import AppointmentListDialog from './AppointmentListDialog';
 import { Button } from '@mui/material';
+import Alert from "react-bootstrap/Alert";
 
 
 
@@ -15,7 +16,7 @@ function AppointmentForm() {
   const [selectedAppointment, setSelectedAppointment] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState('');
-
+  const [showNoAppointmentsMessage, setShowNoAppointmentsMessage] = useState(false);
 
 
   const token = localStorage.getItem('jwtToken');
@@ -37,24 +38,20 @@ function AppointmentForm() {
     setHospitalServices(response.data);
   }
 
-  async function handleAppointmentSelect(event) {
-    setSelectedAppointment(event.target.value);
-  }
-
-  async function handleTakeAppointment() {
-    const response = await axios.put(`http://localhost:5000/patient/appointments/${selectedAppointment}/take`, {
-      patientId: decodedToken.id
-    });
-    console.log(response.data);
-    // show success message or redirect to another page
-  }
-
   async function handleSearch ()  {
-    
+    try {
     const response = await axios.get(`http://localhost:5000/doctor/getDoctorAppointmentsWithLeastPatients/${selectedServiceId}`);
     setAppointments(response.data);
+    setShowNoAppointmentsMessage(false);
     console.log("testtt :", response.data)
     setOpenDialog(true);
+  } catch (error) {
+    console.error(error);
+    if (error.response && error.response.data && error.response.data.message === "Failed to get doctor appointments with least patients.") {
+      setShowNoAppointmentsMessage(true);
+    }
+  }
+ 
   }
 
   const handleClose = () => {
@@ -104,12 +101,26 @@ function AppointmentForm() {
                         <div class="row">
                         <div class="col-md-10">
                         <button class="btn btn-primary mt-5 " onClick={handleSearch}>Show available Appointments</button>
-
+                       
                         </div>
                         </div>
+                        
                         <AppointmentListDialog appointments={appointments} open={openDialog} onClose={handleClose} />
 
                       </div>
+                      {showNoAppointmentsMessage && (
+                        <Alert
+                          className="form-group"
+                          variant="danger"
+                          style={{ marginTop: "30px" }}
+                        >
+                          <div
+                            className="form-icon-wrapper  text-danger"
+                            style={{ marginTop: "10px", marginBottom: "10px" }}
+                          >
+                               We Are sorry , there is No appointment available in this service                          </div>
+                        </Alert>
+                      )}
                     </div>
                     <div class="row">
                       <div class="col-md-6">
