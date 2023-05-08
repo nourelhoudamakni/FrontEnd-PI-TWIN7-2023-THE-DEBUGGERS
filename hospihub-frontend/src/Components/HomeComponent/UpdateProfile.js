@@ -113,6 +113,7 @@ function UpdateProfile() {
           });
         });
     }
+    handleClose2();
   };
   const handleVerifMobile = () => {
     const token = localStorage.getItem("jwtToken");
