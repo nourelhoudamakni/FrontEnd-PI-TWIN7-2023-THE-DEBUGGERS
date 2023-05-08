@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import SideNavBarComponent from "./SideNavBarComponent";
+import { JitsiMeeting } from "@jitsi/react-sdk";
+
 import Table from "react-bootstrap/Table";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import SideNavBarUpdateProfile from "../HomeComponent/sideNavbarUpdateProfile";
+
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -20,9 +21,14 @@ function PatientList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [patientsPerPage, setPatientsPerPage] = useState(5);
+  const [showMeeting, setShowMeeting] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const token = localStorage.getItem("jwtToken");
   var decodedToken = jwt_decode(token);
 
+  const handleLaunchMeeting = () => {
+    navigate("/Meet");
+  };
   useEffect(() => {
     axios
       .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
@@ -47,21 +53,20 @@ function PatientList() {
       });
   }, []);
 
-// Remove duplicates from patients array
-const uniquePatients = patients.filter(
-  (patient, index, self) =>
-    index === self.findIndex((p) => p._id === patient._id)
-);
+  // Remove duplicates from patients array
+  const uniquePatients = patients.filter(
+    (patient, index, self) =>
+      index === self.findIndex((p) => p._id === patient._id)
+  );
 
-// Get current patients
-const indexOfLastPatient = currentPage * patientsPerPage;
-const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-const currentPatients = uniquePatients
-  .filter((patient) =>
-    patient.userName.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-  .slice(indexOfFirstPatient, indexOfLastPatient);
-
+  // Get current patients
+  const indexOfLastPatient = currentPage * patientsPerPage;
+  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
+  const currentPatients = uniquePatients
+    .filter((patient) =>
+      patient.userName.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .slice(indexOfFirstPatient, indexOfLastPatient);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -98,73 +103,92 @@ const currentPatients = uniquePatients
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
-                <Table
-                 className="table table-bordered table-striped table-hover w-100"
-                >
-                             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentPatients.map((patient, index) => (
-                <tr key={index}>
-                  <td>{patient.userName}</td>
-                  <td>{patient.email}</td>
-                  <td>
-                  <button
-            onClick={() => handleClick(patient)}
-            style={{
-              padding: "0.375rem 0.75rem",
-              border: "none",
-              borderRadius: "0.25rem",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              cursor: "pointer",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              transition: "all 0.3s ease",
-            }}
-          >
-            <i class="bi bi-chat"></i>
-          </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <nav>
-            <ul className="pagination">
-              {patientsPerPage > 0 &&
-                patients.length > patientsPerPage &&
-                Array.from(
-                  { length: Math.ceil(patients.length / patientsPerPage) },
-                  (v, i) => i + 1
-                ).map((number) => (
-                  <li
-                    className={
-                      number === currentPage ? "page-item active" : "page-item"
-                    }
-                    key={number}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(number)}
-                    >
-                      {number}
-                    </button>
-                  </li>
-                ))}
-            </ul>
-          </nav>
+                <Table className="table table-bordered table-striped table-hover w-100">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentPatients.map((patient, index) => (
+                      <tr key={index}>
+                        <td>{patient.userName}</td>
+                        <td>{patient.email}</td>
+                        <td>
+                          <button
+                            onClick={() => handleClick(patient)}
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              border: "none",
+                              borderRadius: "0.25rem",
+                              backgroundColor: "#007bff",
+                              color: "#fff",
+                              cursor: "pointer",
+                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                              transition: "all 0.3s ease",
+                            }}
+                          >
+                            <i class="bi bi-chat"></i>
+                          </button>
+                          <button
+                          onClick={handleLaunchMeeting}
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              border: "none",
+                              borderRadius: "0.25rem",
+                              backgroundColor: "#007bff",
+                              color: "#fff",
+                              cursor: "pointer",
+                              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                              transition: "all 0.3s ease",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <i class="bi bi-camera-video"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                <nav>
+                  <ul className="pagination">
+                    {patientsPerPage > 0 &&
+                      patients.length > patientsPerPage &&
+                      Array.from(
+                        {
+                          length: Math.ceil(patients.length / patientsPerPage),
+                        },
+                        (v, i) => i + 1
+                      ).map((number) => (
+                        <li
+                          className={
+                            number === currentPage
+                              ? "page-item active"
+                              : "page-item"
+                          }
+                          key={number}
+                        >
+                          <button
+                            className="page-link"
+                            onClick={() => paginate(number)}
+                          >
+                            {number}
+                          </button>
+                        </li>
+                      ))}
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
-</>
-);
+      
+    </>
+  );
 }
 
 export default PatientList;

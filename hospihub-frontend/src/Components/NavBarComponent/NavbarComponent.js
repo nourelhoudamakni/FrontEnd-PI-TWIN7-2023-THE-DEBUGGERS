@@ -165,15 +165,12 @@ function NavbarComponent() {
             <NavLink to="/" className="nav-item nav-link active">
               Home
             </NavLink>
-            {UserIsPatient && ( <NavLink to="/About" className="nav-item nav-link active">
+            <NavLink to="/About" className="nav-item nav-link active">
               About
-            </NavLink>)}
-            {!UserIsPatient && ( <NavLink to="/AddWorktime/WorktimeDoc" className="nav-item nav-link active">
-              Work Space
-            </NavLink>)}
-            {UserIsPatient && ( <NavLink to="/Services" className="nav-item nav-link active">
+            </NavLink>
+            <NavLink to="/Services" className="nav-item nav-link active">
               Service
-            </NavLink>)}
+            </NavLink>
             {/* <div className="nav-item dropdown">
               <a
                 href="#"
@@ -230,11 +227,11 @@ function NavbarComponent() {
         <FaUser /> Doctor Profile
       </Link>
     </Dropdown.Item>)}
-    {/* {!UserIsPatient&&(<Dropdown.Item eventKey="4">
+    {!UserIsPatient&&(<Dropdown.Item eventKey="4">
       <Link onClick={handleworkspapce}>
         <FaUser /> Doctor workspace
       </Link>
-    </Dropdown.Item>)} */}
+    </Dropdown.Item>)}
     
     {UserIsPatient && (
       <Dropdown.Item eventKey="2">
