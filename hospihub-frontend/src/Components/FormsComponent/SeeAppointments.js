@@ -224,15 +224,17 @@ function SeeAppointments() {
                                         <div className="form-group d-flex flex-row justify-content-center">
                                             <div className="text-center">
                                                 {patients.length !== 0 && (
-                                                    <table className="table table-bordered table-striped table-hover w-100">
+                                                    
+                                                    <table className="table table-bordered table-striped table-hover table-responsive">
                                                         <thead className="thead-dark">
                                                             <tr>
-                                                                <th>More info</th>
+
                                                                 <th>Patient first name</th>
                                                                 <th>Patient last name</th>
                                                                 <th>Date</th>
                                                                 <th>Time</th>
                                                                 <th>State</th>
+                                                                <th>More info</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -251,12 +253,7 @@ function SeeAppointments() {
                                                                     const patient = patients[index];
                                                                     return (
                                                                         <tr key={appointment._id}>
-                                                                            <td>
-                                                                                <button className="btn btn-primary" onClick={() => { window.location.href = `/PatientMedicalRecord/${patients[index]?._id}` }} title="More info about the patient">
-                                                                                    <i class="far fa-eye"></i>
-                                                                                </button>
 
-                                                                            </td>
                                                                             <td>{patient?.firstName}</td>
                                                                             <td>{patient?.lastName}</td>
                                                                             <td style={{ whiteSpace: "nowrap" }}>
@@ -295,17 +292,24 @@ function SeeAppointments() {
                                                                                         >
                                                                                             <i className="fa fa-times"></i>
                                                                                         </button>
+
                                                                                     </div>
                                                                                 </td>
                                                                             ) : (
                                                                                 <td></td>
                                                                             )}
+                                                                            <td>
+                                                                                <button className="btn btn-primary" onClick={() => { window.location.href = `/PatientMedicalRecord/${patients[index]?._id}` }} title="More info about the patient">
+                                                                                    <i class="far fa-eye"></i>
+                                                                                </button>
 
+                                                                            </td>
                                                                         </tr>
                                                                     );
                                                                 })}
                                                         </tbody>
                                                     </table>
+                                                    
                                                 )}
 
 

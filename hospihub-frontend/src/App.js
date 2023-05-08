@@ -36,6 +36,8 @@ import ListPrescription from './Components/PatientInfoFromDoc/prescriptionList';
 import UpdatePrescription from './Components/PatientInfoFromDoc/updatePrescription';
 import ListPrescriptionsforPatient from './Components/MedicalRecordComponent/ListPrescriptions';
 import ShowPrescription from './Components/MedicalRecordComponent/ShowPrescription';
+import ConfirmedApp from './Components/AppointmentComponent/ConfirmedApp';
+import DeniedApp from './Components/AppointmentComponent/DeniedApp';
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function App() {
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
       <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
+      <Route path='/ConfirmedApp/:patientName/:appointmentDate'  element={<ConfirmedApp></ConfirmedApp>} ></Route>
+      <Route path='/DeniedApp/:patientName/:appointmentDate'  element={<DeniedApp></DeniedApp>} ></Route>
    
 
       <Route path='/Contact' element={<></>}></Route>
