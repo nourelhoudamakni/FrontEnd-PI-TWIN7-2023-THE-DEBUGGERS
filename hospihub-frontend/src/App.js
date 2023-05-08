@@ -36,6 +36,7 @@ import ListPrescription from './Components/PatientInfoFromDoc/prescriptionList';
 import UpdatePrescription from './Components/PatientInfoFromDoc/updatePrescription';
 import ListPrescriptionsforPatient from './Components/MedicalRecordComponent/ListPrescriptions';
 import ShowPrescription from './Components/MedicalRecordComponent/ShowPrescription';
+import JitsiMett from './Components/MedicalRecordComponent/JitsiMett';
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
       <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
-   
+      <Route path='/Meet' element={<JitsiMett></JitsiMett>}></Route>
 
       <Route path='/Contact' element={<></>}></Route>
 
