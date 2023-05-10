@@ -171,6 +171,9 @@ function NavbarComponent() {
             <NavLink to="/Services" className="nav-item nav-link active">
               Service
             </NavLink>
+            <NavLink to="/disease" className="nav-item nav-link active">
+              Disease diagnosis
+            </NavLink>
             {/* <div className="nav-item dropdown">
               <a
                 href="#"
