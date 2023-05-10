@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   selectReceiver,
   selectUser,
-} from "../../Redux/slices/userSelectedSlice";
+} from "../../redux/slices/userSelectedSlice";
 import { useNavigate } from "react-router-dom";
 function DoctorsListComponent() {
   const [User, setUser] = useState({});
