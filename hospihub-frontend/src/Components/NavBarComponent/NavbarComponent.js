@@ -20,7 +20,7 @@ function NavbarComponent() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
+  
     console.log('navbar')
     if (token) {
       // navigate(0)
@@ -85,8 +85,8 @@ function NavbarComponent() {
 
   return (
     <>
-      {test && (<p>test</p>)}
-
+    {test &&(<p>test</p>)}
+    
       <div
         className="container-fluid bg-light p-0 wow fadeIn"
         data-wow-delay="0.1s"
@@ -105,7 +105,7 @@ function NavbarComponent() {
           <div className="col-lg-5 px-5 text-end">
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
               <small className="fa fa-phone-alt text-primary me-2" />
-              <small>+216 80 100 100</small>
+              <small>+012 345 6789</small>
             </div>
             <div className="h-100 d-inline-flex align-items-center">
               <a
@@ -144,8 +144,12 @@ function NavbarComponent() {
       >
         <NavLink
           to="/"
-          className="navbar-brand d-flex align-items-center px-4 px-lg-5">
-          <img src="logo.png" alt="My Image" style={{ width: '220px', height: 'auto' }} />
+          className="navbar-brand d-flex align-items-center px-4 px-lg-5"
+        >
+          <h1 className="m-0 text-primary">
+            <i className="far fa-hospital me-3" />
+            HospiHub
+          </h1>
         </NavLink>
         <button
           type="button"
@@ -161,15 +165,15 @@ function NavbarComponent() {
             <NavLink to="/" className="nav-item nav-link active">
               Home
             </NavLink>
-            {UserIsPatient && (<NavLink to="/About" className="nav-item nav-link active">
+            <NavLink to="/About" className="nav-item nav-link active">
               About
-            </NavLink>)}
-            {!UserIsPatient && (<NavLink to="/AddWorktime/WorktimeDoc" className="nav-item nav-link active">
-              Work Space
-            </NavLink>)}
-            {UserIsPatient && (<NavLink to="/Services" className="nav-item nav-link active">
+            </NavLink>
+            <NavLink to="/Services" className="nav-item nav-link active">
               Service
-            </NavLink>)}
+            </NavLink>
+            <NavLink to="/disease" className="nav-item nav-link active">
+              Disease diagnosis
+            </NavLink>
             {/* <div className="nav-item dropdown">
               <a
                 href="#"
@@ -196,59 +200,59 @@ function NavbarComponent() {
                 </NavLink>
               </div>
             </div> */}
-            <NavLink to="/contacthospi" className="nav-item nav-link active">
-            Contact
+            <NavLink to="/Contact" className="nav-item nav-link">
+              Contact
             </NavLink>
           </div>
           {!UserExist && (<button className="btn btn-primary " on onClick={goToSignUp}>Sign Up</button>
 
           )}
 
-          {!UserExist && (<button className="btn btn-primary " on onClick={goToSignIn} style={{ marginLeft: "10px", marginRight: "10px" }}>Sign In</button>
+          {!UserExist && (<button className="btn btn-primary " on onClick={goToSignIn} style={{ marginLeft: "10px",marginRight:"10px"}}>Sign In</button>
 
           )}
-          {UserExist && (
-            <DropdownButton
-              eventKey={3}
-              title={
-                <span>
-                  <FaUserCircle /> {UserName}
-                </span>
-              }
-            >
-              {UserIsPatient && (<Dropdown.Item eventKey="1">
-                <Link onClick={handleReload}>
-                  <FaUser /> {UserIsPatient ? 'Patient Profile' : 'Doctor Profile'}
-                </Link>
-              </Dropdown.Item>)}
-              {!UserIsPatient && (<Dropdown.Item eventKey="1">
-                <Link onClick={handleReload}>
-                  <FaUser /> Doctor Profile
-                </Link>
-              </Dropdown.Item>)}
-              {/* {!UserIsPatient&&(<Dropdown.Item eventKey="4">
+{UserExist && (
+  <DropdownButton
+    eventKey={3}
+    title={
+      <span>
+        <FaUserCircle /> {UserName}
+      </span>
+    }
+  >
+    {UserIsPatient&&(<Dropdown.Item eventKey="1">
+      <Link onClick={handleReload}>
+      <FaUser /> {UserIsPatient ? 'Patient Profile' : 'Doctor Profile'}
+      </Link>
+    </Dropdown.Item>)}
+    {!UserIsPatient&&(<Dropdown.Item eventKey="1">
+      <Link onClick={handleReload}>
+        <FaUser /> Doctor Profile
+      </Link>
+    </Dropdown.Item>)}
+    {!UserIsPatient&&(<Dropdown.Item eventKey="4">
       <Link onClick={handleworkspapce}>
         <FaUser /> Doctor workspace
       </Link>
-    </Dropdown.Item>)} */}
+    </Dropdown.Item>)}
+    
+    {UserIsPatient && (
+      <Dropdown.Item eventKey="2">
+        <Link  onClick={toMedicalRecord}>
+          <FaFileMedicalAlt /> Medical Record
+        </Link>
+      </Dropdown.Item>
+    )}
+    <Dropdown.Item eventKey="3">
+      <Link  onClick={byyyyy}>
+        <FaSignOutAlt /> Log Out
+      </Link>
+    </Dropdown.Item>
+  </DropdownButton>
+)}
 
-              {UserIsPatient && (
-                <Dropdown.Item eventKey="2">
-                  <Link onClick={toMedicalRecord}>
-                    <FaFileMedicalAlt /> Medical Record
-                  </Link>
-                </Dropdown.Item>
-              )}
-              <Dropdown.Item eventKey="3">
-                <Link onClick={byyyyy}>
-                  <FaSignOutAlt /> Log Out
-                </Link>
-              </Dropdown.Item>
-            </DropdownButton>
-          )}
 
-
-        </div>
+        </div>      
       </nav>
 
 

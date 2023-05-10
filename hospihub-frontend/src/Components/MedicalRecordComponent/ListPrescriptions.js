@@ -98,7 +98,7 @@ function ListPrescriptionsforPatient () {
                                                     }}
                                                 >
                                              
-                                                    <button
+                                                    <button title="View prescription"
                                                         className="mx-2"
                                                         onClick={()=>navigate(`/Medicalrecord/ShowPrescription/${prescription._id}`)}
                                                         style={{
@@ -112,7 +112,7 @@ function ListPrescriptionsforPatient () {
                                                             transition: "all 0.3s ease",
                                                         }}
                                                     >
-                                                        <i class="fas fa-plus-square"></i>
+                                                        <i class="far fa-eye" ></i>
                                                     </button>
                                                 </td>
                                             </tr>
