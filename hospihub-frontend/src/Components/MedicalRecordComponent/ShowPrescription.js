@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import SideNavBarComponent from "./SideNavBarComponent";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
-import html2pdf from "html2pdf.js";
 import { saveAs } from 'file-saver';
 
 
