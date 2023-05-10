@@ -171,7 +171,35 @@ function NavbarComponent() {
             <NavLink to="/Services" className="nav-item nav-link active">
               Service
             </NavLink>
-            
+            <NavLink to="/disease" className="nav-item nav-link active">
+              Disease diagnosis
+            </NavLink>
+            {/* <div className="nav-item dropdown">
+              <a
+                href="#"
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                Pages
+              </a>
+              <div className="dropdown-menu rounded-0 rounded-bottom m-0">
+                <NavLink to="/Feature" className="dropdown-item">
+                  Feature
+                </NavLink>
+                <NavLink to="/OurDoctor" className="dropdown-item">
+                  Our Doctor
+                </NavLink>
+                <NavLink to="/Appointment" className="dropdown-item">
+                  Appointment
+                </NavLink>
+                <NavLink to="/Testimonial" className="dropdown-item">
+                  Testimonial
+                </NavLink>
+                <NavLink to="/404" className="dropdown-item">
+                  404 Page
+                </NavLink>
+              </div>
+            </div> */}
             <NavLink to="/Contact" className="nav-item nav-link">
               Contact
             </NavLink>

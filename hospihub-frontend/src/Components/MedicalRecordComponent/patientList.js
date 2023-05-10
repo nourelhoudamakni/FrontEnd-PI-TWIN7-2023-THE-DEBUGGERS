@@ -9,13 +9,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   selectReceiver,
+  selectMeetWithPatient,
   selectUser,
-} from "../../redux/slices/userSelectedSlice";
+} from "../../Redux/slices/userSelectedSlice";
 import SidebarApp from "../FormsComponent/SidebarApp";
 
 function PatientList() {
   const dispatch = useDispatch();
   const [User, setUser] = useState({});
+  const [doctorUsername, setDoctorUsername] = useState("");
   const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -26,9 +28,7 @@ function PatientList() {
   const token = localStorage.getItem("jwtToken");
   var decodedToken = jwt_decode(token);
 
-  const handleLaunchMeeting = () => {
-    navigate("/Meet");
-  };
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/patient/getUserById/${decodedToken.id}`)
@@ -79,6 +79,12 @@ function PatientList() {
       userConnectedId: decodedToken.id,
     });
     navigate("/UpdateProfile/chat");
+  };
+
+  const handleLaunchMeeting = async(a) => {
+    dispatch(selectMeetWithPatient(a))
+    navigate("/Meet");
+    await axios.post(`http://localhost:5000/patient/appointments/${a.email}/${User.userName}`)
   };
 
   return (
@@ -133,8 +139,7 @@ function PatientList() {
                             <i class="bi bi-chat"></i>
                           </button>
                           <button
-                          className="mt-1 "
-                          onClick={handleLaunchMeeting}
+                          onClick={()=>handleLaunchMeeting(patient)}
                             style={{
                               padding: "0.375rem 0.75rem",
                               border: "none",
@@ -144,7 +149,7 @@ function PatientList() {
                               cursor: "pointer",
                               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                               transition: "all 0.3s ease",
-                              marginLeft: "2px",
+                              marginLeft: "10px",
                             }}
                           >
                             <i class="bi bi-camera-video"></i>

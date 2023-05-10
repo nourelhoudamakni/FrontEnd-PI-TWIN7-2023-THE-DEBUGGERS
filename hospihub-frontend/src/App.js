@@ -36,8 +36,10 @@ import ListPrescription from './Components/PatientInfoFromDoc/prescriptionList';
 import UpdatePrescription from './Components/PatientInfoFromDoc/updatePrescription';
 import ListPrescriptionsforPatient from './Components/MedicalRecordComponent/ListPrescriptions';
 import ShowPrescription from './Components/MedicalRecordComponent/ShowPrescription';
+import ConfirmedApp from './Components/AppointmentComponent/ConfirmedApp';
+import DeniedApp from './Components/AppointmentComponent/DeniedApp';
 import JitsiMett from './Components/MedicalRecordComponent/JitsiMett';
-
+import DiseaseAi from './Components/AppointmentComponent/DiseaseAi'
 function App() {
   return (
     <>
@@ -55,7 +57,11 @@ function App() {
       <Route path='/Services' element={<ServiceComponent></ServiceComponent>} ></Route>
       <Route path='/Contact' element={<doctorsListComponent></doctorsListComponent>}></Route>
       <Route path='/AppointmentForm'  element={<AppointmentForm></AppointmentForm>} ></Route>
+      <Route path='/ConfirmedApp/:patientName/:appointmentDate'  element={<ConfirmedApp></ConfirmedApp>} ></Route>
+      <Route path='/DeniedApp/:patientName/:appointmentDate'  element={<DeniedApp></DeniedApp>} ></Route>
       <Route path='/Meet' element={<JitsiMett></JitsiMett>}></Route>
+      <Route path='/disease' element={<DiseaseAi></DiseaseAi>}></Route>
+   
 
       <Route path='/Contact' element={<></>}></Route>
 
@@ -73,6 +79,7 @@ function App() {
           <Route path='VitalSigns' element={<VitalSignsComponent></VitalSignsComponent>} ></Route>
           <Route path='listPrescriptionsforPatient' element={<ListPrescriptionsforPatient></ListPrescriptionsforPatient>} ></Route>
           <Route path='ShowPrescription/:idPrescription' element={<ShowPrescription></ShowPrescription>} ></Route>
+
 
 
           <Route path='SummaryAlpha/:id' element={<MedicalRecForDoc></MedicalRecForDoc>} ></Route>
