@@ -11,7 +11,7 @@ import {
   selectReceiver,
   selectMeetWithPatient,
   selectUser,
-} from "../../Redux/slices/userSelectedSlice";
+} from "../../redux/slices/userSelectedSlice";
 import SidebarApp from "../FormsComponent/SidebarApp";
 
 function PatientList() {
@@ -82,7 +82,7 @@ function PatientList() {
   };
 
   const handleLaunchMeeting = async(a) => {
-    dispatch(selectMeetWithPatient(a))
+    dispatch(selectMeetWithPatient(a));
     navigate("/Meet");
     await axios.post(`http://localhost:5000/patient/appointments/${a.email}/${User.userName}/${a._id}`)
   };
