@@ -6,9 +6,9 @@ function FooterComponent() {
           <div className="row g-5">
             <div className="col-lg-3 col-md-6">
               <h5 className="text-light mb-4">Address</h5>
-              <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />123 Street, New York, USA</p>
-              <p className="mb-2"><i className="fa fa-phone-alt me-3" />+012 345 67890</p>
-              <p className="mb-2"><i className="fa fa-envelope me-3" />info@example.com</p>
+              <p className="mb-2"><i className="fa fa-map-marker-alt me-3" />Ariana Ghazela</p>
+              <p className="mb-2"><i className="fa fa-phone-alt me-3" />+216 80 100 100</p>
+              <p className="mb-2"><i className="fa fa-envelope me-3" />hospihubconfirmation@gmail.com</p>
               <div className="d-flex pt-2">
                 <a className="btn btn-outline-light btn-social rounded-circle" href><i className="fab fa-twitter" /></a>
                 <a className="btn btn-outline-light btn-social rounded-circle" href><i className="fab fa-facebook-f" /></a>
@@ -41,12 +41,7 @@ function FooterComponent() {
               <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 © <a className="border-bottom" href="#">HospiHub</a>, All Right Reserved.
               </div>
-              <div className="col-md-6 text-center text-md-end">
-                {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-                Designed By <a className="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                <br />
-                Distributed By <a className="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-              </div>
+
             </div>
           </div>
         </div>
