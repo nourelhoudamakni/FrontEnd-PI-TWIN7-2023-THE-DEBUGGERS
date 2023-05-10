@@ -2,12 +2,16 @@ import {createSlice} from "@reduxjs/toolkit"
 const userSelectedSlice=createSlice({ 
  name:"userSelectedSlice", 
  initialState:{ 
+    meetWithPatient:"",
     selectedUser:"",
     selectedReceiver:"",
     messagesProps:[]
 
  }, 
  reducers:{ 
+  selectMeetWithPatient(state,action){ 
+    state.meetWithPatient=action.payload;
+   },
   selectUser(state,action){ 
    state.selectedUser=action.payload;
   },
@@ -28,6 +32,7 @@ export const {
   selectUser, 
   unselectedPoduct, 
   selectReceiver,
+  selectMeetWithPatient,
   selectMessagesProps
   }=userSelectedSlice.actions;
 export default userSelectedSlice.reducer;
