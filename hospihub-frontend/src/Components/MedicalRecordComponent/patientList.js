@@ -133,6 +133,7 @@ function PatientList() {
                             <i class="bi bi-chat"></i>
                           </button>
                           <button
+                          className="mt-1 "
                           onClick={handleLaunchMeeting}
                             style={{
                               padding: "0.375rem 0.75rem",
@@ -143,7 +144,7 @@ function PatientList() {
                               cursor: "pointer",
                               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                               transition: "all 0.3s ease",
-                              marginLeft: "10px",
+                              marginLeft: "2px",
                             }}
                           >
                             <i class="bi bi-camera-video"></i>
