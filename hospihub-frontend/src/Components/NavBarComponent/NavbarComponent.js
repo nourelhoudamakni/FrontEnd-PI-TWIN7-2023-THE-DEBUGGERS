@@ -105,7 +105,7 @@ function NavbarComponent() {
           <div className="col-lg-5 px-5 text-end">
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
               <small className="fa fa-phone-alt text-primary me-2" />
-              <small>+012 345 6789</small>
+              <small>+216 80 100 100</small>
             </div>
             <div className="h-100 d-inline-flex align-items-center">
               <a
@@ -146,10 +146,7 @@ function NavbarComponent() {
           to="/"
           className="navbar-brand d-flex align-items-center px-4 px-lg-5"
         >
-          <h1 className="m-0 text-primary">
-            <i className="far fa-hospital me-3" />
-            HospiHub
-          </h1>
+          <img src="logo.png" alt="My Image" style={{width: '220px', height: 'auto'}} />
         </NavLink>
         <button
           type="button"
@@ -200,7 +197,7 @@ function NavbarComponent() {
                 </NavLink>
               </div>
             </div> */}
-            <NavLink to="/contacthospi" className="nav-item nav-link">
+            <NavLink to="/contacthospi" className="nav-item nav-link active">
               Contact
             </NavLink>
           </div>
