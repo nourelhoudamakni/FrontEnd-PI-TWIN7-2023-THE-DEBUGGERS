@@ -200,7 +200,7 @@ function NavbarComponent() {
                 </NavLink>
               </div>
             </div> */}
-            <NavLink to="/Contact" className="nav-item nav-link">
+            <NavLink to="/contacthospi" className="nav-item nav-link">
               Contact
             </NavLink>
           </div>
