@@ -17,12 +17,12 @@ function AboutComponent() {
                             <div className="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                                 <p className="d-inline-block border rounded-pill py-1 px-4">About Us</p>
                                 <h1 className="mb-4">Why You Should Trust Us? Get Know About Us!</h1>
-                                <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                <p className="mb-4">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo nonumy clita sit at, sed sit sanctus dolor eos.</p>
-                                <p><i className="far fa-check-circle text-primary me-3" />Quality health care</p>
-                                <p><i className="far fa-check-circle text-primary me-3" />Only Qualified Doctors</p>
-                                <p><i className="far fa-check-circle text-primary me-3" />Medical Research Professionals</p>
-                                <a className="btn btn-primary rounded-pill py-3 px-5 mt-3" href>Read More</a>
+                                <p>HospiHub is an innovative web application developed by a group of skilled developers called the Debuggers. With a strong commitment to the Sustainable Development Goals (SDGs).</p>
+                                <p>Developing HospiHub presented a significant challenge rooted in the need for improved access to quality healthcare. In many developing countries and remote areas, accessing healthcare facilities and securing timely appointments has been a persistent concern. </p>
+                                <p>The Debuggers team recognized the crucial importance of designing a solution that would address these obstacles and provide a seamless healthcare experience for all patients. </p>
+                                <p>Overcoming technical hurdles, integrating complex scheduling algorithms, and creating an accurate recommendation system required meticulous planning and expertise. </p>
+                                <p>Despite these challenges, the developers remained committed to their vision of revolutionizing healthcare access. </p>
+                                <p>Through determination and innovation, HospiHub emerged as a transformative web application, bridging the gap between patients and doctors, and providing a comprehensive platform for streamlined appointment management and personalized healthcare recommendations. The development journey of HospiHub underscores the team's unwavering dedication to enhancing healthcare processes and ensuring better access to quality care for all.</p>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./carousel.css"
 import NavbarComponent from "../NavBarComponent/NavbarComponent";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../redux/slices/authSlice";
+import { selectToken } from "../../Redux/slices/authSlice";
 
 
 
@@ -70,9 +70,7 @@ function HomeComponent() {
               <img className="imgcarousel img-fluid " src="assetsTemplates/template2/images/slider/image2.jpg" alt="First slide" />
               <div className="carousel-caption fvgb d-none d-md-block">
                 <h5 className="animated bounceInDown">Welcome to HospiHub !</h5>
-                <p className="animated bounceInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,  <br />
-                  aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br />
-                  sed sagittis at, sagittis quis neque. Praesent.</p>
+                <p className="animated bounceInLeft">With HospiHub, you can easily search for doctors and healthcare facilities, book appointments, and receive personalized healthcare recommendations based on your medical history and preferences. Our advanced scheduling algorithms ensure that you can secure timely appointments with the best doctors in your area, without the hassle of lengthy wait times or complicated booking processes.</p>
                 <div className="row vbh divCarousel">
                   <div className="btn animated bounceInUp btn-primary"> Book an Appointment </div>
                 </div>
@@ -82,9 +80,7 @@ function HomeComponent() {
               <img className=" imgcarousel img-fluid" src="assetsTemplates/template2/images/slider/image5.jpg" alt="Third slide" />
               <div className="carousel-caption vdg-cur d-none d-md-block">
                 <h5 className="animated bounceInDown">Welcome to HospiHub !</h5>
-                <p className="animated bounceInLeft">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque,  <br />
-                  aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis <br />
-                  sed sagittis at, sagittis quis neque. Praesent.</p>
+                <p className="animated bounceInLeft">Are you tired of waiting for hours at the doctor's office for a simple check-up? Do you find it difficult to schedule appointments with healthcare professionals who can provide quality care? Look no further than HospiHub, the innovative web application designed to revolutionize healthcare access.</p>
                 <div className="row vbh divCarousel">
                   <div className="btn animated bounceInUp btn-primary" onClick={handleBookAppointmentClick}>Book an Appointment</div>
                 </div>
@@ -128,12 +124,9 @@ function HomeComponent() {
             />
             <div className="testimonial-text rounded text-center p-4">
               <p>
-                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              "HospiHub has transformed the way I manage my health. The scheduling feature is a lifesaver, and the symptom checker provides accurate recommendations. Highly recommended!"
               </p>
-              <h5 className="mb-1">Patient Name</h5>
-              <span className="fst-italic">Profession</span>
+              <h5 className="mb-1">Sarah</h5>
             </div>
           </div>
           <div className="testimonial-item text-center">
@@ -144,12 +137,9 @@ function HomeComponent() {
             />
             <div className="testimonial-text rounded text-center p-4">
               <p>
-                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              "I love how HospiHub keeps all my medical records in one place. It's so convenient to access my past consultations whenever I need them." 
               </p>
-              <h5 className="mb-1">Patient Name</h5>
-              <span className="fst-italic">Profession</span>
+              <h5 className="mb-1">John</h5>
             </div>
           </div>
           <div className="testimonial-item text-center">
@@ -160,12 +150,9 @@ function HomeComponent() {
             />
             <div className="testimonial-text rounded text-center p-4">
               <p>
-                Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo
-                duo labore sed sed. Magna ut diam sit et amet stet eos sed clita
-                erat magna elitr erat sit sit erat at rebum justo sea clita.
+              "The chat and video meeting features in HospiHub have made communication with my doctor so much easier. I feel more connected and well-informed about my health." 
               </p>
-              <h5 className="mb-1">Patient Name</h5>
-              <span className="fst-italic">Profession</span>
+              <h5 className="mb-1">Brad</h5>
             </div>
           </div>
         </Slider>
@@ -187,8 +174,8 @@ function HomeComponent() {
                   <img className="img-fluid" src="../assetsTemplates/template1/img/team-1.jpg" alt="" />
                 </div>
                 <div className="team-text bg-light text-center p-4">
-                  <h5>Doctor Name</h5>
-                  <p className="text-primary">Department</p>
+                  <h5>Dr. Jennifer Chen</h5>
+                  <p className="text-primary">Dermatology</p>
                   <div className="team-social text-center">
                     <a className="btn btn-square" href><i className="fab fa-facebook-f" /></a>
                     <a className="btn btn-square" href><i className="fab fa-twitter" /></a>
@@ -203,8 +190,8 @@ function HomeComponent() {
                   <img className="img-fluid" src="../assetsTemplates/template1/img/team-2.jpg" alt="" />
                 </div>
                 <div className="team-text bg-light text-center p-4">
-                  <h5>Doctor Name</h5>
-                  <p className="text-primary">Department</p>
+                  <h5>Dr. David Park</h5>
+                  <p className="text-primary">Pulmonology</p>
                   <div className="team-social text-center">
                     <a className="btn btn-square" href><i className="fab fa-facebook-f" /></a>
                     <a className="btn btn-square" href><i className="fab fa-twitter" /></a>
@@ -219,8 +206,8 @@ function HomeComponent() {
                   <img className="img-fluid" src="../assetsTemplates/template1/img/team-3.jpg" alt="" />
                 </div>
                 <div className="team-text bg-light text-center p-4">
-                  <h5>Doctor Name</h5>
-                  <p className="text-primary">Department</p>
+                  <h5>Dr. Rachel Kim</h5>
+                  <p className="text-primary">Cardiology</p>
                   <div className="team-social text-center">
                     <a className="btn btn-square" href><i className="fab fa-facebook-f" /></a>
                     <a className="btn btn-square" href><i className="fab fa-twitter" /></a>
@@ -235,8 +222,8 @@ function HomeComponent() {
                   <img className="img-fluid" src="../assetsTemplates/template1/img/team-4.jpg" alt="" />
                 </div>
                 <div className="team-text bg-light text-center p-4">
-                  <h5>Doctor Name</h5>
-                  <p className="text-primary">Department</p>
+                  <h5>Dr. John Smith</h5>
+                  <p className="text-primary">Endocrinology</p>
                   <div className="team-social text-center">
                     <a className="btn btn-square" href><i className="fab fa-facebook-f" /></a>
                     <a className="btn btn-square" href><i className="fab fa-twitter" /></a>
