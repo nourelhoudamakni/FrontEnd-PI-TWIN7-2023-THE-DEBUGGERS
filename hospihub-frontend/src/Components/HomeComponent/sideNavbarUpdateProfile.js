@@ -39,21 +39,37 @@ const navigate=useNavigate()
 
   return (
     <>
-      <div>
+      <div className="col-lg-4" style={{ marginBottom: "5px" }}>
         {/*mobile navigation bar start*/}
         <div className="mobile_nav">
-          <div className="nav_bar">
-            <img src="../assetsTemplates/template1/img/testimonial-1.jpg" className="mobile_profile_image" alt="" />
-            <i className="fa fa-bars nav_btn" />
+          <div className="nav_barr">
+            <img
+              src="../assetsTemplates/template1/img/testimonial-1.jpg"
+              className="mobile_profile_imagee"
+              alt=""
+            />
+            <button
+              type="button"
+              className="navbar-toggler me-4"
+              data-bs-toggle="collapse"
+              data-bs-target="#sideNavbarCollapse"
+            >
+              <span className="fa fa-bars" />
+            </button>
           </div>
-          <div className="mobile_nav_items">
-
-            <a href="#"><i className="fas fa-table" /><span>Tables</span></a>
-            <a href="#"><i className="fas fa-th" /><span>Forms</span></a>
-            <a href="#"><i className="fas fa-info-circle" /><span>About</span></a>
-            <a href="#"><i className="fas fa-sliders-h" /><span>Settings</span></a>
-
-
+          <div
+            className="collapse navbar-collapse"
+            id="sideNavbarCollapse"
+            style={{ backgroundColor: "#f8f9fa" }}
+          >
+            <div
+              className="navbar-nav ms-auto p-4 p-lg-0"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              
+          <NavLink to="/UpdateProfile/publicProfile" className="nav-item nav-link "><i className="fas fa-user" /><span>Public Profile</span></NavLink>
+          <NavLink to="/UpdateProfile/UpdatePassword" className="nav-item nav-link "><i className="fas fa-key" /><span>Password</span></NavLink>
+            </div>
           </div>
         </div>
         {/*mobile navigation bar end*/}
