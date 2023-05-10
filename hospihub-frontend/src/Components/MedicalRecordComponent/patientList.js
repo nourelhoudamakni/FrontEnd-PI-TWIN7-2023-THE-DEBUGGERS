@@ -11,7 +11,7 @@ import {
   selectReceiver,
   selectMeetWithPatient,
   selectUser,
-} from "../../Redux/slices/userSelectedSlice";
+} from "../../redux/slices/userSelectedSlice";
 import SidebarApp from "../FormsComponent/SidebarApp";
 
 function PatientList() {
@@ -125,6 +125,7 @@ function PatientList() {
                         <td>
                           <button
                             onClick={() => handleClick(patient)}
+                           
                             style={{
                               padding: "0.375rem 0.75rem",
                               border: "none",
@@ -140,6 +141,7 @@ function PatientList() {
                           </button>
                           <button
                           onClick={()=>handleLaunchMeeting(patient)}
+                          className="mt-1"
                             style={{
                               padding: "0.375rem 0.75rem",
                               border: "none",
@@ -149,7 +151,7 @@ function PatientList() {
                               cursor: "pointer",
                               boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                               transition: "all 0.3s ease",
-                              marginLeft: "10px",
+                              marginLeft: "1px",
                             }}
                           >
                             <i class="bi bi-camera-video"></i>
