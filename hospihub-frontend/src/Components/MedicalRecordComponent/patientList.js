@@ -84,7 +84,7 @@ function PatientList() {
   const handleLaunchMeeting = async(a) => {
     dispatch(selectMeetWithPatient(a))
     navigate("/Meet");
-    await axios.post(`http://localhost:5000/patient/appointments/${a.email}/${User.userName}`)
+    await axios.post(`http://localhost:5000/patient/appointments/${a.email}/${User.userName}/${a._id}`)
   };
 
   return (
